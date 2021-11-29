@@ -128,6 +128,17 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.GetType().GetProperty("StreetName") != null);
         }
+        
+        // Checking if StreetName is string value, stores value and updates new value
+        [Fact]
+        public void StreetName_SetUpdateStreetName_StoresUpdatesStreetName()
+        {
+            _address.StreetName = "Strandbygade";
+            Assert.True(_address.StreetName is string);
+            Assert.Equal("Strandbygade", _address.StreetName);
+            _address.StreetName = "Skolegade";
+            Assert.Equal("Skolegade", _address.StreetName);
+        }
 
         #endregion
 
