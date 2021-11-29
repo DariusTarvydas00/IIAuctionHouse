@@ -40,5 +40,16 @@ namespace IIAuctionHouse.Core.Test.Models
         }
 
         #endregion
+
+        #region City parameter Test
+
+        // Checking if City parameter exists
+        [Fact]
+        public void Address_City_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("City") != null);
+        }
+
+        #endregion
     }
 }
