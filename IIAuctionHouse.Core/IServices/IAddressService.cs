@@ -8,5 +8,6 @@ namespace IIAuctionHouse.Core.IServices
         List<Address> ReadAll();
         Address GetById(int id);
         Address Create(string country, string city, int postCode, string streetName, int streetNumber);
+        Address Update(Address address);
     }
 }

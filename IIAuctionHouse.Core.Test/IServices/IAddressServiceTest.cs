@@ -50,7 +50,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if Address object is created
         [Fact]
-        public void Create_AddressProperties_IsCreated()
+        public void Create_AllAddressProperties_IsCreated()
         {
             var mock = new Mock<IAddressService>();
             var fakeAddress = new Address()
@@ -66,6 +66,25 @@ namespace IIAuctionHouse.Core.Test.IServices
                 .Returns(() => fakeAddress);
             var service = mock.Object;
             Assert.Equal(fakeAddress,service.Create("Denmark", "Esbjerg", 6700, "Skolegade", 30));
+        }
+        
+        // Checking if Address object is updated
+        [Fact]
+        public void Update_Address_IsUpdated()
+        {
+            var mock = new Mock<IAddressService>();
+            var fakeAddress = new Address()
+            {
+                Id = 1,
+                Country = "Denmark",
+                City = "Esbjerg",
+                PostCode = 6700,
+                StreetName = "Skolegadeeee",
+                StreetNumber = 301
+            };
+            mock.Setup(s => s.Update(fakeAddress)).Returns(fakeAddress);
+            var service = mock.Object;
+            Assert.Equal(fakeAddress,service.Update(fakeAddress));
         }
     }
 }
