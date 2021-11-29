@@ -22,7 +22,8 @@ namespace AuctionHouse.Domain.Services
 
         public Address GetById(int id)
         {
-            throw new System.NotImplementedException();
+            if (id == 0) throw new InvalidDataException();
+            return _addressRepository.ReadById(id);
         }
 
         public Address Create(string country, string city, int postCode, string streetName, int streetNumber)

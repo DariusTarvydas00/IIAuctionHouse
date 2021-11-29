@@ -6,5 +6,6 @@ namespace AuctionHouse.Domain.IRepositories
     public interface IAddressRepository
     {
         List<Address> ReadAll();
+        Address ReadById(int id);
     }
 }
