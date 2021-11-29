@@ -82,7 +82,15 @@ namespace IIAuctionHouse.Core.Test.IServices
                 StreetName = "Skolegadeeee",
                 StreetNumber = 301
             };
-            mock.Setup(s => s.Update(fakeAddress)).Returns(fakeAddress);
+            mock.Setup(s => s.Update(fakeAddress)).Returns(new Address()
+            {
+                Id = 1,
+                Country = "Denmark",
+                City = "Esbjerg",
+                PostCode = 6700,
+                StreetName = "Skolegade",
+                StreetNumber = 30
+            });
             var service = mock.Object;
             Assert.Equal(fakeAddress,service.Update(fakeAddress));
         }
