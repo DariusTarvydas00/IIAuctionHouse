@@ -29,7 +29,16 @@ namespace IIAuctionHouse.Core.Test.Models
         }
 
         #endregion
-        
-        
+
+        #region Country parameter Test
+
+        // Checking if Country parameter exists
+        [Fact]
+        public void Address_Country_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("Country") != null);
+        }
+
+        #endregion
     }
 }
