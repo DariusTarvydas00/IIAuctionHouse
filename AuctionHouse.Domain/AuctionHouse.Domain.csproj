@@ -5,8 +5,7 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="IRepositories" />
-      <Folder Include="Services" />
+      <ProjectReference Include="..\IIAuctionHouse.Core\IIAuctionHouse.Core.csproj" />
     </ItemGroup>
 
 </Project>
