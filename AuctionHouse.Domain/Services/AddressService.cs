@@ -17,7 +17,7 @@ namespace AuctionHouse.Domain.Services
 
         public List<Address> ReadAll()
         {
-            throw new System.NotImplementedException();
+            return _addressRepository.ReadAll();
         }
 
         public Address GetById(int id)
