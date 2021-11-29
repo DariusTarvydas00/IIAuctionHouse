@@ -107,6 +107,13 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.GetType().GetProperty("PostCode") != null);
         }
+        
+        // Checking if PostCode is int type
+        [Fact]
+        public void PostCode_NoParam_isInt()
+        {
+            Assert.True(_address.PostCode is int);
+        }
 
         #endregion
 
