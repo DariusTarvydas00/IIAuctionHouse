@@ -1,11 +1,12 @@
-﻿using System.Collections.Generic;
-using System.Data;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
-using AuctionHouse.Domain.IRepositories;
+using System.Linq;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Domain.IRepositories;
 
-namespace AuctionHouse.Domain.Services
+namespace IIAuctionHouse.Domain.Services
 {
     public class AddressService: IAddressService
     {
@@ -18,7 +19,7 @@ namespace AuctionHouse.Domain.Services
 
         public List<Address> ReadAll()
         {
-            return _addressRepository.ReadAll();
+            return _addressRepository.ReadAll().ToList();
         }
 
         public Address GetById(int id)

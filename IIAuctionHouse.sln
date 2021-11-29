@@ -12,13 +12,17 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{51B63111-B
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.Core", "IIAuctionHouse.Core\IIAuctionHouse.Core.csproj", "{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionHouse.Domain", "AuctionHouse.Domain\AuctionHouse.Domain.csproj", "{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.Domain", "IIAuctionHouse.Domain\IIAuctionHouse.Domain.csproj", "{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}"
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core-Test", "Core-Test", "{924A4940-FCC5-420F-AB4F-6DE51DBE780B}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.Core.Test", "IIAuctionHouse.Core.Test\IIAuctionHouse.Core.Test.csproj", "{275D3B56-ECA7-4760-8D35-9238FF9ED67E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.Domain.Test", "IIAuctionHouse.Domain.Test\IIAuctionHouse.Domain.Test.csproj", "{1D1AFA67-9F5C-49F2-905C-51F8435DD85B}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure-Test", "Infrastructure-Test", "{B29A35D8-E1FA-43AA-85E1-E17B0DFECB4A}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.DataAccess.Test", "IIAuctionHouse.DataAccess.Test\IIAuctionHouse.DataAccess.Test.csproj", "{0FCA0B87-439B-4E6D-A1CF-1C085A669EE9}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -50,6 +54,10 @@ Global
 		{1D1AFA67-9F5C-49F2-905C-51F8435DD85B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{1D1AFA67-9F5C-49F2-905C-51F8435DD85B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{1D1AFA67-9F5C-49F2-905C-51F8435DD85B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0FCA0B87-439B-4E6D-A1CF-1C085A669EE9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0FCA0B87-439B-4E6D-A1CF-1C085A669EE9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0FCA0B87-439B-4E6D-A1CF-1C085A669EE9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0FCA0B87-439B-4E6D-A1CF-1C085A669EE9}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(NestedProjects) = preSolution
 		{63690A82-87FC-4143-8974-6947A738EAC9} = {8274EEAD-272C-4CFA-BCDD-6846336A7B51}
@@ -58,5 +66,6 @@ Global
 		{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5} = {51B63111-BA77-4C12-BAF8-C5E0C686764F}
 		{275D3B56-ECA7-4760-8D35-9238FF9ED67E} = {924A4940-FCC5-420F-AB4F-6DE51DBE780B}
 		{1D1AFA67-9F5C-49F2-905C-51F8435DD85B} = {924A4940-FCC5-420F-AB4F-6DE51DBE780B}
+		{0FCA0B87-439B-4E6D-A1CF-1C085A669EE9} = {B29A35D8-E1FA-43AA-85E1-E17B0DFECB4A}
 	EndGlobalSection
 EndGlobal

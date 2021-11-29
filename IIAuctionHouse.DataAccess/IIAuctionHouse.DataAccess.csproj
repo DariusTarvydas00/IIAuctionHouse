@@ -5,8 +5,12 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="Entities" />
-      <Folder Include="Repositories" />
+      <PackageReference Include="Microsoft.EntityFrameworkCore" Version="5.0.12" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\IIAuctionHouse.Domain\IIAuctionHouse.Domain.csproj" />
+      <ProjectReference Include="..\IIAuctionHouse.Core\IIAuctionHouse.Core.csproj" />
     </ItemGroup>
 
 </Project>

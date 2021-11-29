@@ -2,8 +2,8 @@
 using System.Collections.Generic;
 using System.Data;
 using System.IO;
-using AuctionHouse.Domain.IRepositories;
-using AuctionHouse.Domain.Services;
+using IIAuctionHouse.Domain.IRepositories;
+using IIAuctionHouse.Domain.Services;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
 using Moq;
