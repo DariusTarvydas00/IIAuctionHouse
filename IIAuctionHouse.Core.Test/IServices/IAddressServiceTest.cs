@@ -94,5 +94,26 @@ namespace IIAuctionHouse.Core.Test.IServices
             var service = mock.Object;
             Assert.Equal(fakeAddress,service.Update(fakeAddress));
         }
+        
+        // Checks if Delete method deletes object
+        [Fact]
+        public void Delete_Id_ReturnNull()
+        {
+            var mock = new Mock<IAddressService>();
+            var fakeList = new List<Address>();
+            var address = new Address()
+            {
+                Id = 1,
+                Country = "Denmark",
+                City = "Esbjerg",
+                PostCode = 6700,
+                StreetName = "Skolegade",
+                StreetNumber = 30
+            };
+            fakeList.Add(address);
+            mock.Setup(s => s.Delete(1)).Returns(() => null);
+            var service = mock.Object;
+            Assert.Null(service.Delete(1));
+        }
     }
 }
