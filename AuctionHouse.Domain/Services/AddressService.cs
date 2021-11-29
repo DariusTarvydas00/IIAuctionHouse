@@ -36,7 +36,10 @@ namespace AuctionHouse.Domain.Services
 
         public Address Update(Address address)
         {
-            throw new System.NotImplementedException();
+            if (address.Country is null || address.City is null || address.PostCode < 1 || address.StreetName is null ||
+                address.StreetNumber < 1)
+                throw new InvalidDataException("One of the values is empty or entered incorrectly");
+            return _addressRepository.Update(address);
         }
 
         public Address Delete(int id)

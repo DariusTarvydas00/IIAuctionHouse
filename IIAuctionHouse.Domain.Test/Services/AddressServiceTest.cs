@@ -128,12 +128,35 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData("Denmark", "Esbjerg", null, "Strandbygade", 30)]
         [InlineData("Denmark", "Esbjerg", 6700, null, 30)]
         [InlineData("Denmark", "Esbjerg", 6700, "Strandbygade", null)]
-        public void Create_AddressProperties_NullExceptionWithMessage(string country, string city, int postCode, string streetName, int streetNumber)
+        public void Create_WithNull_ThrowsExceptionWithMessage(string country, string city, int postCode, string streetName, int streetNumber)
         {
             var expected = "One of the values is empty or entered incorrectly";
             var actual = Assert.Throws<InvalidDataException>(() =>
                 _service.Create(country, city, postCode, streetName, streetNumber));
             Assert.Equal(expected,actual.Message);
+        }
+        
+        // Checks if Updating Object is possible
+        [Fact]
+        public void Update_WithNull_ThrowsExceptionWithMessage()
+        {
+            var fakeList = new List<Address>();
+            fakeList.Add(new Address() {Id = 0, City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade", StreetNumber = 30});
+            fakeList.Add(new Address() {Id = 1, Country = "Denmark", PostCode = 6700, StreetName = "Strandbygade", StreetNumber = 30});
+            fakeList.Add(new Address() {Id = 2, Country = "Esbjerg", City = "Esbjerg", StreetName = "Strandbygade", StreetNumber = 30});
+            fakeList.Add(new Address() {Id = 3, Country = "Esbjerg", City = "Esbjerg", PostCode = 6700, StreetNumber = 30});
+            fakeList.Add(new Address() {Id = 4, Country = "Denmark", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade"});
+            var expected = "One of the values is empty or entered incorrectly";
+            var actual1 = Assert.Throws<InvalidDataException>(() => _service.Update(fakeList[0])).Message;
+            var actual2 = Assert.Throws<InvalidDataException>(() => _service.Update(fakeList[1])).Message;
+            var actual3 = Assert.Throws<InvalidDataException>(() => _service.Update(fakeList[2])).Message;
+            var actual4 = Assert.Throws<InvalidDataException>(() => _service.Update(fakeList[3])).Message;
+            var actual5 = Assert.Throws<InvalidDataException>(() => _service.Update(fakeList[4])).Message;
+            Assert.Equal(expected,actual1);
+            Assert.Equal(expected,actual2);
+            Assert.Equal(expected,actual3);
+            Assert.Equal(expected,actual4);
+            Assert.Equal(expected,actual5);
         }
 
     }
