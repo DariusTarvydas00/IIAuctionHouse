@@ -170,6 +170,31 @@ namespace IIAuctionHouseDataAccess.Repositories
             var actual = repository.Create("DK", "Esbjerg", 6700, "Strandbygade", 30);
             Assert.Equal(expected,repository.Create("DK", "Esbjerg", 6700, "Strandbygade", 30),new Comparer());
         }
+        
+        // Checks if Address object is updated
+        [Fact]
+        public void Update_AddressObject_IsUpdated()
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new AddressRepository(fakeContext);
+            var list = new List<AddressEntity>()
+            {
+                new AddressEntity()
+                {
+                    Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
+                    StreetNumber = 30
+                }
+            };
+            fakeContext.Set<AddressEntity>().AddRange(list);
+            fakeContext.SaveChanges();
+            var expected = new Address()
+            {
+                Id = 2, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
+                StreetNumber = 55
+            };
+            var actual = repository.Update(expected);
+            Assert.Equal(expected,actual, new Comparer());
+        }
 
         private class Comparer: IEqualityComparer<Address>
         {

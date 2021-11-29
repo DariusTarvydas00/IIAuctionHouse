@@ -79,7 +79,24 @@ namespace IIAuctionHouse.DataAccess.Repositories
 
         public Address Update(Address address)
         {
-            throw new System.NotImplementedException();
+            var entity = _ctx.Addresses.Update(new AddressEntity()
+            {
+                Id = address.Id,
+                Country = address.Country,
+                City = address.City,
+                PostCode = address.PostCode,
+                StreetName = address.StreetName,
+                StreetNumber = address.StreetNumber
+            }).Entity;
+            return new Address()
+            {
+                Id = entity.Id,
+                Country = entity.Country,
+                City = entity.City,
+                PostCode = entity.PostCode,
+                StreetName = entity.StreetName,
+                StreetNumber = entity.StreetNumber
+            };
         }
 
         public Address Delete(int id)
