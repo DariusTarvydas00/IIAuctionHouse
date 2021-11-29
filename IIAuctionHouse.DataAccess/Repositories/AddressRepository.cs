@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Domain.IRepositories;
 
@@ -17,7 +18,15 @@ namespace IIAuctionHouse.DataAccess.Repositories
 
         public List<Address> ReadAll()
         {
-            throw new System.NotImplementedException();
+            return _ctx.Addresses.Select(ae=>new Address()
+            {
+                Id = ae.Id,
+                Country = ae.Country,
+                City = ae.City,
+                PostCode = ae.PostCode,
+                StreetName = ae.StreetName,
+                StreetNumber = ae.StreetNumber
+            }).ToList();
         }
 
         public Address GetById(int id)
