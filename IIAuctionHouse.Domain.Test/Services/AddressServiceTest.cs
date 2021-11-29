@@ -81,11 +81,23 @@ namespace IIAuctionHouse.Domain.Test.Services
             Assert.Equal(_expected,actual);
         }
         
-        // Checks if GetById throws exception if id is 0
+        // Checks if GetById throws exception if id is less than 1
         [Fact]
-        public void GetById_withZero_ThrowsException()
+        public void GetById_withZeroOrLess_ThrowsException()
         {
             Assert.Throws<InvalidDataException>(() => _service.GetById(0));
+            Assert.Throws<InvalidDataException>(() => _service.GetById(-5));
+        }
+        
+        // Checks if GetById  throws exception message if id is less than 1
+        [Fact]
+        public void GetById_withZeroOrLess_ThrowsExceptionMessage()
+        {
+            var expected = "Address Id must be higher than 0";
+            var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(0));
+            Assert.Equal(expected,actual.Message);
+            var actual2 = Assert.Throws<InvalidDataException>(() => _service.GetById(-5));
+            Assert.Equal(expected,actual2.Message);
         }
 
     }

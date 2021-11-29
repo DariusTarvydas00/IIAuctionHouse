@@ -22,7 +22,7 @@ namespace AuctionHouse.Domain.Services
 
         public Address GetById(int id)
         {
-            if (id == 0) throw new InvalidDataException();
+            if (id < 1) throw new InvalidDataException("Address Id must be higher than 0");
             return _addressRepository.ReadById(id);
         }
 
