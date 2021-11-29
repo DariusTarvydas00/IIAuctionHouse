@@ -73,5 +73,16 @@ namespace IIAuctionHouse.Core.Test.Models
         }
 
         #endregion
+
+        #region StreetNumber parameter Test
+
+        // Checking if StreetNumber parameter exists
+        [Fact]
+        public void Address_StreetNumber_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("StreetNumber") != null);
+        }
+
+        #endregion
     }
 }
