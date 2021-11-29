@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using AuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Core.IServices;
@@ -23,7 +24,7 @@ namespace AuctionHouse.Domain.Services
         public Address GetById(int id)
         {
             if (id < 1) throw new InvalidDataException("Address Id must be higher than 0");
-            return _addressRepository.ReadById(id);
+            return _addressRepository.GetById(id);
         }
 
         public Address Create(string country, string city, int postCode, string streetName, int streetNumber)

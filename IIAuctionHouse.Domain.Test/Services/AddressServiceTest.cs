@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using System.Data;
 using System.IO;
 using AuctionHouse.Domain.IRepositories;
 using AuctionHouse.Domain.Services;
@@ -6,6 +8,7 @@ using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
 using Moq;
 using Xunit;
+using Xunit.Sdk;
 
 namespace IIAuctionHouse.Domain.Test.Services
 {
@@ -98,6 +101,24 @@ namespace IIAuctionHouse.Domain.Test.Services
             Assert.Equal(expected,actual.Message);
             var actual2 = Assert.Throws<InvalidDataException>(() => _service.GetById(-5));
             Assert.Equal(expected,actual2.Message);
+        }
+        
+        // Checks if GetById with null throws exception
+        [Theory]
+        [InlineData(null)]
+        public void GetById_Null_ThrowsException(int value)
+        {
+            Assert.Throws<InvalidDataException>(() => _service.GetById(value));
+        }
+        
+        // Checks if GetById with null throws exception message
+        [Theory]
+        [InlineData(null)]
+        public void GetById_Null_ThrowsExceptionMessage(int value)
+        {
+            var expected = "Address Id must be higher than 0";
+            var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(value));
+            Assert.Equal(expected,actual.Message);
         }
 
     }
