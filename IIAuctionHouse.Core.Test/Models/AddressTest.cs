@@ -34,6 +34,14 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.Id is int);
         }
+        
+        // Checking if SetId stores Id
+        [Fact]
+        public void Id_SetId_StoresId()
+        {
+            _address.Id = 1;
+            Assert.Equal(1,_address.Id);
+        }
 
         #endregion
 
