@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using AuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
@@ -11,7 +12,7 @@ namespace AuctionHouse.Domain.Services
 
         public AddressService(IAddressRepository addressRepository)
         {
-            _addressRepository = addressRepository;
+            _addressRepository = addressRepository ?? throw new InvalidDataException("Address Service can not be null");
         }
 
         public List<Address> ReadAll()
