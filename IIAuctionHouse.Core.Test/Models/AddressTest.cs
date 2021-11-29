@@ -86,6 +86,17 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.True(_address.GetType().GetProperty("City") != null);
         }
         
+        // Checking if City property value is stored, is string value type, is updated to new one
+        [Fact]
+        public void City_SetCity_StoresCity()
+        {
+            _address.City = "Copenhagen";
+            Assert.True(_address.City is string);
+            Assert.Equal("Copenhagen", _address.City);
+            _address.City = "Esbjerg";
+            Assert.Equal("Esbjerg", _address.City);
+        }
+
         #endregion
 
         #region PostCode property Test
