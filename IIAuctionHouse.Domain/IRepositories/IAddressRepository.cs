@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using IIAuctionHouse.Core.Models;
 
-namespace AuctionHouse.Domain.IRepositories
+namespace IIAuctionHouse.Domain.IRepositories
 {
     public interface IAddressRepository
     {

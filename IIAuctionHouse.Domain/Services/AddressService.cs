@@ -1,11 +1,10 @@
 ﻿using System.Collections.Generic;
-using System.Data;
 using System.IO;
-using AuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Domain.IRepositories;
 
-namespace AuctionHouse.Domain.Services
+namespace IIAuctionHouse.Domain.Services
 {
     public class AddressService: IAddressService
     {
