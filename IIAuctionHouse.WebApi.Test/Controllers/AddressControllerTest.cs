@@ -1,4 +1,5 @@
-﻿using IIAuctionHouse.Controllers;
+﻿using System.IO;
+using IIAuctionHouse.Controllers;
 using IIAuctionHouse.Core.IServices;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -16,6 +17,22 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var service = new Mock<IAddressService>();
             var controller = new AddressController(service.Object);
             Assert.IsAssignableFrom<ControllerBase>(controller);
+        }
+        
+        // Checks if AddressController is null, throws exception
+        [Fact]
+        public void AddressController_WithNullAddressService_ThrowsInvalidDataException()
+        {
+            Assert.Throws<InvalidDataException>(() => new AddressController(null));
+        }
+        
+        // Checks if AddressController is null, throws exception message
+        [Fact]
+        public void AddressController_WithNullAddressService_ThrowsInvalidDataExceptionMessage()
+        {
+            var expected = "Address Controller is not initialized";
+            var actual = Assert.Throws<InvalidDataException>(() => new AddressController(null));
+            Assert.Equal(expected,actual.Message);
         }
 
         #endregion

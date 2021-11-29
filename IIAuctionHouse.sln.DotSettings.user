@@ -8,5 +8,6 @@
     &lt;ProjectFile&gt;275D3B56-ECA7-4760-8D35-9238FF9ED67E/d:IServices/f:IAddressServiceTest.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;1D1AFA67-9F5C-49F2-905C-51F8435DD85B/d:Services/f:AddressServiceTest.cs&lt;/ProjectFile&gt;&#xD;
     &lt;ProjectFile&gt;0FCA0B87-439B-4E6D-A1CF-1C085A669EE9/d:Repositories/f:AddressRepositoryTest.cs&lt;/ProjectFile&gt;&#xD;
+    &lt;ProjectFile&gt;BF98C035-3645-448F-AAA7-5CE51B4375FB/d:Controllers/f:AddressControllerTest.cs&lt;/ProjectFile&gt;&#xD;
   &lt;/Or&gt;&#xD;
 &lt;/SessionState&gt;</s:String></wpf:ResourceDictionary>

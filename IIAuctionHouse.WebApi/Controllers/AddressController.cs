@@ -1,4 +1,5 @@
-﻿using IIAuctionHouse.Core.IServices;
+﻿using System.IO;
+using IIAuctionHouse.Core.IServices;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IIAuctionHouse.Controllers
@@ -9,7 +10,7 @@ namespace IIAuctionHouse.Controllers
 
         public AddressController(IAddressService addressService)
         {
-            _addressService = addressService;
+            _addressService = addressService ?? throw new InvalidDataException("Address Controller is not initialized");
         }
     }
 }
