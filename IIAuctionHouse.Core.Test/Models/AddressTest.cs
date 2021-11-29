@@ -27,6 +27,13 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.GetType().GetProperty("Id") != null);
         }
+        
+        // Checking if Id is integer type
+        [Fact]
+        public void Id_NoParam_isInt()
+        {
+            Assert.True(_address.Id is int);
+        }
 
         #endregion
 
