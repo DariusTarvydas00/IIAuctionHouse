@@ -49,6 +49,28 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.GetType().GetProperty("City") != null);
         }
+        
+        #endregion
+
+        #region PostCode parameter Test
+
+        // Checking if PostCode parameter exists
+        [Fact]
+        public void Address_PostCode_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("PostCode") != null);
+        }
+
+        #endregion
+
+        #region StreetName parameter Test
+
+        // Checking if StreetName parameter exists
+        [Fact]
+        public void Address_StreetName_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("StreetName") != null);
+        }
 
         #endregion
     }
