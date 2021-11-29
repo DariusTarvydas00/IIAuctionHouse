@@ -18,7 +18,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         }
 
-        public List<Address> ReadAll()
+        public IEnumerable<Address> ReadAll()
         {
             return _ctx.Addresses.Select(ae=>new Address()
             {
@@ -88,6 +88,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 StreetName = address.StreetName,
                 StreetNumber = address.StreetNumber
             }).Entity;
+            _ctx.SaveChanges();
             return new Address()
             {
                 Id = entity.Id,
@@ -105,6 +106,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             {
                 Id = id
             }).Entity;
+            _ctx.SaveChanges();
             return new Address()
             {
                 Id = entity.Id,

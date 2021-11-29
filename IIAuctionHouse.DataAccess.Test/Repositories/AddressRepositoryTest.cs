@@ -91,12 +91,12 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AddressEntity()
                 {
-                    Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
+                    Id = 4, Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
                     StreetNumber = 30
                 },
                 new AddressEntity()
                 {
-                    Id = 2, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
+                    Id = 5, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
                     StreetNumber = 55
                 }
             };
@@ -192,6 +192,7 @@ namespace IIAuctionHouseDataAccess.Repositories
                 Id = 1, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
                 StreetNumber = 55
             };
+            fakeContext.ChangeTracker.Clear();
             var actual = repository.Update(expected);
             Assert.Equal(expected,actual, new Comparer());
         }
@@ -204,16 +205,18 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new AddressRepository(fakeContext);
             var list = new List<AddressEntity>()
             {
-                new AddressEntity()
-                {
-                    Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
-                    StreetNumber = 30
-                }
+                new AddressEntity() {Id = 1, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
+                StreetNumber = 55}
             };
             fakeContext.Set<AddressEntity>().AddRange(list);
             fakeContext.SaveChanges();
-            var actual = repository.Delete(0);
-            Assert.Null(actual);
+            fakeContext.ChangeTracker.Clear();
+            var actual = repository.Delete(1);
+            var expected = new Address()
+            {
+                Id = 1
+            };
+            Assert.Equal(expected,actual,new Comparer());
         }
 
         private class Comparer: IEqualityComparer<Address>
