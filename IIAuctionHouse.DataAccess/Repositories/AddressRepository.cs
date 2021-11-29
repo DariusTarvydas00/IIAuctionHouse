@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.DataAccess.Entities;
 using IIAuctionHouse.Domain.IRepositories;
 
 namespace IIAuctionHouse.DataAccess.Repositories
@@ -31,7 +33,28 @@ namespace IIAuctionHouse.DataAccess.Repositories
 
         public Address GetById(int id)
         {
-            throw new System.NotImplementedException();
+            var addressEntity = _ctx.Addresses.Select(ae => new AddressEntity()
+            {
+                Id = ae.Id,
+                Country = ae.Country,
+                City = ae.City,
+                PostCode = ae.PostCode,
+                StreetName = ae.StreetName,
+                StreetNumber = ae.StreetNumber
+            }).FirstOrDefault();
+            if (addressEntity != null)
+            {
+                return new Address()
+                {
+                    Id = addressEntity.Id,
+                    Country = addressEntity.Country,
+                    City = addressEntity.City,
+                    PostCode = addressEntity.PostCode,
+                    StreetName = addressEntity.StreetName,
+                    StreetNumber = addressEntity.StreetNumber
+                };
+            }
+            return null;
         }
 
         public Address Create(string country, string city, int postCode, string streetName, int streetNumber)

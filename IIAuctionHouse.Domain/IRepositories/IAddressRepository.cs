@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using IIAuctionHouse.Core.Models;
 
 namespace IIAuctionHouse.Domain.IRepositories
