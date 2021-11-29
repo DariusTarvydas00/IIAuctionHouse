@@ -5,8 +5,8 @@
     </PropertyGroup>
 
     <ItemGroup>
-      <Folder Include="IRepositories" />
-      <Folder Include="Services" />
+      <Folder Include="IServices" />
+      <Folder Include="Models" />
     </ItemGroup>
 
 </Project>
