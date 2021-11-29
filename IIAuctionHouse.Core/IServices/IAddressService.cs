@@ -6,5 +6,6 @@ namespace IIAuctionHouse.Core.IServices
     public interface IAddressService
     {
         List<Address> ReadAll();
+        Address GetById(int id);
     }
 }

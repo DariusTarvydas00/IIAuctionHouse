@@ -26,5 +26,26 @@ namespace IIAuctionHouse.Core.Test.IServices
             var service = mock.Object;
             Assert.Equal(fakeList,service.ReadAll());
         }
+        
+        // Checking if GetById returns a Address object
+        [Fact]
+        public void GetById_Id_ReturnsAddress()
+        {
+            var mock = new Mock<IAddressService>();
+            var fakeList = new List<Address>();
+            var address = new Address()
+            {
+                Id = 1,
+                Country = "Denmark",
+                City = "Esbjerg",
+                PostCode = 6700,
+                StreetName = "Skolegade",
+                StreetNumber = 30
+            };
+            fakeList.Add(address);
+            mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
+            var service = mock.Object;
+            Assert.Equal(address,service.GetById(1));
+        }
     }
 }
