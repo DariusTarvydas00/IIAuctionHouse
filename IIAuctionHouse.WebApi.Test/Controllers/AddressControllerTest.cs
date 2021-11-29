@@ -1,4 +1,6 @@
 ﻿using System.IO;
+using System.Linq;
+using System.Reflection;
 using IIAuctionHouse.Controllers;
 using IIAuctionHouse.Core.IServices;
 using Microsoft.AspNetCore.Mvc;
@@ -33,6 +35,16 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var expected = "Address Controller is not initialized";
             var actual = Assert.Throws<InvalidDataException>(() => new AddressController(null));
             Assert.Equal(expected,actual.Message);
+        }
+        
+        // Checks if Address Controller uses Api Controller Attribute
+        [Fact]
+        public void AddressController_UsesApiControllerAttribute()
+        {
+            var typeInfo = typeof(AddressController).GetTypeInfo();
+            var attribute = typeInfo.GetCustomAttributes()
+                .FirstOrDefault(a => a.GetType().Name.Equals("ApiControllerAttribute"));
+            Assert.NotNull(attribute);
         }
 
         #endregion
