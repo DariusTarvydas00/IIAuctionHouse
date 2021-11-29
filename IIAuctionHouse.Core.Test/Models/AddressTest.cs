@@ -59,12 +59,12 @@ namespace IIAuctionHouse.Core.Test.Models
         
         // Checking if Country property value is stored and if it is string value type and updates to new value
         [Fact]
-        public void Country_SetCountry_StoresCountry()
+        public void Country_SetUpdateCountry_StoresUpdatesCountry()
         {
             _address.Country = "DK";
+            Assert.True(_address.Country is string);
             Assert.Equal("DK", _address.Country);
             _address.Country = "NO";
-            Assert.True(_address.Country is string);
             Assert.Equal("NO", _address.Country);
         }
 
@@ -81,7 +81,7 @@ namespace IIAuctionHouse.Core.Test.Models
         
         // Checking if City property value is stored, is string value type, is updated to new one
         [Fact]
-        public void City_SetCity_StoresCity()
+        public void City_SetUpdateCity_StoresUpdatesCity()
         {
             _address.City = "Copenhagen";
             Assert.True(_address.City is string);
@@ -110,7 +110,7 @@ namespace IIAuctionHouse.Core.Test.Models
         
         // Checking if PostCode stores value and updates to new one
         [Fact]
-        public void PostCode_SetUpdateId_StoresUpdatesId()
+        public void PostCode_SetUpdatePostCode_StoresUpdatesPostCode()
         {
             _address.PostCode = 7601;
             Assert.Equal(7601, _address.PostCode);
