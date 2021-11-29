@@ -19,9 +19,9 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.NotNull(_address);
         }
 
-        #region Id parameter Test
+        #region Id property Test
 
-        // Checking if Id parameter exists
+        // Checking if Id property exists
         [Fact]
         public void Address_Id_Exists()
         {
@@ -30,9 +30,9 @@ namespace IIAuctionHouse.Core.Test.Models
 
         #endregion
 
-        #region Country parameter Test
+        #region Country property Test
 
-        // Checking if Country parameter exists
+        // Checking if Country property exists
         [Fact]
         public void Address_Country_Exists()
         {
@@ -41,9 +41,9 @@ namespace IIAuctionHouse.Core.Test.Models
 
         #endregion
 
-        #region City parameter Test
+        #region City property Test
 
-        // Checking if City parameter exists
+        // Checking if City property exists
         [Fact]
         public void Address_City_Exists()
         {
@@ -52,9 +52,9 @@ namespace IIAuctionHouse.Core.Test.Models
         
         #endregion
 
-        #region PostCode parameter Test
+        #region PostCode property Test
 
-        // Checking if PostCode parameter exists
+        // Checking if PostCode property exists
         [Fact]
         public void Address_PostCode_Exists()
         {
@@ -63,9 +63,9 @@ namespace IIAuctionHouse.Core.Test.Models
 
         #endregion
 
-        #region StreetName parameter Test
+        #region StreetName property Test
 
-        // Checking if StreetName parameter exists
+        // Checking if StreetName property exists
         [Fact]
         public void Address_StreetName_Exists()
         {
@@ -74,9 +74,9 @@ namespace IIAuctionHouse.Core.Test.Models
 
         #endregion
 
-        #region StreetNumber parameter Test
+        #region StreetNumber property Test
 
-        // Checking if StreetNumber parameter exists
+        // Checking if StreetNumber property exists
         [Fact]
         public void Address_StreetNumber_Exists()
         {
