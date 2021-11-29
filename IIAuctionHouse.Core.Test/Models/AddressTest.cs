@@ -38,17 +38,10 @@ namespace IIAuctionHouse.Core.Test.Models
         
         // Checking if SetId stores Id
         [Fact]
-        public void Id_SetId_StoresId()
+        public void Id_SetUpdateId_StoresUpdatesId()
         {
             _address.Id = 1;
             Assert.Equal(1,_address.Id);
-        }
-        
-        // Checking if changing Id updates Id
-        [Fact]
-        public void Id_UpdateId_StoresNewId()
-        {
-            _address.Id = 1;
             _address.Id = 2;
             Assert.Equal(2, _address.Id);
         }
