@@ -59,7 +59,22 @@ namespace IIAuctionHouse.DataAccess.Repositories
 
         public Address Create(string country, string city, int postCode, string streetName, int streetNumber)
         {
-            throw new System.NotImplementedException();
+            var entity = _ctx.Addresses.Add(new AddressEntity()
+            {
+                Country = country,
+                City = city,
+                PostCode = postCode,
+                StreetName = streetName,
+                StreetNumber = streetNumber
+            }).Entity;
+            return new Address()
+            {
+                Country = entity.Country,
+                City = entity.City,
+                PostCode = entity.PostCode,
+                StreetName = entity.StreetName,
+                StreetNumber = entity.StreetNumber
+            };
         }
 
         public Address Update(Address address)

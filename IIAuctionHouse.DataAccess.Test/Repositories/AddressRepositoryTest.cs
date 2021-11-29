@@ -149,6 +149,27 @@ namespace IIAuctionHouseDataAccess.Repositories
             var actual = repository.GetById(1);
             Assert.Equal(expected,actual, new Comparer());
         }
+        
+        // Checks if Address object is created
+        [Fact]
+        public void Create_AddressProperties_StoresNewAddress()
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new AddressRepository(fakeContext);
+            var fakeList = new List<AddressEntity>();
+            var expected = new Address()
+            {
+                Country = "DK",
+                City = "Esbjerg",
+                PostCode = 6700,
+                StreetName = "Strandbygade",
+                StreetNumber = 30
+            };
+            fakeContext.Set<AddressEntity>().AddRange(fakeList);
+            fakeContext.SaveChanges();
+            var actual = repository.Create("DK", "Esbjerg", 6700, "Strandbygade", 30);
+            Assert.Equal(expected,repository.Create("DK", "Esbjerg", 6700, "Strandbygade", 30),new Comparer());
+        }
 
         private class Comparer: IEqualityComparer<Address>
         {
