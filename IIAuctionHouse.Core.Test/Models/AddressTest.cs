@@ -114,6 +114,16 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.PostCode is int);
         }
+        
+        // Checking if PostCode stores value and updates to new one
+        [Fact]
+        public void PostCode_SetUpdateId_StoresUpdatesId()
+        {
+            _address.PostCode = 7601;
+            Assert.Equal(7601, _address.PostCode);
+            _address.PostCode = 7600;
+            Assert.Equal(7600, _address.PostCode);
+        }
 
         #endregion
 
