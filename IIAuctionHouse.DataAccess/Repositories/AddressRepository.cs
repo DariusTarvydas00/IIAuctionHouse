@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.IO;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Domain.IRepositories;
 
@@ -10,6 +11,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
 
         public AddressRepository(MainDbContext ctx)
         {
+            if (ctx == null) throw new InvalidDataException("Non existing DbContext");
             _ctx = ctx;
         }
 
