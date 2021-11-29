@@ -44,7 +44,8 @@ namespace AuctionHouse.Domain.Services
 
         public Address Delete(int id)
         {
-            throw new System.NotImplementedException();
+            if (id < 1) throw new InvalidDataException("Address Id must be higher than 0");
+            return _addressRepository.Delete(id);
         }
     }
 }
