@@ -1,0 +1,46 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.WebApi", "IIAuctionHouse.WebApi\IIAuctionHouse.WebApi.csproj", "{A89F7253-46D0-4CBA-9CE5-416D42565F2E}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Infrastructure", "Infrastructure", "{8274EEAD-272C-4CFA-BCDD-6846336A7B51}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.DataAccess", "IIAuctionHouse.DataAccess\IIAuctionHouse.DataAccess.csproj", "{63690A82-87FC-4143-8974-6947A738EAC9}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "UI", "UI", "{4DA21D78-F8CA-4E99-B826-0CB9620D2414}"
+EndProject
+Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Core", "Core", "{51B63111-BA77-4C12-BAF8-C5E0C686764F}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IIAuctionHouse.Core", "IIAuctionHouse.Core\IIAuctionHouse.Core.csproj", "{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AuctionHouse.Domain", "AuctionHouse.Domain\AuctionHouse.Domain.csproj", "{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A89F7253-46D0-4CBA-9CE5-416D42565F2E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A89F7253-46D0-4CBA-9CE5-416D42565F2E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A89F7253-46D0-4CBA-9CE5-416D42565F2E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A89F7253-46D0-4CBA-9CE5-416D42565F2E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{63690A82-87FC-4143-8974-6947A738EAC9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{63690A82-87FC-4143-8974-6947A738EAC9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{63690A82-87FC-4143-8974-6947A738EAC9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{63690A82-87FC-4143-8974-6947A738EAC9}.Release|Any CPU.Build.0 = Release|Any CPU
+		{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4}.Release|Any CPU.Build.0 = Release|Any CPU
+		{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(NestedProjects) = preSolution
+		{63690A82-87FC-4143-8974-6947A738EAC9} = {8274EEAD-272C-4CFA-BCDD-6846336A7B51}
+		{A89F7253-46D0-4CBA-9CE5-416D42565F2E} = {4DA21D78-F8CA-4E99-B826-0CB9620D2414}
+		{0ED19ABC-3966-46EA-B3C9-EA377B9C2CF4} = {51B63111-BA77-4C12-BAF8-C5E0C686764F}
+		{9F30E9D1-3AAB-4FB6-B82D-71380D337EB5} = {51B63111-BA77-4C12-BAF8-C5E0C686764F}
+	EndGlobalSection
+EndGlobal
