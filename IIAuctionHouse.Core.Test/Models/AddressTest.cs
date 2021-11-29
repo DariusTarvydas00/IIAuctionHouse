@@ -1,4 +1,5 @@
-﻿using IIAuctionHouse.Core.Models;
+﻿using System.Reflection.Metadata;
+using IIAuctionHouse.Core.Models;
 using Xunit;
 
 namespace IIAuctionHouse.Core.Test.Models
@@ -61,6 +62,15 @@ namespace IIAuctionHouse.Core.Test.Models
         public void Address_Country_Exists()
         {
             Assert.True(_address.GetType().GetProperty("Country") != null);
+        }
+        
+        // Checking if Country property value is stored and if it is string value type
+        [Fact]
+        public void Country_SetCountry_StoresCountry()
+        {
+            _address.Country = "DK";
+            Assert.True(_address.Country is string);
+            Assert.Equal("DK", _address.Country);
         }
 
         #endregion
