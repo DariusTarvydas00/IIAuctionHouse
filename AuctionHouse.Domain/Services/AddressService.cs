@@ -29,7 +29,9 @@ namespace AuctionHouse.Domain.Services
 
         public Address Create(string country, string city, int postCode, string streetName, int streetNumber)
         {
-            throw new System.NotImplementedException();
+            if (country is null || city is null || postCode < 1 || streetName is null || streetNumber < 1)
+                throw new InvalidDataException("One of the values is empty or entered incorrectly"); 
+            return _addressRepository.Create(country, city, postCode, streetName, streetNumber);
         }
 
         public Address Update(Address address)

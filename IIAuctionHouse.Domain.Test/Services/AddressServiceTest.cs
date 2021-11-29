@@ -120,6 +120,21 @@ namespace IIAuctionHouse.Domain.Test.Services
             var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(value));
             Assert.Equal(expected,actual.Message);
         }
+        
+        // Checks if Creating Address Object is possible
+        [Theory]
+        [InlineData(null, "Esbjerg", 6700, "Strandbygade", 30)]
+        [InlineData("Denmark", null, 6700, "Strandbygade", 30)]
+        [InlineData("Denmark", "Esbjerg", null, "Strandbygade", 30)]
+        [InlineData("Denmark", "Esbjerg", 6700, null, 30)]
+        [InlineData("Denmark", "Esbjerg", 6700, "Strandbygade", null)]
+        public void Create_AddressProperties_NullExceptionWithMessage(string country, string city, int postCode, string streetName, int streetNumber)
+        {
+            var expected = "One of the values is empty or entered incorrectly";
+            var actual = Assert.Throws<InvalidDataException>(() =>
+                _service.Create(country, city, postCode, streetName, streetNumber));
+            Assert.Equal(expected,actual.Message);
+        }
 
     }
 }
