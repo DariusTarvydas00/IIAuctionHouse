@@ -181,7 +181,7 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AddressEntity()
                 {
-                    Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
+                    Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
                     StreetNumber = 30
                 }
             };
@@ -189,11 +189,31 @@ namespace IIAuctionHouseDataAccess.Repositories
             fakeContext.SaveChanges();
             var expected = new Address()
             {
-                Id = 2, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
+                Id = 1, Country = "DK", City = "Copenhagen", PostCode = 123456, StreetName = "NewStreet",
                 StreetNumber = 55
             };
             var actual = repository.Update(expected);
             Assert.Equal(expected,actual, new Comparer());
+        }
+        
+        // Checks if Delete method deletes object from DB
+        [Fact]
+        public void Delete_Id_ReturnsNull()
+        {
+            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var repository = new AddressRepository(fakeContext);
+            var list = new List<AddressEntity>()
+            {
+                new AddressEntity()
+                {
+                    Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade",
+                    StreetNumber = 30
+                }
+            };
+            fakeContext.Set<AddressEntity>().AddRange(list);
+            fakeContext.SaveChanges();
+            var actual = repository.Delete(0);
+            Assert.Null(actual);
         }
 
         private class Comparer: IEqualityComparer<Address>

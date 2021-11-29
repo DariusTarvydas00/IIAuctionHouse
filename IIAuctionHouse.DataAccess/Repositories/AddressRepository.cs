@@ -101,7 +101,20 @@ namespace IIAuctionHouse.DataAccess.Repositories
 
         public Address Delete(int id)
         {
-            throw new System.NotImplementedException();
+            var entity = _ctx.Addresses.Remove(new AddressEntity()
+            {
+                Id = id
+            }).Entity;
+            return new Address()
+            {
+                Id = entity.Id,
+                Country = entity.Country,
+                City = entity.City,
+                PostCode = entity.PostCode,
+                StreetName = entity.StreetName,
+                StreetNumber = entity.StreetNumber
+            };
+
         }
     }
 }
