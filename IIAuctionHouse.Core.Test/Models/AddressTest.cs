@@ -136,6 +136,13 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.GetType().GetProperty("StreetNumber") != null);
         }
+        
+        // Checking if StreetNumber is int type
+        [Fact]
+        public void StreetNumber_NoParam_isInt()
+        {
+            Assert.True(_address.StreetNumber is int);
+        }
 
         #endregion
     }
