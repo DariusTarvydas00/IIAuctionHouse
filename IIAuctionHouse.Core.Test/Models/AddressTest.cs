@@ -146,6 +146,16 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_address.StreetNumber is int);
         }
+        
+        // Checking if StreetNumber property stores and updates new value
+        [Fact]
+        public void StreetNumber_SetUpdateStreetNumber_StoresUpdatesStreetNumber()
+        {
+            _address.StreetNumber = 22;
+            Assert.Equal(22,_address.StreetNumber);
+            _address.StreetNumber = 24;
+            Assert.Equal(24, _address.StreetNumber);
+        }
 
         #endregion
     }
