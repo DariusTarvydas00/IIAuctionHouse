@@ -22,7 +22,7 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new BidRepository(fakeContext);
             Assert.IsAssignableFrom<IBidRepository>(repository);
         }
-        
+         
         // Checking if Bid Repository contains empty DbContext if not throws InvalidDataException
         [Fact]
         public void BidRepository_WithNullDbContext_ThrowsInvalidDataException()

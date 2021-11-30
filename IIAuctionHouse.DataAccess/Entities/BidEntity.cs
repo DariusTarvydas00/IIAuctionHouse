@@ -7,5 +7,5 @@ namespace IIAuctionHouse.DataAccess.Entities
         public int Id { get; set; }
         public int BidAmount { get; set; }
         public DateTime BidDateTime { get; set; }
-    }
+    } 
 }

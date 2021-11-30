@@ -11,5 +11,5 @@ namespace IIAuctionHouse.Domain.IRepositories
         Address Create(string country, string city, int postCode, string streetName, int streetNumber);
         Address Update(Address address);
         Address Delete(int id);
-    }
+    } 
 }

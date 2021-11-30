@@ -105,7 +105,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             var entity = _ctx.Addresses.Remove(new AddressEntity()
             {
                 Id = id
-            }).Entity;
+            }).Entity; 
             _ctx.SaveChanges();
             return new Address()
             {

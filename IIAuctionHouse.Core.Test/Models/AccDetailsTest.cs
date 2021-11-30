@@ -46,7 +46,7 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.Equal(2, _AccDetails.Id);
         }
 
-        #endregion
+        #endregion 
         
         #region PhoneNumber property Test
 

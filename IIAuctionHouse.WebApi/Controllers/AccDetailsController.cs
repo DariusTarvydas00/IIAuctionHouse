@@ -16,7 +16,7 @@ namespace IIAuctionHouse.Controllers
         {
             _accDetailsService = accDetailsService ?? throw new InvalidDataException("AccDetails Controller is not initialized");
         }
-
+ 
         [HttpGet]
         public ActionResult<List<AccDetails>> GetAll()
         {

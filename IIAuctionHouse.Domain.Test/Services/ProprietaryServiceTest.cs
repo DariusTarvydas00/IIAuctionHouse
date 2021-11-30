@@ -67,7 +67,7 @@ namespace IIAuctionHouse.Domain.Test.Services
             _service.ReadAll();
             _mock.Verify(r=>r.ReadAll(), Times.Once);
         }
-        
+         
         // Checks if ReadAll method returns list of Proprietaries
         [Fact]
         public void ReadAll_NoFilter_ReturnsListOfProprietary()

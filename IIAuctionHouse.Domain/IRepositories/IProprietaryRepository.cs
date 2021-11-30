@@ -11,4 +11,4 @@ namespace IIAuctionHouse.Domain.IRepositories
         Proprietary Update(Proprietary proprietary);
         Proprietary Delete(int id);
     }
-}
+} 

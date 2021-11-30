@@ -77,7 +77,7 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.True(_proprietary.GetType().GetProperty("ForestryEnterprise") != null);
         }
-        
+         
         // Checking if ForestryEnterprise stores value and updates to new one
         [Fact]
         public void ForestryEnterprise_Create_StoresForestryEnterprise()

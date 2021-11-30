@@ -66,7 +66,7 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 Id = ae.Id, CadastreNumber = ae.CadastreNumber, ForestryEnterprise = ae.ForestryEnterprise, City = ae.City
             }).ToList();
-
+ 
             var actual = repository.ReadAll();
             Assert.Equal(expectedList, actual, new Comparer());
         }

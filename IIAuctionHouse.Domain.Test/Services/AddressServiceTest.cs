@@ -174,6 +174,6 @@ namespace IIAuctionHouse.Domain.Test.Services
             var actual = Assert.Throws<InvalidDataException>(() => _service.Delete(value));
             Assert.Equal(expected,actual.Message);
         }
-
+ 
     }
 }

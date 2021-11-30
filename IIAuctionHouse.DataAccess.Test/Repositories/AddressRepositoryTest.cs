@@ -229,7 +229,7 @@ namespace IIAuctionHouseDataAccess.Repositories
                     if (x.GetType() != y.GetType()) return false;
                     return x.Id == y.Id && x.Country == y.Country && x.City == y.City && x.PostCode == y.PostCode && x.StreetName == y.StreetName && x.StreetNumber == y.StreetNumber;
                 }
-
+ 
                 public int GetHashCode(Address obj)
                 {
                     return HashCode.Combine(obj.Id, obj.Country, obj.City, obj.PostCode, obj.StreetName, obj.StreetNumber);

@@ -67,5 +67,5 @@ namespace IIAuctionHouse.Controllers
                 StreetNumber = address.StreetNumber 
             });
         }
-    }
+    } 
 }

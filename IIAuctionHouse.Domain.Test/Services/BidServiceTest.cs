@@ -123,7 +123,7 @@ namespace IIAuctionHouse.Domain.Test.Services
                 _service.Create(bidAmount,bidDateTime));
             Assert.Equal(expected,actual.Message);
         }
-        
+         
         // Checks if Updating Object is possible
         [Fact]
         public void Update_WithNull_ThrowsExceptionWithMessage()

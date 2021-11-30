@@ -62,7 +62,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Email = email,
                 PhoneNumber = phoneNumber,
                 AccCreationDateTime = accCreationDate
-            }).Entity;
+            }).Entity; 
             return new AccDetails()
             {
                 Id = entity.Id,
