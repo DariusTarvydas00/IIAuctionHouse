@@ -69,9 +69,9 @@ namespace IIAuctionHouse.Core.Test.Models
         public void PhoneNumber_SetUpdatePhoneNumber_StoresUpdatesPhoneNumber()
         {
             _AccDetails.PhoneNumber = 123456;
-            Assert.Equal(1,_AccDetails.PhoneNumber);
+            Assert.Equal(123456,_AccDetails.PhoneNumber);
             _AccDetails.PhoneNumber = 654321;
-            Assert.Equal(2, _AccDetails.PhoneNumber);
+            Assert.Equal(654321, _AccDetails.PhoneNumber);
         }
 
         #endregion
