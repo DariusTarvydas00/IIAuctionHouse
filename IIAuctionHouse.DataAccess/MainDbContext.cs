@@ -1,4 +1,5 @@
-﻿using IIAuctionHouse.Core.Models;
+﻿using System.Reflection.PortableExecutable;
+using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 
@@ -21,5 +22,7 @@ namespace IIAuctionHouse.DataAccess
         public virtual DbSet<AccDetailsEntity> AccDetails { get; set; }
 
         public virtual DbSet<ProprietaryEntity> Proprietaries { get; set; }
+
+        public virtual DbSet<BidEntity> Bids { get; set; }
     }
 }
