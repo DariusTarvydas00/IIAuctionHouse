@@ -19,5 +19,7 @@ namespace IIAuctionHouse.DataAccess
 
         public virtual DbSet<AddressEntity> Addresses { get; set; }
         public virtual DbSet<AccDetailsEntity> AccDetails { get; set; }
+
+        public virtual DbSet<ProprietaryEntity> Proprietaries { get; set; }
     }
 }
