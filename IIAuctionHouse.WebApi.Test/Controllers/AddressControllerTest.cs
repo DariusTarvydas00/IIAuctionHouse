@@ -46,6 +46,16 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
                 .FirstOrDefault(a => a.GetType().Name.Equals("ApiControllerAttribute"));
             Assert.NotNull(attribute);
         }
+        
+        // Checks if ProductController is using Route Attribute
+        [Fact]
+        public void ProductController_UsesRouteAttribute()
+        {
+            var typeInfo = typeof(AddressController).GetTypeInfo();
+            var attribute = typeInfo.GetCustomAttributes()
+                .FirstOrDefault(a => a.GetType().Name.Equals("RouteAttribute"));
+            Assert.NotNull(attribute);
+        }
 
         #endregion
     }
