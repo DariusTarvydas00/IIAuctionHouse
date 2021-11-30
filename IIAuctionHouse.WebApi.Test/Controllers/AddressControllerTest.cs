@@ -67,8 +67,57 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
                     RouteAttribute;
             Assert.Equal("api/[controller]", attribute.Template);
         }
-        
 
         #endregion
+        
+        #region GetAll methods
+
+        // Checks if Controller has GetMethod
+        [Fact]
+        public void ProductController_HasGetMethod()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetAll".Equals(m.Name));
+            Assert.NotNull(method);
+        }
+
+        #endregion
+        
+        #region GetById method
+
+        // Checks if Controller has GetById method
+        [Fact]
+        public void AddressController_HasGetByIdMethod()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
+            Assert.NotNull(method);
+        }
+
+        #endregion
+
+        #region Post methods
+
+        // Checks if Controller has Post method
+        [Fact]
+        public void AddressController_HasPostMethod()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Post".Equals(m.Name));
+            Assert.NotNull(method);
+        }
+
+        #endregion
+
+        #region Delete method
+
+        // Checks if Controller has Delete method
+        [Fact]
+        public void AddressController_HasDeleteMethod()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Delete".Equals(m.Name));
+            Assert.NotNull(method);
+        }
+
+        #endregion
+        
+        
     }
 }

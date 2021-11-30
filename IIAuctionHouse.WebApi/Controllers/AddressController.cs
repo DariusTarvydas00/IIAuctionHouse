@@ -14,5 +14,29 @@ namespace IIAuctionHouse.Controllers
         {
             _addressService = addressService ?? throw new InvalidDataException("Address Controller is not initialized");
         }
+
+        [HttpGet]
+        public AddressController GetAll()
+        {
+            return null;
+        }
+
+        [HttpGet("id")]
+        public AddressController GetById([FromBody] int id)
+        {
+            return null;
+        }
+
+        [HttpPost]
+        public AddressController Post([FromBody] int id)
+        {
+            return null;
+        }
+
+        [HttpDelete]
+        public AddressController Delete([FromBody] int id)
+        {
+            return null;
+        }
     }
 }
