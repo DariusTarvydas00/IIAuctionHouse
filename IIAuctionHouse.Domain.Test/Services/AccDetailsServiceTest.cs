@@ -1,83 +1,81 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Data;
+using System.Data.Common;
 using System.IO;
-using IIAuctionHouse.Domain.IRepositories;
-using IIAuctionHouse.Domain.Services;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Domain.IRepositories;
+using IIAuctionHouse.Domain.Services;
+using Microsoft.VisualBasic;
 using Moq;
 using Xunit;
-using Xunit.Sdk;
 
 namespace IIAuctionHouse.Domain.Test.Services
 {
-    public class AddressServiceTest
+    public class AccDetailsServiceTest
     {
-        private readonly AddressService _service;
-        private readonly Mock<IAddressRepository> _mock;
-        private readonly List<Address> _expected;
+        private readonly AccDetailsService _service;
+        private readonly Mock<IAccDetailsRepository> _mock;
+        private readonly List<AccDetails> _expected;
 
-        public AddressServiceTest()
+        public AccDetailsServiceTest()
         {
-            _mock = new Mock<IAddressRepository>();
-            _service = new AddressService(_mock.Object);
-            _expected = new List<Address>()
+            _mock = new Mock<IAccDetailsRepository>();
+            _service = new AccDetailsService(_mock.Object);
+            _expected = new List<AccDetails>()
             {
-                new Address()
+                new AccDetails()
                 {
                     Id = 1,
-                    Country = "Denmark",
-                    City = "Esbjerg",
-                    PostCode = 6700,
-                    StreetName = "Strandbygade",
-                    StreetNumber = 30
+                    Address = new Address(),
+                    Email = "test2@test2.com",
+                    PhoneNumber = 123456789,
+                    AccCreationDateTime = new DateTime(2021,11,23)
                 },
-                new Address()
+                new AccDetails()
                 {
-                    Id = 2,
-                    Country = "Denmark",
-                    City = "Esbjerg",
-                    PostCode = 6700,
-                    StreetName = "Skolegade",
-                    StreetNumber = 20
+                    Id = 1,
+                    Address = new Address(),
+                    Email = "test@test.com",
+                    PhoneNumber = 123456789,
+                    AccCreationDateTime = new DateTime(2021,11,23)
                 }
             };
         }
 
         // Checking if Service is Using Interface
         [Fact]
-        public void AddressService_IsIAddressService()
+        public void AccDetailsService_IsIAccDetailsService()
         {
-            Assert.True(_service is IAddressService);
+            Assert.True(_service is IAccDetailsService);
         }
         
-        // Checking throw exception if IAddressService is null
+        // Checking throw exception if IAccDetailsService is null
         [Fact]
-        public void AddressService_WithNullRepositoryException_ThrowsInvalidDataException()
+        public void AccDetailsService_WithNullRepositoryException_ThrowsInvalidDataException()
         {
-            Assert.Throws<InvalidDataException>(() => new AddressService(null));
+            Assert.Throws<InvalidDataException>(() => new AccDetailsService(null));
         }
 
         [Fact]
-        public void AddressService_WithNullRepositoryException_ThrowsInvalidDataExceptionMessage()
+        public void AccDetailsService_WithNullRepositoryException_ThrowsInvalidDataExceptionMessage()
         {
-            var expected = "Address Service can not be null";
-            var actual = Assert.Throws<InvalidDataException>(() => new AddressService(null));
+            var expected = "Account Details Repository can not be null";
+            var actual = Assert.Throws<InvalidDataException>(() => new AccDetailsService(null));
             Assert.Equal(expected,actual.Message);
         }
         
-        // Checks if ReadAll method calls AddressRepository only one time
+        // Checks if ReadAll method calls AccDetailsRepository only one time
         [Fact]
-        public void ReadAll_CallsAddressRepositoryReadAll_ExactlyOnce()
+        public void ReadAll_CallsAccDetailsRepositoryReadAll_ExactlyOnce()
         {
             _service.ReadAll();
             _mock.Verify(r=>r.ReadAll(), Times.Once);
         }
         
-        // Checks if ReadAll method returns list of Addresses
+        // Checks if ReadAll method returns list of Account Details
         [Fact]
-        public void ReadAll_NoFilter_ReturnsListOfAddresses()
+        public void ReadAll_NoFilter_ReturnsListOfAccDetails()
         {
             _mock.Setup(r => r.ReadAll()).Returns(_expected);
             var actual = _service.ReadAll();
@@ -96,7 +94,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         [Fact]
         public void GetById_withZeroOrLess_ThrowsExceptionMessage()
         {
-            var expected = "Address Id must be higher than 0";
+            var expected = "AccDetails Id must be higher than 0";
             var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(0));
             Assert.Equal(expected,actual.Message);
             var actual2 = Assert.Throws<InvalidDataException>(() => _service.GetById(-5));
@@ -116,45 +114,41 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData(null)]
         public void GetById_Null_ThrowsExceptionMessage(int value)
         {
-            var expected = "Address Id must be higher than 0";
+            var expected = "AccDetails Id must be higher than 0";
             var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(value));
             Assert.Equal(expected,actual.Message);
         }
         
         // Checks if Creating Address Object is possible
         [Theory]
-        [InlineData(null, "Esbjerg", 6700, "Strandbygade", 30)]
-        [InlineData("Denmark", null, 6700, "Strandbygade", 30)]
-        [InlineData("Denmark", "Esbjerg", null, "Strandbygade", 30)]
-        [InlineData("Denmark", "Esbjerg", 6700, null, 30)]
-        [InlineData("Denmark", "Esbjerg", 6700, "Strandbygade", null)]
-        public void Create_WithNull_ThrowsExceptionWithMessage(string country, string city, int postCode, string streetName, int streetNumber)
+        [InlineData(null, "test@test.com", 123456789, null)]
+        [InlineData(null, null, 123456789, null)]
+        [InlineData(null, "test@test.com", null, null)]
+        public void Create_WithNull_ThrowsExceptionWithMessage(Address address, string email, int phoneNumber, DateTime accCreationDateTime)
         {
             var expected = "One of the values is empty or entered incorrectly";
             var actual = Assert.Throws<InvalidDataException>(() =>
-                _service.Create(country, city, postCode, streetName, streetNumber));
+                _service.Create(address, email, phoneNumber, accCreationDateTime));
             Assert.Equal(expected,actual.Message);
         }
+        
+        
         
         // Checks if Updating Object is possible
         [Fact]
         public void Update_WithNull_ThrowsExceptionWithMessage()
         {
-            var fakeList = new List<Address>();
-            fakeList.Add(new Address() {Id = 0, City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade", StreetNumber = 30});
-            var update1 = new Address() {Id = 0, PostCode = 6700, StreetName = "Strandbygade", StreetNumber = 30};
-            var update2 = new Address() {Id = 0, Country = "Esbjerg", StreetName = "Strandbygade", StreetNumber = 30};
-            var update3 = new Address() {Id = 0, Country = "Esbjerg", City = "Esbjerg", StreetNumber = 30};
-            var update4 = new Address() {Id = 0, Country = "Denmark", City = "Esbjerg", PostCode = 6700, };
+            var fakeList = new List<AccDetails>();
+            fakeList.Add(new AccDetails() {Id = 0, Email = "test@test.com", PhoneNumber = 123456789,
+                AccCreationDateTime = new DateTime(2021,11,23)});
+            var update1 = new AccDetails() {Id = 0, Address = new Address(), PhoneNumber = 123456789,
+                AccCreationDateTime = new DateTime(2021,11,23)};
+            var update2 = new AccDetails() {Id = 0, Address = new Address(), Email = "test@test.com"};
             var expected = "One of the values is empty or entered incorrectly";
             var actual1 = Assert.Throws<InvalidDataException>(() => _service.Update(update1));
             var actual2 = Assert.Throws<InvalidDataException>(() => _service.Update(update2));
-            var actual3 = Assert.Throws<InvalidDataException>(() => _service.Update(update3));
-            var actual4 = Assert.Throws<InvalidDataException>(() => _service.Update(update4));
             Assert.Equal(expected,actual1.Message);
             Assert.Equal(expected,actual2.Message);
-            Assert.Equal(expected,actual3.Message);
-            Assert.Equal(expected,actual4.Message);
         }
         
         // Check if Delete Method throws exception
@@ -170,10 +164,9 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData(null)]
         public void Delete_Null_ThrowsExceptionMessage(int value)
         {
-            var expected = "Address Id must be higher than 0";
+            var expected = "AccDetails Id must be higher than 0";
             var actual = Assert.Throws<InvalidDataException>(() => _service.Delete(value));
             Assert.Equal(expected,actual.Message);
         }
-
     }
 }

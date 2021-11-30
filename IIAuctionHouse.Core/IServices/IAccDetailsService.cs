@@ -4,7 +4,7 @@ using IIAuctionHouse.Core.Models;
 
 namespace IIAuctionHouse.Core.IServices
 {
-    public interface IAccDetails
+    public interface IAccDetailsService
     {
         List<AccDetails> ReadAll();
         AccDetails GetById(int id);
