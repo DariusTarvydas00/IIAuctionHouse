@@ -1,4 +1,6 @@
-﻿namespace IIAuctionHouse.DataAccess.Entities
+﻿using IIAuctionHouse.Core.Models;
+
+namespace IIAuctionHouse.DataAccess.Entities
 {
     public class AddressEntity
     {

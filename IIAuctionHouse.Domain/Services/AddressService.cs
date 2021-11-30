@@ -19,7 +19,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public List<Address> ReadAll()
         {
-            return _addressRepository.ReadAll().ToList();
+            return _addressRepository.ReadAll();
         }
 
         public Address GetById(int id)
