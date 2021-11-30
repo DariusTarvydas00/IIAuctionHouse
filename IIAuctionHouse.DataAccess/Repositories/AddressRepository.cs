@@ -18,7 +18,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         }
 
-        public IEnumerable<Address> ReadAll()
+        public List<Address> ReadAll()
         {
             return _ctx.Addresses.Select(ae=>new Address()
             {
