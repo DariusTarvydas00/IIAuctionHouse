@@ -74,10 +74,18 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
 
         // Checks if Controller has GetMethod
         [Fact]
-        public void ProductController_HasGetMethod()
+        public void AddressController_HasGetMethod()
         {
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetAll".Equals(m.Name));
             Assert.NotNull(method);
+        }
+        
+        // Checks if method is public
+        [Fact]
+        public void GetAll_WithNoParam_IsPublic()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetAll".Equals(m.Name));
+            Assert.True(method.IsPublic);
         }
 
         #endregion
@@ -91,6 +99,14 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
             Assert.NotNull(method);
         }
+        
+        // Checks if method is public
+        [Fact]
+        public void GetById_WithNoParam_IsPublic()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
+            Assert.True(method.IsPublic);
+        }
 
         #endregion
 
@@ -103,6 +119,14 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Post".Equals(m.Name));
             Assert.NotNull(method);
         }
+        
+        // Checks if method is public
+        [Fact]
+        public void Post_WithNoParam_IsPublic()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
+            Assert.True(method.IsPublic);
+        }
 
         #endregion
 
@@ -114,6 +138,14 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
         {
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Delete".Equals(m.Name));
             Assert.NotNull(method);
+        }
+
+        // Checks if method is public
+        [Fact]
+        public void Delete_WithNoparam_IsPublic()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Delete".Equals(m.Name));
+            Assert.True(method.IsPublic);
         }
 
         #endregion
