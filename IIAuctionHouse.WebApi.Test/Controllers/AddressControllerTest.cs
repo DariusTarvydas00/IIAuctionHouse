@@ -1,8 +1,10 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Reflection;
 using IIAuctionHouse.Controllers;
 using IIAuctionHouse.Core.IServices;
+using IIAuctionHouse.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;
@@ -87,6 +89,24 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetAll".Equals(m.Name));
             Assert.True(method.IsPublic);
         }
+        
+        // Checks if method Returns List in Action Result
+        [Fact]
+        public void GetAll_WithNoParam_ReturnsListOfAddressesInActionResult()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetAll".Equals(m.Name));
+            Assert.Equal(typeof(ActionResult<List<Address>>).FullName, method.ReturnType.FullName);
+        }
+        
+        // Checks if method GetAll calls Service Get once
+        [Fact]
+        public void GetAll_CallsServiceGetAddress_Once()
+        {
+            var mockService = new Mock<IAddressService>();
+            var controller = new AddressController(mockService.Object);
+            controller.GetAll();
+            mockService.Verify(s=>s.ReadAll(), Times.Once);
+        }
 
         #endregion
         
@@ -99,13 +119,21 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
             Assert.NotNull(method);
         }
-        
+
         // Checks if method is public
         [Fact]
         public void GetById_WithNoParam_IsPublic()
         {
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
             Assert.True(method.IsPublic);
+        }
+        
+        // Checks if GetById method returns Object in Action Result
+        [Fact]
+        public void GetById_Id_ReturnsAddressInActionResult()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
+            Assert.Equal(typeof(ActionResult<Address>).FullName, method.ReturnType.FullName);
         }
 
         #endregion
@@ -127,6 +155,14 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
             Assert.True(method.IsPublic);
         }
+        
+        // Checks if Post method uses ActionResult
+        [Fact]
+        public void Post_Body_ReturnsObjectInActionResult()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Post".Equals(m.Name));
+            Assert.Equal(typeof(ActionResult<Address>).FullName, method.ReturnType.FullName);
+        }
 
         #endregion
 
@@ -146,6 +182,14 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
         {
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Delete".Equals(m.Name));
             Assert.True(method.IsPublic);
+        }
+        
+        // Checks if Delete method uses ActionResult
+        [Fact]
+        public void Delete_Id_ReturnsObjectInActionResult()
+        {
+            var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Delete".Equals(m.Name));
+            Assert.Equal(typeof(ActionResult<Address>).FullName, method.ReturnType.FullName);
         }
 
         #endregion

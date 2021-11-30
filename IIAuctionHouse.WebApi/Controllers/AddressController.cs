@@ -1,5 +1,7 @@
-﻿using System.IO;
+﻿using System.Collections.Generic;
+using System.IO;
 using IIAuctionHouse.Core.IServices;
+using IIAuctionHouse.Core.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IIAuctionHouse.Controllers
@@ -16,27 +18,54 @@ namespace IIAuctionHouse.Controllers
         }
 
         [HttpGet]
-        public AddressController GetAll()
+        public ActionResult<List<Address>> GetAll()
         {
-            return null;
+            return Ok(_addressService.ReadAll());
         }
 
         [HttpGet("id")]
-        public AddressController GetById([FromBody] int id)
+        public ActionResult<Address> GetById([FromBody] int id)
         {
-            return null;
+            var address = _addressService.GetById(id);
+            return Ok(new Address()
+            {
+                Id = address.Id,
+                Country = address.Country,
+                City = address.City,
+                PostCode = address.PostCode,
+                StreetName = address.StreetName,
+                StreetNumber = address.StreetNumber
+            });
         }
 
         [HttpPost]
-        public AddressController Post([FromBody] int id)
+        public ActionResult<Address> Post([FromBody] Address address)
         {
-            return null;
+            var addressUpdate = _addressService.Update(address);
+            return Ok(new Address()
+            {
+                Id = addressUpdate.Id,
+                Country = addressUpdate.Country,
+                City = addressUpdate.City,
+                PostCode = addressUpdate.PostCode,
+                StreetName = addressUpdate.StreetName,
+                StreetNumber = addressUpdate.StreetNumber
+            });
         }
 
         [HttpDelete]
-        public AddressController Delete([FromBody] int id)
+        public ActionResult<Address> Delete([FromBody] int id)
         {
-            return null;
+            var address = _addressService.Delete(id);
+            return Ok(new Address()
+            {
+                Id = address.Id,
+                Country = address.Country,
+                City = address.City,
+                PostCode = address.PostCode,
+                StreetName = address.StreetName,
+                StreetNumber = address.StreetNumber 
+            });
         }
     }
 }
