@@ -150,7 +150,7 @@ namespace IIAuctionHouse.Domain.Test.Services
             Assert.Equal(expected,actual1.Message);
             Assert.Equal(expected,actual2.Message);
         }
-        
+         
         // Check if Delete Method throws exception
         [Theory]
         [InlineData(null)]

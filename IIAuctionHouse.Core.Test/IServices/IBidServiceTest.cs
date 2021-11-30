@@ -92,7 +92,7 @@ namespace IIAuctionHouse.Core.Test.IServices
             var mock = new Mock<IBidService>();
             var fakeList = new List<Bid>();
             var Bid = new Bid()
-            {
+            { 
                 Id = 1,
                 BidAmount = 8000,
                 BidDateTime = DateTime.Today

@@ -116,7 +116,7 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var attribute =
                 methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpGetAttribute");
             Assert.NotNull(attribute);
-        }
+        } 
 
         #endregion
         

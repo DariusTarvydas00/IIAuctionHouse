@@ -58,5 +58,5 @@ namespace IIAuctionHouse.Controllers
                 BidDateTime = Bid.BidDateTime
             });
         }
-    }
+    } 
 }

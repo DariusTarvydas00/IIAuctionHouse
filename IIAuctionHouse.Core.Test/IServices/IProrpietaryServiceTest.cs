@@ -97,7 +97,7 @@ namespace IIAuctionHouse.Core.Test.IServices
             var proprietary = new Proprietary()
             {
                 Id = 1,
-                CadastreNumber = "321/321/321",
+                CadastreNumber = "321/321/321", 
                 City = "Esbjerg",
                 ForestryEnterprise = "EsbjergEnterprise"
             };

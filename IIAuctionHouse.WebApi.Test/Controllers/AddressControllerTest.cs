@@ -21,7 +21,7 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var service = new Mock<IAddressService>();
             var controller = new AddressController(service.Object);
             Assert.IsAssignableFrom<ControllerBase>(controller);
-        }
+        } 
         
         // Checks if AddressController is null, throws exception
         [Fact]

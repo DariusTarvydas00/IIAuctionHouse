@@ -10,6 +10,6 @@ namespace IIAuctionHouse.Domain.IRepositories
         AccDetails GetById(int id);
         AccDetails Create(Address address, string email, int phoneNumber, DateTime accCreationDate);
         AccDetails Update(AccDetails accDetails);
-        AccDetails Delete(int id);
+        AccDetails Delete(int id); 
     }
 }

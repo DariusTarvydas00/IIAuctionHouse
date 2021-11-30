@@ -10,6 +10,6 @@ namespace IIAuctionHouse.Core.IServices
         Bid GetById(int id);
         Bid Create(int bidAmount, DateTime bidDateTime);
         Bid Update(Bid bid);
-        Bid Delete(int id); 
+        Bid Delete(int id);  
     }
 }

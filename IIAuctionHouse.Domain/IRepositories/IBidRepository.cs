@@ -16,4 +16,4 @@ namespace IIAuctionHouse.Domain.IRepositories
 
         public Bid Delete(int id);
     }
-}
+} 

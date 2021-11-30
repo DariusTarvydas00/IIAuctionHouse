@@ -111,7 +111,7 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
         // Checks if method has Http Attribute
         [Fact]
         public void GetAll_HasHttpAttribute()
-        {
+        { 
             var methodInfo = typeof(BidController).GetMethods().FirstOrDefault(m => m.Name == "GetAll");
             var attribute =
                 methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpGetAttribute");

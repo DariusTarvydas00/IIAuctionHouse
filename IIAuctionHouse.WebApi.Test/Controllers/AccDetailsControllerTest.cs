@@ -22,7 +22,7 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var service = new Mock<IAccDetailsService>();
             var controller = new AccDetailsController(service.Object);
             Assert.IsAssignableFrom<ControllerBase>(controller);
-        }
+        } 
         
         // Checks if AccDetailsService is null, throws exception
         [Fact]

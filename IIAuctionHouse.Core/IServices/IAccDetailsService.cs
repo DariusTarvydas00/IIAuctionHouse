@@ -6,7 +6,7 @@ namespace IIAuctionHouse.Core.IServices
 {
     public interface IAccDetailsService
     {
-        List<AccDetails> ReadAll();
+        List<AccDetails> ReadAll(); 
         AccDetails GetById(int id);
         AccDetails Create(Address address, string email, int phoneNumber, DateTime accCreationDate);
         AccDetails Update(AccDetails accDetails);

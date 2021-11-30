@@ -7,4 +7,4 @@
         public string ForestryEnterprise { get; set; }
         public string City { get; set; }
     }
-}
+} 

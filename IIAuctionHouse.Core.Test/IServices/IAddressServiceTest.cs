@@ -87,7 +87,7 @@ namespace IIAuctionHouse.Core.Test.IServices
                 Id = 1,
                 Country = "Denmark",
                 City = "Copenhagen",
-                PostCode = 6700,
+                PostCode = 6700, 
                 StreetName = "Skolegadeeee",
                 StreetNumber = 301
             };

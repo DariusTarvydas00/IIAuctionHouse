@@ -88,7 +88,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
         public Proprietary Delete(int id)
         {
             var entity = _ctx.Proprietaries.Remove(new ProprietaryEntity()
-            {
+            { 
                 Id = id
             }).Entity;
             _ctx.SaveChanges();

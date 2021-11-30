@@ -10,6 +10,6 @@ namespace IIAuctionHouse.Core.IServices
         Proprietary GetById(int id);
         Proprietary Create(string cadastreNumber, string forestryEnterprise, string City);
         Proprietary Update(Proprietary proprietary);
-        Proprietary Delete(int id);
+        Proprietary Delete(int id); 
     }
 }

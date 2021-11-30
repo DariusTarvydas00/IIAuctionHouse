@@ -16,7 +16,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
         {
             if (ctx == null) throw new InvalidDataException("Non existing DbContext");
             _ctx = ctx;
-        }
+        } 
 
         public List<Bid> ReadAll()
         {

@@ -105,7 +105,7 @@ namespace IIAuctionHouse.Core.Test.Models
             _bid.BidDateTime = newDate;
             Assert.Equal(newDate, _bid.BidDateTime);
         }
-
+ 
         #endregion
     }
 }

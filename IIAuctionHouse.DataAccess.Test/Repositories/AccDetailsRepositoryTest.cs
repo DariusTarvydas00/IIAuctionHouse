@@ -187,7 +187,7 @@ namespace IIAuctionHouseDataAccess.Repositories
                 {
                     Id = 1, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
                     AccCreationDateTime = new DateTime(2021,11,23)
-                }
+                } 
             };
             var expected = list.Select(ae => new AccDetails()
             {

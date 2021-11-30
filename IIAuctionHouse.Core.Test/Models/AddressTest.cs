@@ -167,7 +167,7 @@ namespace IIAuctionHouse.Core.Test.Models
             _address.StreetNumber = 24;
             Assert.Equal(24, _address.StreetNumber);
         }
-
+ 
         #endregion
     }
 }

@@ -76,7 +76,7 @@ namespace IIAuctionHouse.Core.Test.IServices
             {
                 Id = 1,
                 Address = new Address(),
-                Email = "test@test.com",
+                Email = "test@test.com", 
                 PhoneNumber = 123456789,
                 AccCreationDateTime = new DateTime(2021,11,23)
             };
