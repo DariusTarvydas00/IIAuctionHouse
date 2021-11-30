@@ -107,6 +107,16 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             controller.GetAll();
             mockService.Verify(s=>s.ReadAll(), Times.Once);
         }
+        
+        // Checks if method has Http Attribute
+        [Fact]
+        public void GetAll_HasHttpAttribute()
+        {
+            var methodInfo = typeof(AddressController).GetMethods().FirstOrDefault(m => m.Name == "GetAll");
+            var attribute =
+                methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpGetAttribute");
+            Assert.NotNull(attribute);
+        }
 
         #endregion
         
@@ -134,6 +144,16 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
         {
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "GetById".Equals(m.Name));
             Assert.Equal(typeof(ActionResult<Address>).FullName, method.ReturnType.FullName);
+        }
+        
+        // Checks if method has Http Attribute
+        [Fact]
+        public void GetById_HasHttpAttribute()
+        {
+            var methodInfo = typeof(AddressController).GetMethods().FirstOrDefault(m => m.Name == "GetById");
+            var attribute =
+                methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpGetAttribute");
+            Assert.NotNull(attribute);
         }
 
         #endregion
@@ -163,6 +183,16 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Post".Equals(m.Name));
             Assert.Equal(typeof(ActionResult<Address>).FullName, method.ReturnType.FullName);
         }
+        
+        // Checks if method has Http Attribute
+        [Fact]
+        public void Post_HasHttpAttribute()
+        {
+            var methodInfo = typeof(AddressController).GetMethods().FirstOrDefault(m => m.Name == "Post");
+            var attribute =
+                methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpPostAttribute");
+            Assert.NotNull(attribute);
+        }
 
         #endregion
 
@@ -190,6 +220,16 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
         {
             var method = typeof(AddressController).GetMethods().FirstOrDefault(m => "Delete".Equals(m.Name));
             Assert.Equal(typeof(ActionResult<Address>).FullName, method.ReturnType.FullName);
+        }
+        
+        // Checks if method has Http Attribute
+        [Fact]
+        public void Delete_HasHttpAttribute()
+        {
+            var methodInfo = typeof(AddressController).GetMethods().FirstOrDefault(m => m.Name == "Delete");
+            var attribute =
+                methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpDeleteAttribute");
+            Assert.NotNull(attribute);
         }
 
         #endregion
