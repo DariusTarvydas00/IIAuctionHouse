@@ -13,7 +13,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         [Fact]
         public void IAccDetails_IsAvailable()
         {
-            var service = new Mock<IAccDetails>();
+            var service = new Mock<IAccDetailsService>();
             Assert.NotNull(service);
         }
         
@@ -21,7 +21,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         [Fact]
         public void ReadAll_NoParam_ReturnsListOfAllAccDetail()
         {
-            var mock = new Mock<IAccDetails>();
+            var mock = new Mock<IAccDetailsService>();
             var fakeList = new List<AccDetails>();
             mock.Setup(s => s.ReadAll()).Returns(fakeList);
             var service = mock.Object;
@@ -32,7 +32,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         [Fact]
         public void GetById_Id_ReturnsAccDetails()
         {
-            var mock = new Mock<IAccDetails>();
+            var mock = new Mock<IAccDetailsService>();
             var fakeList = new List<AccDetails>();
             var AccDetails = new AccDetails()
             {
@@ -52,7 +52,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         [Fact]
         public void Create_AllAccDetailsProperties_IsCreated()
         {
-            var mock = new Mock<IAccDetails>();
+            var mock = new Mock<IAccDetailsService>();
             var fakeAccDetails = new AccDetails()
             {
                 Id = 1,
@@ -71,7 +71,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         [Fact]
         public void Update_AccDetails_IsUpdated()
         {
-            var mock = new Mock<IAccDetails>();
+            var mock = new Mock<IAccDetailsService>();
             var fakeAccDetails = new AccDetails()
             {
                 Id = 1,
@@ -97,7 +97,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         [Fact]
         public void Delete_Id_ReturnNull()
         {
-            var mock = new Mock<IAccDetails>();
+            var mock = new Mock<IAccDetailsService>();
             var fakeList = new List<AccDetails>();
             var AccDetails = new AccDetails()
             {
