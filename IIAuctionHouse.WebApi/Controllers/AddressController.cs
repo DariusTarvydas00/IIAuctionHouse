@@ -2,6 +2,7 @@
 using System.IO;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IIAuctionHouse.Controllers

@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using IIAuctionHouse.Core.Models.AccDetails;
 
 namespace IIAuctionHouse.Core.Models
 {

@@ -1,5 +1,6 @@
 ﻿using System.Reflection.PortableExecutable;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using IIAuctionHouse.DataAccess.Entities;
 using Microsoft.EntityFrameworkCore;
 

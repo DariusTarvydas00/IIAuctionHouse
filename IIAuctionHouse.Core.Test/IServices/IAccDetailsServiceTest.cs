@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using Moq;
 using Xunit;
 

@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using EntityFrameworkCore.Testing.Moq;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using IIAuctionHouse.DataAccess;
 using IIAuctionHouse.DataAccess.Entities;
 using IIAuctionHouse.DataAccess.Repositories;

@@ -6,6 +6,7 @@ using IIAuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Domain.Services;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using Moq;
 using Xunit;
 using Xunit.Sdk;
