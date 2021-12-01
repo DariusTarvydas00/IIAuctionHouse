@@ -23,3 +23,8 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    
+    - name: Report
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+        github_token: ${{ secrets.TOKEN }}
