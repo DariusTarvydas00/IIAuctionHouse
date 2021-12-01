@@ -26,5 +26,6 @@ namespace IIAuctionHouse.DataAccess
         public virtual DbSet<BidEntity> Bids { get; set; }
 
         public virtual DbSet<UserEntity> Users { get; set; }
+        public virtual DbSet<AdminEntity> Admins { get; set; }
     }
 }
