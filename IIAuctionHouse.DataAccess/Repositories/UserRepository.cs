@@ -56,7 +56,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
             return null;
         }
 
-        public User Create(string firstName, string lastName, Address address, Proprietary proprietary, Bid bid)
+        public User Create(string firstName, string lastName, Address address, List<Proprietary> proprietary,
+            List<Bid> bid)
         {
             var entity = _ctx.Users.Add(new UserEntity()
             {

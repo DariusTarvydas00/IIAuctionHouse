@@ -1,4 +1,6 @@
-﻿namespace IIAuctionHouse.Core.Models
+﻿using System.Collections.Generic;
+
+namespace IIAuctionHouse.Core.Models
 {
     public class User
     {
@@ -6,7 +8,7 @@
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Address Address { get; set; }
-        public Proprietary Proprietary { get; set; }
-        public Bid Bid { get; set; }
+        public List<Proprietary> Proprietary { get; set; }
+        public List<Bid> Bid { get; set; }
     }
 }

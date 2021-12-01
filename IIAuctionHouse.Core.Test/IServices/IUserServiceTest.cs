@@ -39,8 +39,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "User",
                 LastName = "User",
                 Address = new Address(),
-                Proprietary = new Proprietary(),
-                Bid = new Bid()
+                Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
             fakeList.Add(User);
             mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
@@ -59,13 +59,13 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "User",
                 LastName = "User",
                 Address = new Address(),
-                Proprietary = new Proprietary(),
-                Bid = new Bid()
+                Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
-            mock.Setup(s => s.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Address>(), It.IsAny<Proprietary>(), It.IsAny<Bid>()))
+            mock.Setup(s => s.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Address>(), It.IsAny<List<Proprietary>>(), It.IsAny<List<Bid>>()))
                 .Returns(() => fakeUser);
             var service = mock.Object;
-            Assert.Equal(fakeUser,service.Create("User", "User", new Address(), new Proprietary(), new Bid()));
+            Assert.Equal(fakeUser,service.Create("User", "User", new Address(), new List<Proprietary>(), new List<Bid>()));
         }
         
         // Checking if User object is updated
@@ -79,8 +79,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "User",
                 LastName = "User",
                 Address = new Address(),
-                Proprietary = new Proprietary(),
-                Bid = new Bid()
+                Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
             var newFakeUser = new User()
             {
@@ -88,8 +88,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "User2",
                 LastName = "User2",
                 Address = new Address(),
-                Proprietary = new Proprietary(),
-                Bid = new Bid()
+                Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
             mock.Setup(s => s.Update(newFakeUser)).Returns(newFakeUser);
             var service = mock.Object;
@@ -108,8 +108,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "User",
                 LastName = "User",
                 Address = new Address(),
-                Proprietary = new Proprietary(),
-                Bid = new Bid()
+                Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
             fakeList.Add(User);
             mock.Setup(s => s.Delete(1)).Returns(() => null);

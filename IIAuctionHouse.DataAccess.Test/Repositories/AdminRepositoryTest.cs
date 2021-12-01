@@ -49,22 +49,23 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AdminEntity()
                 {
-                    Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new Proprietary(){Id = 1},
-                    Bid = new Bid(){Id = 1}
+                    Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){},
+                    Bid = new List<Bid>(){}
                 },
                 new AdminEntity()
                 {
-                    Id = 2, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new Proprietary(){Id = 2},
-                    Bid = new Bid(){Id = 2}
+                    Id = 2, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(){},
+                    Bid = new List<Bid>(){}
                 },
                 new AdminEntity()
                 {
-                    Id = 3, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 3}, Proprietary = new Proprietary(){Id = 3},
-                    Bid = new Bid(){Id = 3}
+                    Id = 3, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(){},
+                    Bid = new List<Bid>(){}
                 }
             };
             fakeContext.Set<AdminEntity>().AddRange(list);
             fakeContext.SaveChanges();
+            fakeContext.ChangeTracker.Clear();
             var expectedList = list.Select(ae => new Admin()
             {
                 Id = ae.Id,
@@ -89,13 +90,13 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AdminEntity()
                 {
-                    Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new Proprietary(),
-                    Bid = new Bid()
+                    Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 },
                 new AdminEntity()
                 {
-                    Id = 2, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new Proprietary(),
-                    Bid = new Bid()
+                    Id = 2, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<AdminEntity>().AddRange(list);
@@ -132,8 +133,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AdminEntity()
                 {
-                    Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new Proprietary(),
-                    Bid = new Bid()
+                    Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<AdminEntity>().AddRange(list);
@@ -160,13 +161,13 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new AdminRepository(fakeContext);
             var fakeList = new List<AdminEntity>();
             var expected = new Admin()
-            { FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new Proprietary(){Id = 2},
-                Bid = new Bid(){Id = 2}
+            { FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(){},
+                Bid = new List<Bid>(){}
             };
             fakeContext.Set<AdminEntity>().AddRange(fakeList);
             fakeContext.SaveChanges();
             fakeContext.ChangeTracker.Clear();
-            var actual = repository.Create("Admin", "Admin", new Address(), new Proprietary(), new Bid());
+            var actual = repository.Create("Admin", "Admin", new Address(), new List<Proprietary>(), new List<Bid>());
             //Assert.Equal(expected,repository.Create("Admin", "Admin", new Address(), new Proprietary(), new Bid()),new Comparer());
             Assert.Equal(1,1);
         }
@@ -181,16 +182,16 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AdminEntity()
                 {
-                    Id =1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new Proprietary(){Id = 1},
-                    Bid = new Bid(){Id = 1}
+                    Id =1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){},
+                    Bid = new List<Bid>(){}
                 }
             };
             fakeContext.Set<AdminEntity>().AddRange(list);
             fakeContext.SaveChanges();
             var expected = new Admin()
             {
-                Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new Proprietary(){Id = 1},
-                Bid = new Bid(){Id = 1}
+                Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){},
+                Bid = new List<Bid>(){}
             };
             fakeContext.ChangeTracker.Clear();
             var actual = repository.Update(expected);
@@ -205,8 +206,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new AdminRepository(fakeContext);
             var list = new List<AdminEntity>()
             {
-                new AdminEntity() {Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 3}, Proprietary = new Proprietary(){Id = 3},
-                    Bid = new Bid(){Id = 3}}
+                new AdminEntity() {Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(){},
+                    Bid = new List<Bid>(){}}
             };
             fakeContext.Set<AdminEntity>().AddRange(list);
             fakeContext.SaveChanges();

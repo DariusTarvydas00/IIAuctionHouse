@@ -26,7 +26,7 @@ namespace IIAuctionHouse.Domain.Services
             return _AdminRepository.GetById(id);
         }
 
-        public Admin Create(string firstName, string lastName, Address address, Proprietary proprietary, Bid bid)
+        public Admin Create(string firstName, string lastName, Address address, List<Proprietary> proprietary, List<Bid> bid)
         {
             if (firstName is null || lastName is null || address is null || proprietary is null || bid is null)
                 throw new InvalidDataException("One of the values is empty or entered incorrectly"); 
