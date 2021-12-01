@@ -13,6 +13,11 @@ jobs:
 
     steps:
     - uses: actions/checkout@v2
+      if: success() || failure()    # run this step even if previous step failed
+      with:
+          name: JEST Tests            # Name of the check run which will be created
+          path: '*.xml'    # Path to test results
+          reporter: jest-junit 
     - name: Setup .NET
       uses: actions/setup-dotnet@v1
       with:
