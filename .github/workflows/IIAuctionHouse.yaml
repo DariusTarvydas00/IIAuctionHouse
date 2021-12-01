@@ -51,5 +51,9 @@ jobs:
 
     - name: Test
       run: dotnet test
-  
 
+    - name: Test Reporter
+      uses: dorny/test-reporter@v1.5.0
+
+
+    
