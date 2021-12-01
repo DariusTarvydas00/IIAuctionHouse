@@ -1,4 +1,5 @@
-﻿using IIAuctionHouse.Core.Models;
+﻿using System.Collections.Generic;
+using IIAuctionHouse.Core.Models;
 
 namespace IIAuctionHouse.DataAccess.Entities
 {
@@ -9,9 +10,9 @@ namespace IIAuctionHouse.DataAccess.Entities
         public string LastName { get; set; }
         public Address Address { get; set; }
         public int AddressId { get; set; }
-        public Proprietary Proprietary { get; set; }
+        public List<Proprietary> Proprietary { get; set; }
         public int ProprietaryId { get; set; }
-        public Bid Bid { get; set; }
+        public List<Bid> Bid { get; set; }
         public int BidId { get; set; }
     }
 }

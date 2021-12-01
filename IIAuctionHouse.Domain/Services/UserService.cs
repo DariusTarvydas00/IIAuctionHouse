@@ -26,7 +26,7 @@ namespace IIAuctionHouse.Domain.Services
             return _userRepository.GetById(id);
         }
 
-        public User Create(string firstName, string lastName, Address address, Proprietary proprietary, Bid bid)
+        public User Create(string firstName, string lastName, Address address, List<Proprietary> proprietary, List<Bid> bid)
         {
             if (firstName is null || lastName is null || address is null || proprietary is null || bid is null)
                 throw new InvalidDataException("One of the values is empty or entered incorrectly"); 

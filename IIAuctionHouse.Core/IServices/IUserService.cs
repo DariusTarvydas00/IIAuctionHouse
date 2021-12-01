@@ -7,7 +7,7 @@ namespace IIAuctionHouse.Core.IServices
     {
         List<User> ReadAll();
         User GetById(int id);
-        User Create(string firstName, string lastName, Address address, Proprietary proprietary, Bid bid);
+        User Create(string firstName, string lastName, Address address, List<Proprietary> proprietary, List<Bid> bid);
         User Update(User user);
         User Delete(int id);
     }

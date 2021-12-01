@@ -49,22 +49,23 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new Proprietary(){Id = 1},
-                    Bid = new Bid(){Id = 1}
+                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 1}},
+                    Bid = new List<Bid>(){new Bid(){Id = 1}}
                 },
                 new UserEntity()
                 {
-                    Id = 2, FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new Proprietary(){Id = 2},
-                    Bid = new Bid(){Id = 2}
+                    Id = 2, FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 2}},
+                    Bid = new List<Bid>(){new Bid(){Id = 2}}
                 },
                 new UserEntity()
                 {
-                    Id = 3, FirstName = "User", LastName = "User", Address = new Address(){Id = 3}, Proprietary = new Proprietary(){Id = 3},
-                    Bid = new Bid(){Id = 3}
+                    Id = 3, FirstName = "User", LastName = "User", Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 3}},
+                    Bid = new List<Bid>(){new Bid(){Id = 3}}
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
             fakeContext.SaveChanges();
+            fakeContext.ChangeTracker.Clear();
             var expectedList = list.Select(ae => new User()
             {
                 Id = ae.Id,
@@ -89,13 +90,13 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new Proprietary(),
-                    Bid = new Bid()
+                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 },
                 new UserEntity()
                 {
-                    Id = 2, FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new Proprietary(),
-                    Bid = new Bid()
+                    Id = 2, FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
@@ -132,8 +133,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new Proprietary(),
-                    Bid = new Bid()
+                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
@@ -160,14 +161,14 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new UserRepository(fakeContext);
             var fakeList = new List<UserEntity>();
             var expected = new User()
-            { FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new Proprietary(){Id = 2},
-                Bid = new Bid(){Id = 2}
+            { FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
             fakeContext.Set<UserEntity>().AddRange(fakeList);
             fakeContext.SaveChanges();
             fakeContext.ChangeTracker.Clear();
-            var actual = repository.Create("User", "User", new Address(), new Proprietary(), new Bid());
-            //Assert.Equal(expected,repository.Create("User", "User", new Address(), new Proprietary(), new Bid()),new Comparer());
+            var actual = repository.Create("User", "User", new Address(), new List<Proprietary>(), new List<Bid>());
+            //Assert.Equal(expected,repository.Create("User", "User", new Address(), new List<Proprietary>(), new Bid()),new Comparer());
             Assert.Equal(1,1);
         }
         
@@ -181,16 +182,16 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id =1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new Proprietary(){Id = 1},
-                    Bid = new Bid(){Id = 1}
+                    Id =1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
             fakeContext.SaveChanges();
             var expected = new User()
             {
-                Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new Proprietary(){Id = 1},
-                Bid = new Bid(){Id = 1}
+                Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                Bid = new List<Bid>()
             };
             fakeContext.ChangeTracker.Clear();
             var actual = repository.Update(expected);
@@ -205,8 +206,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new UserRepository(fakeContext);
             var list = new List<UserEntity>()
             {
-                new UserEntity() {Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 3}, Proprietary = new Proprietary(){Id = 3},
-                    Bid = new Bid(){Id = 3}}
+                new UserEntity() {Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(),
+                    Bid = new List<Bid>()}
             };
             fakeContext.Set<UserEntity>().AddRange(list);
             fakeContext.SaveChanges();
