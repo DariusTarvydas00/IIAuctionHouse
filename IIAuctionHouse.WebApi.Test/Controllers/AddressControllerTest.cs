@@ -5,6 +5,7 @@ using System.Reflection;
 using IIAuctionHouse.Controllers;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
 using Xunit;

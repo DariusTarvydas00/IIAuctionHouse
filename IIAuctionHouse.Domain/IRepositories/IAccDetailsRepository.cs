@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 
 namespace IIAuctionHouse.Domain.IRepositories
 {

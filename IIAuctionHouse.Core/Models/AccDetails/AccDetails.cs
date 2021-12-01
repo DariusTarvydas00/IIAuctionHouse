@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace IIAuctionHouse.Core.Models
+namespace IIAuctionHouse.Core.Models.AccDetails
 {
     public class AccDetails
     {

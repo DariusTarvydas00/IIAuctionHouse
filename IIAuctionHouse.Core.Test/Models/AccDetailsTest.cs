@@ -1,5 +1,6 @@
 ﻿using System;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using Xunit;
 
 namespace IIAuctionHouse.Core.Test.Models

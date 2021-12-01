@@ -4,6 +4,7 @@ using System.IO;
 using System.Linq;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using IIAuctionHouse.Domain.IRepositories;
 
 namespace IIAuctionHouse.Domain.Services
