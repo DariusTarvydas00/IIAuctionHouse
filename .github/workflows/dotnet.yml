@@ -23,3 +23,10 @@ jobs:
       run: dotnet build --no-restore
     - name: Test
       run: dotnet test --no-build --verbosity normal
+    - name: use this action, test solution dir
+      uses: zyborg/dotnet-tests-report@v1
+      with:
+        project_path: IIAuctionHouse.Core.Test/Models
+        report_name: Models Test
+        report_title: II Auction House Tests
+        github_token: ${{ secrets.GITHUB_TOKEN }}
