@@ -85,7 +85,7 @@ namespace IIAuctionHouse.Core.Test.Models
         
         // Checking if PostCode value is stored
         [Fact]
-        public void PostCode_SetPostCode_StoresPostCode()
+        public void PostCode_SetPostCode_StoresPostCode() 
         {
             Assert.Equal(1067,_address.PostCode);
         }
