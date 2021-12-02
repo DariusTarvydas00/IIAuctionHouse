@@ -27,15 +27,6 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.NotNull(_address);
         }
 
-        [Fact]
-        // Check if Id, Country, City, PostCode, StreetName, StreetNumber properties exists
-        public void Address_IdCountryCityPostCodeStreetNameStreetNumber_Exists()
-        {
-            Assert.True(_address.GetType().GetProperty("Country") != null);
-            Assert.True(_address.GetType().GetProperty("City") != null);
-            Assert.True(_address.GetType().GetProperty("StreetName") != null);
-        }
-
         # region Id Property Test
         
         [Fact]
