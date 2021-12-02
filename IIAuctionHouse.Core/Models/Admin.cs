@@ -9,7 +9,7 @@ namespace IIAuctionHouse.Core.Models
         public string FirstName { get; set; }
         public string LastName { get; set; }
         public Address Address { get; set; }
-        public List<Proprietary> Proprietary { get; set; }
-        public List<Bid> Bid { get; set; }
+        public List<Proprietary> Proprietaries { get; set; }
+        public List<Bid> Bids { get; set; }
     }
 }

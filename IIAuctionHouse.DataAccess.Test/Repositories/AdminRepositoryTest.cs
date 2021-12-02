@@ -73,8 +73,8 @@ namespace IIAuctionHouseDataAccess.Repositories
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
                 Address = ae.Address,
-                Proprietary = ae.Proprietary,
-                Bid = ae.Bid
+                Proprietaries = ae.Proprietary,
+                Bids = ae.Bid
             }).ToList();
 
             var actual = repository.ReadAll();
@@ -117,8 +117,8 @@ namespace IIAuctionHouseDataAccess.Repositories
                 FirstName = AdminEntity.FirstName,
                 LastName = AdminEntity.LastName,
                 Address = AdminEntity.Address,
-                Proprietary = AdminEntity.Proprietary,
-                Bid = AdminEntity.Bid
+                Proprietaries = AdminEntity.Proprietary,
+                Bids = AdminEntity.Bid
             };
             var actual = repository.GetById(1);
             Assert.Equal(1,1);
@@ -147,8 +147,8 @@ namespace IIAuctionHouseDataAccess.Repositories
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Address = entity.Address,
-                Proprietary = entity.Proprietary,
-                Bid = entity.Bid
+                Proprietaries = entity.Proprietary,
+                Bids = entity.Bid
             };
             var actual = repository.GetById(1);
             Assert.Equal(1,1);
@@ -162,8 +162,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new AdminRepository(fakeContext);
             var fakeList = new List<AdminEntity>();
             var expected = new Admin()
-            { FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(){},
-                Bid = new List<Bid>(){}
+            { FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 2}, Proprietaries = new List<Proprietary>(){},
+                Bids = new List<Bid>(){}
             };
             fakeContext.Set<AdminEntity>().AddRange(fakeList);
             fakeContext.SaveChanges();
@@ -191,8 +191,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             fakeContext.SaveChanges();
             var expected = new Admin()
             {
-                Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){},
-                Bid = new List<Bid>(){}
+                Id = 1, FirstName = "Admin", LastName = "Admin", Address = new Address(){Id = 1}, Proprietaries = new List<Proprietary>(){},
+                Bids = new List<Bid>(){}
             };
             fakeContext.ChangeTracker.Clear();
             var actual = repository.Update(expected);
@@ -229,12 +229,12 @@ namespace IIAuctionHouseDataAccess.Repositories
                 if (ReferenceEquals(x, null)) return false;
                 if (ReferenceEquals(y, null)) return false;
                 if (x.GetType() != y.GetType()) return false;
-                return x.Id == y.Id && x.FirstName == y.FirstName && x.LastName == y.LastName && Equals(x.Address, y.Address) && Equals(x.Proprietary, y.Proprietary) && Equals(x.Bid, y.Bid);
+                return x.Id == y.Id && x.FirstName == y.FirstName && x.LastName == y.LastName && Equals(x.Address, y.Address) && Equals(x.Proprietaries, y.Proprietaries) && Equals(x.Bids, y.Bids);
             }
 
             public int GetHashCode(Admin obj)
             {
-                return HashCode.Combine(obj.Id, obj.FirstName, obj.LastName, obj.Address, obj.Proprietary, obj.Bid);
+                return HashCode.Combine(obj.Id, obj.FirstName, obj.LastName, obj.Address, obj.Proprietaries, obj.Bids);
             }
         }
     }
