@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using IIAuctionHouse.Core.IServices;
@@ -114,8 +115,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         }
         // Checks if Creating Bid Object is possible
         [Theory]
-        [InlineData(null, null)]
-        [InlineData(7000, null)]
+        [ClassData(typeof(TestCreateDataClass))]
         public void Create_WithNull_ThrowsExceptionWithMessage(int bidAmount, DateTime bidDateTime)
         {
             var expected = "One of the values is empty or entered incorrectly";
@@ -123,18 +123,29 @@ namespace IIAuctionHouse.Domain.Test.Services
                 _service.Create(bidAmount,bidDateTime));
             Assert.Equal(expected,actual.Message);
         }
+        
+        private class TestCreateDataClass : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _data = new List<object[]>
+            {
+                new object[] {null, new DateTime(2017, 3, 1)},
+                new object[] {7000, null},
+            };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
          
         // Checks if Updating Object is possible
         [Fact]
         public void Update_WithNull_ThrowsExceptionWithMessage()
         {
-            var fakeList = new List<Bid>();
-            fakeList.Add(new Bid() {Id = 0, BidAmount = 6700, BidDateTime = DateTime.Today});
             var update1 = new Bid() {Id = 0, BidAmount = 6700};
             var update2 = new Bid() {Id = 0, BidDateTime = DateTime.Today};
-            var expected = "One of the values is empty or entered incorrectly";
             var actual1 = Assert.Throws<InvalidDataException>(() => _service.Update(update1));
             var actual2 = Assert.Throws<InvalidDataException>(() => _service.Update(update2));
+            var expected = "One of the values is empty or entered incorrectly";
             Assert.Equal(expected,actual1.Message);
             Assert.Equal(expected,actual2.Message);
         }

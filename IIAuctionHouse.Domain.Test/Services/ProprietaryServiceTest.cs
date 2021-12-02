@@ -133,11 +133,6 @@ namespace IIAuctionHouse.Domain.Test.Services
         [Fact]
         public void Update_WithNull_ThrowsExceptionWithMessage()
         {
-            var fakeList = new List<Proprietary>();
-            fakeList.Add(new Proprietary() {Id = 0,
-                CadastreNumber = "123/123/123",
-                City = "Esbjerg",
-                ForestryEnterprise = "EsbjergEnterprise"});
             var update1 = new Proprietary() {Id = 0,
                 CadastreNumber = "123/123/123",
                 ForestryEnterprise = "EsbjergEnterprise"};
