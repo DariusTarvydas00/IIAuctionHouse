@@ -48,9 +48,8 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void Id_isIntegerType()
         {
-#pragma warning disable 183
+            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.Id is int);
-#pragma warning restore 183
         }
         
         // Checking if Id value is stored
@@ -82,9 +81,8 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void PostCode_isIntegerType()
         {
-#pragma warning disable 183
+            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.PostCode is int);
-#pragma warning restore 183
         }
         
         // Checking if PostCode value is stored
@@ -116,9 +114,8 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void StreetNumber_isIntegerType()
         {
-#pragma warning disable 183
+            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.StreetNumber is int);
-#pragma warning restore 183
         }
         
         // Checking if StreetNumber value is stored
