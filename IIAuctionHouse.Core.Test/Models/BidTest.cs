@@ -6,106 +6,86 @@ namespace IIAuctionHouse.Core.Test.Models
 {
     public class BidTest
     {
-         private Bid _bid;
+         private readonly Bid _bid;
 
         public BidTest()
         {
-            _bid = new Bid();
+            _bid = new Bid()
+            {
+                Id = 1,
+                BidAmount = 7601,
+                BidDateTime = DateTime.Today
+            };
         }
 
-        // Checking if Bid class can be initialized
+        // Checks if Bid class can be initialized
         [Fact]
         public void Bid_CanBeInitialized()
         {
             Assert.NotNull(_bid);
         }
 
-        #region Id property Test
-
-        // Checking if Id property exists
+        // Checks if Id, BidAmount BidDateTime, Bids property exists
         [Fact]
-        public void Bid_Id_Exists()
+        public void Bid_Properties_Exists()
         {
             Assert.True(_bid.GetType().GetProperty("Id") != null);
-        }
-        
-        // Checking if Id is integer type
-        [Fact]
-        public void Id_NoParam_isInt()
-        {
-            Assert.True(_bid.Id is int);
-        }
-        
-        // Checking if SetId stores Id
-        [Fact]
-        public void Id_SetUpdateId_StoresUpdatesId()
-        {
-            _bid.Id = 1;
-            Assert.Equal(1,_bid.Id);
-            _bid.Id = 2;
-            Assert.Equal(2, _bid.Id);
-        }
-
-        #endregion
-
-
-        #region BidAmount property Test
-
-        // Checking if BidAmount property exists
-        [Fact]
-        public void Bid_BidAmount_Exists()
-        {
             Assert.True(_bid.GetType().GetProperty("BidAmount") != null);
+            Assert.True(_bid.GetType().GetProperty("BidDateTime") != null);
         }
         
-        // Checking if BidAmount is int type
+        // Checks if Id, BidAmount is integer type
         [Fact]
-        public void BidAmount_NoParam_isInt()
+        public void IdBidAmount_NoParam_isInt()
         {
+#pragma warning disable 183
+            Assert.True(_bid.Id is int);
             Assert.True(_bid.BidAmount is int);
+#pragma warning restore 183
         }
         
-        // Checking if BidAmount stores value and updates to new one
+        // Checks if Id BidAmount stores values
         [Fact]
-        public void BidAmount_SetUpdateBidAmount_StoresUpdatesBidAmount()
+        public void IdBid_SetIdBid_StoresValues()
         {
-            _bid.BidAmount = 7601;
+            Assert.Equal(1,_bid.Id);
             Assert.Equal(7601, _bid.BidAmount);
+        }
+        
+        // Checks if Id BidAmount stores new value
+        [Fact]
+        public void IdBid_SetIdBid_StoresNewValues()
+        {
+            _bid.Id = 2;
+            Assert.Equal(2,_bid.Id);
             _bid.BidAmount = 7600;
             Assert.Equal(7600, _bid.BidAmount);
         }
 
-        #endregion
-
-
-        #region BidDateTime property Test
-
-        // Checking if BidDateTime property exists
-        [Fact]
-        public void Bid_BidDateTime_Exists()
-        {
-            Assert.True(_bid.GetType().GetProperty("BidDateTime") != null);
-        }
         
-        // Checking if BidDateTime is int type
+        // Checks if BidDateTime is DatTime type value
         [Fact]
-        public void BidDateTime_NoParam_isInt()
+        public void BidDateTime_NoParam_IsDateTimeType()
         {
+#pragma warning disable 183
             Assert.True(_bid.BidDateTime is DateTime);
+#pragma warning restore 183
         }
         
-        // Checking if BidDateTime property stores and updates new value
+        // Checks if BidDateTime stores value
         [Fact]
-        public void BidDateTime_SetUpdateBidDateTime_StoresUpdatesBidDateTime()
+        public void BidDateTime_SetBidDateTime_StoresValue()
         {
-            var date = DateTime.Today;
-            _bid.BidDateTime = date;
-            Assert.Equal(date, _bid.BidDateTime);
-            var newDate = new DateTime(2021, 12, 01);
-            _bid.BidDateTime = newDate;
-            Assert.Equal(newDate, _bid.BidDateTime);
+            Assert.Equal(DateTime.Today, _bid.BidDateTime);
         }
- 
-        #endregion
+        
+        // Checks Id BidDateTime new value is stored
+        [Fact]
+        public void BidDateTime_SetBidDateTime_StoresNewValue()
+        {
+            var expected = _bid.BidDateTime = new DateTime(2021, 12, 01);
+            Assert.Equal(expected, _bid.BidDateTime);
+        }
+        
     }
 }
