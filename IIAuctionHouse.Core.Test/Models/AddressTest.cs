@@ -48,7 +48,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void Id_isIntegerType()
         {
-            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.Id is int);
         }
         
@@ -81,7 +80,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void PostCode_isIntegerType()
         {
-            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.PostCode is int);
         }
         
@@ -114,7 +112,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void StreetNumber_isIntegerType()
         {
-            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.StreetNumber is int);
         }
         
@@ -147,7 +144,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void Country_isIntegerType()
         {
-            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.Country is string);
         }
         
@@ -180,7 +176,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void City_isIntegerType()
         {
-            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.City is string);
         }
         
@@ -213,7 +208,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void StreetName_isIntegerType()
         {
-            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.StreetName is string);
         }
         
