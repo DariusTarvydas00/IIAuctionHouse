@@ -26,8 +26,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
                 Address = ae.Address,
-                Proprietary = ae.Proprietary,
-                Bid = ae.Bid
+                Proprietaries = ae.Proprietary,
+                Bids = ae.Bid
             }).ToList();
         }
 
@@ -50,8 +50,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
                     FirstName = UserEntity.FirstName,
                     LastName = UserEntity.LastName,
                     Address = UserEntity.Address,
-                    Proprietary = UserEntity.Proprietary,
-                    Bid = UserEntity.Bid
+                    Proprietaries = UserEntity.Proprietary,
+                    Bids = UserEntity.Bid
                 };
             }
             return null;
@@ -73,8 +73,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Address = entity.Address,
-                Proprietary = entity.Proprietary,
-                Bid = entity.Bid
+                Proprietaries = entity.Proprietary,
+                Bids = entity.Bid
             };
         }
 
@@ -86,8 +86,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 FirstName = User.FirstName,
                 LastName = User.LastName,
                 Address = User.Address,
-                Proprietary = User.Proprietary,
-                Bid = User.Bid
+                Proprietary = User.Proprietaries,
+                Bid = User.Bids
             }).Entity;
             _ctx.SaveChanges();
             return new User()
@@ -96,8 +96,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Address = entity.Address,
-                Proprietary = entity.Proprietary,
-                Bid = entity.Bid
+                Proprietaries = entity.Proprietary,
+                Bids = entity.Bid
             };
         }
 
@@ -114,8 +114,8 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
                 Address = entity.Address,
-                Proprietary = entity.Proprietary,
-                Bid = entity.Bid
+                Proprietaries = entity.Proprietary,
+                Bids = entity.Bid
             };
 
         }
