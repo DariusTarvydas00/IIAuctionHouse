@@ -19,7 +19,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if ReadAll method return a list
         [Fact]
-        public void ReadAll_NoParam_ReturnsListOfAllBids()
+        public void ReadAll_ReturnsListOfAllBids()
         {
             var mock = new Mock<IBidService>();
             var fakeList = new List<Bid>();
@@ -34,21 +34,21 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IBidService>();
             var fakeList = new List<Bid>();
-            var Bid = new Bid()
+            var bid = new Bid()
             {
                 Id = 1,
                 BidAmount = 7000,
                 BidDateTime = DateTime.Today
             };
-            fakeList.Add(Bid);
+            fakeList.Add(bid);
             mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
             var service = mock.Object;
-            Assert.Equal(Bid,service.GetById(1));
+            Assert.Equal(bid,service.GetById(1));
         }
         
         // Checking if Bid object is created
         [Fact]
-        public void Create_AllBidProperties_IsCreated()
+        public void Create_Bid_IsCreated()
         {
             var mock = new Mock<IBidService>();
             var fakeBid = new Bid()
@@ -71,18 +71,12 @@ namespace IIAuctionHouse.Core.Test.IServices
             var fakeBid = new Bid()
             {
                 Id = 1,
-                BidAmount = 7000,
-                BidDateTime = DateTime.Today
-            };
-            var newFakeBid = new Bid()
-            {
-                Id = 1,
                 BidAmount = 8000,
                 BidDateTime = DateTime.Today
             };
-            mock.Setup(s => s.Update(newFakeBid)).Returns(newFakeBid);
+            mock.Setup(s => s.Update(fakeBid)).Returns(fakeBid);
             var service = mock.Object;
-            Assert.Equal(newFakeBid,service.Update(newFakeBid));
+            Assert.Equal(fakeBid,service.Update(fakeBid));
         }
         
         // Checks if Delete method deletes object
@@ -91,13 +85,13 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IBidService>();
             var fakeList = new List<Bid>();
-            var Bid = new Bid()
+            var bid = new Bid()
             { 
                 Id = 1,
                 BidAmount = 8000,
                 BidDateTime = DateTime.Today
             };
-            fakeList.Add(Bid);
+            fakeList.Add(bid);
             mock.Setup(s => s.Delete(1)).Returns(() => null);
             var service = mock.Object;
             Assert.Null(service.Delete(1));

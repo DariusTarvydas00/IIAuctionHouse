@@ -189,7 +189,7 @@ namespace IIAuctionHouse.Core.Test.Models
 
         #endregion
 
-        #region Proprietarys Property Test
+        #region Proprietaries Property Test
 
         // Checks if Proprietary property exists
         [Fact]
@@ -198,7 +198,7 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.True(_user.GetType().GetProperty("Proprietaries") != null);
         }
         
-        // Checks if Proprietarys property is List of Proprietarys type
+        // Checks if Proprietaries property is List of Proprietaries type
         [Fact]
         public void Proprietaries_IsListOfProprietaries()
         {

@@ -19,7 +19,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if ReadAll method return a list
         [Fact]
-        public void ReadAll_NoParam_ReturnsListOfAllUseres()
+        public void ReadAll_ReturnsListOfAllUsers()
         {
             var mock = new Mock<IUserService>();
             var fakeList = new List<User>();
@@ -34,7 +34,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IUserService>();
             var fakeList = new List<User>();
-            var User = new User()
+            var user = new User()
             {
                 Id = 1,
                 FirstName = "User",
@@ -43,15 +43,15 @@ namespace IIAuctionHouse.Core.Test.IServices
                 Proprietaries = new List<Proprietary>(),
                 Bids = new List<Bid>()
             };
-            fakeList.Add(User);
+            fakeList.Add(user);
             mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
             var service = mock.Object;
-            Assert.Equal(User,service.GetById(1));
+            Assert.Equal(user,service.GetById(1));
         }
         
         // Checking if User object is created
         [Fact]
-        public void Create_AllUserProperties_IsCreated()
+        public void Create_User_IsCreated()
         {
             var mock = new Mock<IUserService>();
             var fakeUser = new User()
@@ -77,24 +77,15 @@ namespace IIAuctionHouse.Core.Test.IServices
             var fakeUser = new User()
             {
                 Id = 1,
-                FirstName = "User",
-                LastName = "User",
-                Address = new Address(),
-                Proprietaries = new List<Proprietary>(),
-                Bids = new List<Bid>()
-            };
-            var newFakeUser = new User()
-            {
-                Id = 1,
                 FirstName = "User2",
                 LastName = "User2",
                 Address = new Address(),
                 Proprietaries = new List<Proprietary>(),
                 Bids = new List<Bid>()
             };
-            mock.Setup(s => s.Update(newFakeUser)).Returns(newFakeUser);
+            mock.Setup(s => s.Update(fakeUser)).Returns(fakeUser);
             var service = mock.Object;
-            Assert.Equal(newFakeUser,service.Update(newFakeUser));
+            Assert.Equal(fakeUser,service.Update(fakeUser));
         }
         
         // Checks if Delete method deletes object
@@ -103,7 +94,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IUserService>();
             var fakeList = new List<User>();
-            var User = new User()
+            var user = new User()
             {
                 Id = 1,
                 FirstName = "User",
@@ -112,7 +103,7 @@ namespace IIAuctionHouse.Core.Test.IServices
                 Proprietaries = new List<Proprietary>(),
                 Bids = new List<Bid>()
             };
-            fakeList.Add(User);
+            fakeList.Add(user);
             mock.Setup(s => s.Delete(1)).Returns(() => null);
             var service = mock.Object;
             Assert.Null(service.Delete(1));

@@ -19,7 +19,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if ReadAll method return a list
         [Fact]
-        public void ReadAll_NoParam_ReturnsListOfAllAdmines()
+        public void ReadAll_ReturnsListOfAllAdmins()
         {
             var mock = new Mock<IAdminService>();
             var fakeList = new List<Admin>();
@@ -34,7 +34,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IAdminService>();
             var fakeList = new List<Admin>();
-            var Admin = new Admin()
+            var admin = new Admin()
             {
                 Id = 1,
                 FirstName = "Admin",
@@ -43,15 +43,15 @@ namespace IIAuctionHouse.Core.Test.IServices
                 Proprietaries = new List<Proprietary>(),
                 Bids = new List<Bid>()
             };
-            fakeList.Add(Admin);
+            fakeList.Add(admin);
             mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
             var service = mock.Object;
-            Assert.Equal(Admin,service.GetById(1));
+            Assert.Equal(admin,service.GetById(1));
         }
         
         // Checking if Admin object is created
         [Fact]
-        public void Create_AllAdminProperties_IsCreated()
+        public void Create_Admin_IsCreated()
         {
             var mock = new Mock<IAdminService>();
             var fakeAdmin = new Admin()
@@ -77,24 +77,15 @@ namespace IIAuctionHouse.Core.Test.IServices
             var fakeAdmin = new Admin()
             {
                 Id = 1,
-                FirstName = "Admin",
-                LastName = "Admin",
-                Address = new Address(),
-                Proprietaries = new List<Proprietary>(),
-                Bids = new List<Bid>()
-            };
-            var newFakeAdmin = new Admin()
-            {
-                Id = 1,
                 FirstName = "Admin2",
                 LastName = "Admin2",
                 Address = new Address(),
                 Proprietaries = new List<Proprietary>(),
                 Bids = new List<Bid>()
             };
-            mock.Setup(s => s.Update(newFakeAdmin)).Returns(newFakeAdmin);
+            mock.Setup(s => s.Update(fakeAdmin)).Returns(fakeAdmin);
             var service = mock.Object;
-            Assert.Equal(newFakeAdmin,service.Update(newFakeAdmin));
+            Assert.Equal(fakeAdmin,service.Update(fakeAdmin));
         }
         
         // Checks if Delete method deletes object

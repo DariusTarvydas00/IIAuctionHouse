@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using IIAuctionHouse.Core.IServices;
-using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
 using Moq;
 using Xunit;
@@ -9,6 +8,7 @@ namespace IIAuctionHouse.Core.Test.IServices
 {
     public class IAddressServiceTest
     {
+        
         // Checking if IAddressService is available
         [Fact]
         public void IAddressService_IsAvailable()
@@ -19,7 +19,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if ReadAll method return a list
         [Fact]
-        public void ReadAll_NoParam_ReturnsListOfAllAddresses()
+        public void ReadAll_ReturnsListOfAllAddresses()
         {
             var mock = new Mock<IAddressService>();
             var fakeList = new List<Address>();
@@ -51,7 +51,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if Address object is created
         [Fact]
-        public void Create_AllAddressProperties_IsCreated()
+        public void Create_Address_IsCreated()
         {
             var mock = new Mock<IAddressService>();
             var fakeAddress = new Address()
@@ -78,23 +78,14 @@ namespace IIAuctionHouse.Core.Test.IServices
             {
                 Id = 1,
                 Country = "Denmark",
-                City = "Esbjerg",
-                PostCode = 6700,
-                StreetName = "Skolegadeeee",
-                StreetNumber = 301
-            };
-            var newFakeAddress = new Address()
-            {
-                Id = 1,
-                Country = "Denmark",
                 City = "Copenhagen",
                 PostCode = 6700, 
-                StreetName = "Skolegadeeee",
+                StreetName = "Skolegade",
                 StreetNumber = 301
             };
-            mock.Setup(s => s.Update(newFakeAddress)).Returns(newFakeAddress);
+            mock.Setup(s => s.Update(fakeAddress)).Returns(fakeAddress);
             var service = mock.Object;
-            Assert.Equal(newFakeAddress,service.Update(newFakeAddress));
+            Assert.Equal(fakeAddress,service.Update(fakeAddress));
         }
         
         // Checks if Delete method deletes object
@@ -102,7 +93,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         public void Delete_Id_ReturnNull()
         {
             var mock = new Mock<IAddressService>();
-            var fakeList = new List<Address>();
+            var list = new List<Address>();
             var address = new Address()
             {
                 Id = 1,
@@ -112,7 +103,7 @@ namespace IIAuctionHouse.Core.Test.IServices
                 StreetName = "Skolegade",
                 StreetNumber = 30
             };
-            fakeList.Add(address);
+            list.Add(address);
             mock.Setup(s => s.Delete(1)).Returns(() => null);
             var service = mock.Object;
             Assert.Null(service.Delete(1));
