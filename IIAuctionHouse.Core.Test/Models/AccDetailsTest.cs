@@ -86,15 +86,15 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void PhoneNumber_SetPhoneNumber_StoresPhoneNumber()
         {
-            Assert.Equal(1,_accDetails.PhoneNumber);
+            Assert.Equal(123456789,_accDetails.PhoneNumber);
         }
         
         // Checking if PhoneNumber value is updated
         [Fact]
         public void PhoneNumber_UpdatePhoneNumber_StoresNewPhoneNumberValues()
         {
-            _accDetails.PhoneNumber = 2;
-            Assert.Equal(2,_accDetails.PhoneNumber);
+            _accDetails.PhoneNumber = 987654321;
+            Assert.Equal(987654321,_accDetails.PhoneNumber);
         }
         
         #endregion
@@ -182,7 +182,7 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void AccCreationDate_Exists()
         {
-            Assert.True(_accDetails.GetType().GetProperty("AccCreationDate") != null);
+            Assert.True(_accDetails.GetType().GetProperty("AccCreationDateTime") != null);
         }
         
         // Checking if DateTime property is DateTime type
