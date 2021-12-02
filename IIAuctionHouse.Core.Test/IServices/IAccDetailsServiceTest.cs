@@ -76,8 +76,8 @@ namespace IIAuctionHouse.Core.Test.IServices
             {
                 Id = 1,
                 Address = new Address(),
-                Email = "test2@test2.com",
-                PhoneNumber = 123456789,
+                Email = "test@test.com",
+                PhoneNumber = 987654321,
                 AccCreationDateTime = new DateTime(2021,11,23)
             };
             mock.Setup(s => s.Update(fakeAccDetails)).Returns(fakeAccDetails);
