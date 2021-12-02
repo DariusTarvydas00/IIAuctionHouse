@@ -48,8 +48,6 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void Id_isIntegerType()
         {
-            Assert.True(_address.Id is int);
-        }
         
         // Checking if Id value is stored
         [Fact]
