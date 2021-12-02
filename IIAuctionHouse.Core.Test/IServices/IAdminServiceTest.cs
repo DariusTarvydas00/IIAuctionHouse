@@ -40,8 +40,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "Admin",
                 LastName = "Admin",
                 Address = new Address(),
-                Proprietary = new List<Proprietary>(),
-                Bid = new List<Bid>()
+                Proprietaries = new List<Proprietary>(),
+                Bids = new List<Bid>()
             };
             fakeList.Add(Admin);
             mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
@@ -60,8 +60,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "Admin",
                 LastName = "Admin",
                 Address = new Address(),
-                Proprietary = new List<Proprietary>(),
-                Bid = new List<Bid>()
+                Proprietaries = new List<Proprietary>(),
+                Bids = new List<Bid>()
             };
             mock.Setup(s => s.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<Address>(), It.IsAny<List<Proprietary>>(), It.IsAny<List<Bid>>()))
                 .Returns(() => fakeAdmin);
@@ -80,8 +80,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "Admin",
                 LastName = "Admin",
                 Address = new Address(),
-                Proprietary = new List<Proprietary>(),
-                Bid = new List<Bid>()
+                Proprietaries = new List<Proprietary>(),
+                Bids = new List<Bid>()
             };
             var newFakeAdmin = new Admin()
             {
@@ -89,8 +89,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "Admin2",
                 LastName = "Admin2",
                 Address = new Address(),
-                Proprietary = new List<Proprietary>(),
-                Bid = new List<Bid>()
+                Proprietaries = new List<Proprietary>(),
+                Bids = new List<Bid>()
             };
             mock.Setup(s => s.Update(newFakeAdmin)).Returns(newFakeAdmin);
             var service = mock.Object;
@@ -109,8 +109,8 @@ namespace IIAuctionHouse.Core.Test.IServices
                 FirstName = "Admin",
                 LastName = "Admin",
                 Address = new Address(),
-                Proprietary = new List<Proprietary>(),
-                Bid = new List<Bid>()
+                Proprietaries = new List<Proprietary>(),
+                Bids = new List<Bid>()
             };
             fakeList.Add(Admin);
             mock.Setup(s => s.Delete(1)).Returns(() => null);

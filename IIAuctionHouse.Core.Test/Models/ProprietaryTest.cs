@@ -168,7 +168,7 @@ namespace IIAuctionHouse.Core.Test.Models
 
         // Checks if Proprietary property exists
         [Fact]
-        public void Proprietary_Properties_Exists()
+        public void Bids_Exists()
         {
             Assert.True(_proprietary.GetType().GetProperty("Bids") != null);
         }

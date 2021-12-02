@@ -8,7 +8,7 @@ namespace IIAuctionHouse.Core.Test.Models
 {
     public class UserTest
     {
-         private User _user;
+         private readonly User _user;
 
         public UserTest()
         {
@@ -193,19 +193,19 @@ namespace IIAuctionHouse.Core.Test.Models
 
         // Checks if Proprietary property exists
         [Fact]
-        public void Proprietary_Exists()
+        public void Proprietaries_Exists()
         {
             Assert.True(_user.GetType().GetProperty("Proprietaries") != null);
         }
         
         // Checks if Proprietarys property is List of Proprietarys type
         [Fact]
-        public void Proprietary_IsListOfProprietaries()
+        public void Proprietaries_IsListOfProprietaries()
         {
             Assert.True(_user.Proprietaries is List<Proprietary>);
         }
 
-        // Checks if Proprietary stores value
+        // Checks if Proprietaries stores value
         [Fact]
         public void Proprietaries_SetProprietaries_StoresValue()
         {
@@ -221,7 +221,7 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.Equal(expected, _user.Proprietaries);
         }
         
-        // Checks if Proprietary stores new value
+        // Checks if Proprietaries stores new value
         [Fact]
         public void Proprietaries_SetProprietaries_StoresNewValue()
         {
@@ -243,7 +243,7 @@ namespace IIAuctionHouse.Core.Test.Models
 
         // Checks if Proprietary property exists
         [Fact]
-        public void Proprietary_Properties_Exists()
+        public void Bid_Exists()
         {
             Assert.True(_user.GetType().GetProperty("Bids") != null);
         }

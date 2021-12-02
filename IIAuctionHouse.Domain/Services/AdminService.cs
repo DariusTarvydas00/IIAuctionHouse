@@ -36,7 +36,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public Admin Update(Admin Admin)
         {
-            if (Admin.FirstName is null || Admin.LastName is null || Admin.Address is null || Admin.Proprietary is null || Admin.Bid is null)
+            if (Admin.FirstName is null || Admin.LastName is null || Admin.Address is null || Admin.Proprietaries is null || Admin.Bids is null)
                 throw new InvalidDataException("One of the values is empty or entered incorrectly");
             return _AdminRepository.Update(Admin);
         }

@@ -93,7 +93,7 @@ namespace IIAuctionHouse.Core.Test.Models
 
         // Checks if Id, BidAmount BidDateTime, Bids property exists
         [Fact]
-        public void Bid_Properties_Exists()
+        public void Bid_Exists()
         {
             Assert.True(_bid.GetType().GetProperty("BidDateTime") != null);
         }
