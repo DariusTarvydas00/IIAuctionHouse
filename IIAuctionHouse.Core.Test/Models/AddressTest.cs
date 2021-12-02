@@ -31,74 +31,211 @@ namespace IIAuctionHouse.Core.Test.Models
         // Check if Id, Country, City, PostCode, StreetName, StreetNumber properties exists
         public void Address_IdCountryCityPostCodeStreetNameStreetNumber_Exists()
         {
-            Assert.True(_address.GetType().GetProperty("Id") != null);
             Assert.True(_address.GetType().GetProperty("Country") != null);
             Assert.True(_address.GetType().GetProperty("City") != null);
-            Assert.True(_address.GetType().GetProperty("PostCode") != null);
             Assert.True(_address.GetType().GetProperty("StreetName") != null);
-            Assert.True(_address.GetType().GetProperty("StreetNumber") != null);
         }
 
-        // Checking if Id, PostCode, Street Number is integer value type
+        # region Id Property Test
+        
         [Fact]
-        public void IdPostCodeStreetNumber_NoParam_isIntegerType()
+        // Check if Id property exists
+        public void Id_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("Id") != null);
+        }
+        // Check if Id is integer value type
+        [Fact]
+        public void Id_isIntegerType()
         {
 #pragma warning disable 183
             Assert.True(_address.Id is int);
+#pragma warning restore 183
+        }
+        
+        // Checking if Id value is stored
+        [Fact]
+        public void Id_SetId_StoresId()
+        {
+            Assert.Equal(1,_address.Id);
+        }
+        
+        // Checking if Id value is updated
+        [Fact]
+        public void Id_UpdateId_StoresNewIdValues()
+        {
+            _address.Id = 2;
+            Assert.Equal(2,_address.Id);
+        }
+        
+        #endregion
+        
+        # region PostCode Property Test
+        
+        [Fact]
+        // Check if PostCode property exists
+        public void PostCode_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("PostCode") != null);
+        }
+        // Check if PostCode is integer value type
+        [Fact]
+        public void PostCode_isIntegerType()
+        {
+#pragma warning disable 183
             Assert.True(_address.PostCode is int);
+#pragma warning restore 183
+        }
+        
+        // Checking if PostCode value is stored
+        [Fact]
+        public void PostCode_SetPostCode_StoresPostCode()
+        {
+            Assert.Equal(1067,_address.PostCode);
+        }
+        
+        // Checking if PostCode value is updated
+        [Fact]
+        public void PostCode_UpdatePostCode_StoresNewPostCodeValues()
+        {
+            _address.PostCode = 1068;
+            Assert.Equal(1068,_address.PostCode);
+        }
+        
+        #endregion
+        
+        # region StreetNumber Property Test
+        
+        [Fact]
+        // Check if StreetNumber property exists
+        public void StreetNumber_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("StreetNumber") != null);
+        }
+        // Check if StreetNumber is integer value type
+        [Fact]
+        public void StreetNumber_isIntegerType()
+        {
+#pragma warning disable 183
             Assert.True(_address.StreetNumber is int);
 #pragma warning restore 183
         }
         
-        // Checking if SetId stores Id, PostCode, StreetNumber
+        // Checking if StreetNumber value is stored
         [Fact]
-        public void IdPostCodeStreetNumber_SetIdPostCodeStreetNumber_StoresIdPostCodeStreetNumberValues()
+        public void StreetNumber_SetStreetNumber_StoresStreetNumber()
         {
-            Assert.Equal(1,_address.Id);
-            Assert.Equal(1067, _address.PostCode);
             Assert.Equal(30,_address.StreetNumber);
         }
         
-        // Checking if Id, PostCode, StreetNumber stores values and updates to new one
+        // Checking if StreetNumber value is updated
         [Fact]
-        public void IdPostCodeStreetNumber_UpdateIdPostCodeStreetNumber_StoresNewValues()
+        public void StreetNumber_UpdateStreetNumber_StoresNewStreetNumberValues()
         {
-            _address.Id = 2;
-            Assert.Equal(2,_address.Id);
-            _address.PostCode = 1068;
-            Assert.Equal(1068, _address.PostCode);
-            _address.StreetNumber = 31;
-            Assert.Equal(31,_address.StreetNumber);
+            _address.StreetNumber = 35;
+            Assert.Equal(35,_address.StreetNumber);
         }
+        
+        #endregion
 
-        // Checking if Country, City, StreetName is string value type
+        # region Country Property Test
+        
         [Fact]
-        public void Address_CountryCityStreetName_IsStringValueType()
+        // Check if Country property exists
+        public void Country_Exists()
         {
+            Assert.True(_address.GetType().GetProperty("Country") != null);
+        }
+        // Check if Country is string value type
+        [Fact]
+        public void Country_isIntegerType()
+        {
+            // ReSharper disable once IsExpressionAlwaysTrue
             Assert.True(_address.Country is string);
-            Assert.True(_address.City is string);
-            Assert.True(_address.StreetName is string);
         }
-
-        // Checking if  Country, City, StreetName value is stored
+        
+        // Checking if Country value is stored
         [Fact]
-        public void CountryCityStreetName_SetCountryCityStreetName_StoresCountryCityStreetNameValues()
+        public void Country_SetCountry_StoresCountry()
         {
-            Assert.Equal("DK", _address.Country);
-            Assert.Equal("Copenhagen", _address.City);
-            Assert.Equal("Old Street Name", _address.StreetName);
+            Assert.Equal("DK",_address.Country);
         }
-
-        // Checking if  Country, City, StreetName stores values and updates to new one
+        
+        // Checking if Country value is updated
         [Fact]
-        public void StreetName_SetUpdateStreetName_StoresUpdatesStreetName()
+        public void Country_UpdateCountry_StoresNewCountryValues()
         {
             _address.Country = "LT";
-            Assert.Equal("LT", _address.Country);
-            _address.City = "Vilnius";
-            Assert.Equal("Vilnius", _address.City);
-            _address.StreetName = "New Street Name";
-            Assert.Equal("New Street Name", _address.StreetName);
+            Assert.Equal("LT",_address.Country);
         }
+        
+        #endregion
+        
+        # region City Property Test
+        
+        [Fact]
+        // Check if City property exists
+        public void City_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("City") != null);
+        }
+        // Check if City is string value type
+        [Fact]
+        public void City_isIntegerType()
+        {
+            // ReSharper disable once IsExpressionAlwaysTrue
+            Assert.True(_address.City is string);
+        }
+        
+        // Checking if City value is stored
+        [Fact]
+        public void City_SetCity_StoresCity()
+        {
+            Assert.Equal("Copenhagen",_address.City);
+        }
+        
+        // Checking if City value is updated
+        [Fact]
+        public void City_UpdateCity_StoresNewCityValues()
+        {
+            _address.City = "Esbjerg";
+            Assert.Equal("Esbjerg",_address.City);
+        }
+        
+        #endregion
+        
+        # region StreetName Property Test
+        
+        [Fact]
+        // Check if StreetName property exists
+        public void StreetName_Exists()
+        {
+            Assert.True(_address.GetType().GetProperty("StreetName") != null);
+        }
+        // Check if StreetName is string value type
+        [Fact]
+        public void StreetName_isIntegerType()
+        {
+            // ReSharper disable once IsExpressionAlwaysTrue
+            Assert.True(_address.StreetName is string);
+        }
+        
+        // Checking if StreetName value is stored
+        [Fact]
+        public void StreetName_SetStreetName_StoresStreetName()
+        {
+            Assert.Equal("Old Street Name",_address.StreetName);
+        }
+        
+        // Checking if StreetName value is updated
+        [Fact]
+        public void StreetName_UpdateStreetName_StoresNewStreetNameValues()
+        {
+            _address.StreetName = "New Street Name";
+            Assert.Equal("New Street Name",_address.StreetName);
+        }
+        
+        #endregion
+     
     }
 }
