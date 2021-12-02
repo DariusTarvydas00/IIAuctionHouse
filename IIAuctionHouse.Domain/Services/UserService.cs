@@ -36,7 +36,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public User Update(User User)
         {
-            if (User.FirstName is null || User.LastName is null || User.Address is null || User.Proprietary is null || User.Bid is null)
+            if (User.FirstName is null || User.LastName is null || User.Address is null || User.Proprietaries is null || User.Bids is null)
                 throw new InvalidDataException("One of the values is empty or entered incorrectly");
             return _userRepository.Update(User);
         }

@@ -1,127 +1,292 @@
-﻿using IIAuctionHouse.Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using IIAuctionHouse.Core.Models;
+using IIAuctionHouse.Core.Models.AccDetails;
 using Xunit;
 
 namespace IIAuctionHouse.Core.Test.Models
 {
     public class UserTest
     {
-         private User _User;
+         private User _user;
 
         public UserTest()
         {
-            _User = new User();
+            _user = new User()
+            {
+                Id = 1,
+                FirstName = "FirstName",
+                LastName = "LastName",
+                Address = new Address()
+                {Id = 1, Country = "DK", City = "Copenhagen", PostCode = 1067, StreetName = "Old Street Name", StreetNumber = 30
+                },
+                Proprietaries = new List<Proprietary>()
+                {
+                    new Proprietary()
+                    {Id = 1, CadastreNumber = "123/123:123", ForestryEnterprise = "Esbjerg Forestry Enterprise",
+                        City = "Esbjerg", Bids = new List<Bid>() {new Bid() {Id = 1, BidAmount = 7600, BidDateTime = DateTime.Today
+                            }
+                        }
+                    }
+                },
+                Bids = new List<Bid>()
+                {
+                    new Bid()
+                    {
+                        Id = 1,
+                        BidAmount = 7601,
+                        BidDateTime = DateTime.Today
+                    }
+                }
+            };
         }
 
         // Checking if User class can be initialized
         [Fact]
         public void User_CanBeInitialized()
         {
-            Assert.NotNull(_User);
+            Assert.NotNull(_user);
         }
 
-        #region Id property Test
-
-        // Checking if Id property exists
+        # region Id Property Test
+        
         [Fact]
-        public void User_Id_Exists()
+        // Check if Id property exists
+        public void Id_Exists()
         {
-            Assert.True(_User.GetType().GetProperty("Id") != null);
+            Assert.True(_user.GetType().GetProperty("Id") != null);
+        }
+        // Check if Id is integer value type
+        [Fact]
+        public void Id_isIntegerType()
+        {
+            Assert.True(_user.Id is int);
         }
         
-        // Checking if Id is integer type
+        // Checking if Id value is stored
         [Fact]
-        public void Id_NoParam_isInt()
+        public void Id_SetId_StoresId()
         {
-            Assert.True(_User.Id is int);
+            Assert.Equal(1,_user.Id);
         }
         
-        // Checking if SetId stores Id
+        // Checking if Id value is updated
         [Fact]
-        public void Id_SetUpdateId_StoresUpdatesId()
+        public void Id_UpdateId_StoresNewIdValues()
         {
-            _User.Id = 1;
-            Assert.Equal(1,_User.Id);
-            _User.Id = 2;
-            Assert.Equal(2, _User.Id);
+            _user.Id = 2;
+            Assert.Equal(2,_user.Id);
         }
-
+        
+        #endregion
+        
+        # region FirstName Property Test
+        
+        [Fact]
+        // Check if FirstName property exists
+        public void FirstName_Exists()
+        {
+            Assert.True(_user.GetType().GetProperty("FirstName") != null);
+        }
+        // Check if FirstName is string value type
+        [Fact]
+        public void FirstName_isIntegerType()
+        {
+            Assert.True(_user.FirstName is string);
+        }
+        
+        // Checking if FirstName value is stored
+        [Fact]
+        public void FirstName_SetFirstName_StoresFirstName()
+        {
+            Assert.Equal("FirstName",_user.FirstName);
+        }
+        
+        // Checking if FirstName value is updated
+        [Fact]
+        public void FirstName_UpdateFirstName_StoresNewFirstNameValues()
+        {
+            _user.FirstName = "NewFirstName";
+            Assert.Equal("NewFirstName",_user.FirstName);
+        }
+        
         #endregion
 
-        #region FirstName property Test
-
-        // Checking if FirstName property exists
+        # region LastName Property Test
+        
         [Fact]
-        public void User_FirstName_Exists()
+        // Check if LastName property exists
+        public void LastName_Exists()
         {
-            Assert.True(_User.GetType().GetProperty("FirstName") != null);
+            Assert.True(_user.GetType().GetProperty("LastName") != null);
+        }
+        // Check if LastName is string value type
+        [Fact]
+        public void LastName_isIntegerType()
+        {
+            Assert.True(_user.LastName is string);
         }
         
-        // Checking if FirstName property value is stored and if it is string value type and updates to new value
+        // Checking if LastName value is stored
         [Fact]
-        public void FirstName_SetUpdateFirstName_StoresUpdatesFirstName()
+        public void LastName_SetLastName_StoresLastName()
         {
-            _User.FirstName = "IamAdmin";
-            Assert.True(_User.FirstName is string);
-            Assert.Equal("IamAdmin", _User.FirstName);
-            _User.FirstName = "IamReallyAdmin";
-            Assert.Equal("IamReallyAdmin", _User.FirstName);
-        }
-
-        #endregion
-
-        #region LastName property Test
-
-        // Checking if LastName property exists
-        [Fact]
-        public void User_LastName_Exists()
-        {
-            Assert.True(_User.GetType().GetProperty("LastName") != null);
+            Assert.Equal("LastName",_user.LastName);
         }
         
-        // Checking if LastName property value is stored, is string value type, is updated to new one
+        // Checking if LastName value is updated
         [Fact]
-        public void LastName_SetUpdateLastName_StoresUpdatesLastName()
+        public void LastName_UpdateLastName_StoresNewLastNameValues()
         {
-            _User.LastName = "NotAdmin";
-            Assert.True(_User.LastName is string);
-            Assert.Equal("NotAdmin", _User.LastName);
-            _User.LastName = "Admin";
-            Assert.Equal("Admin", _User.LastName);
+            _user.LastName = "NewLastName";
+            Assert.Equal("NewLastName",_user.LastName);
         }
-
+        
         #endregion
 
-        #region Address property Test
+        #region Address Property Test
 
         // Checking if Address property exists
         [Fact]
-        public void User_Address_Exists()
+        public void Address_Exists()
         {
-            Assert.True(_User.GetType().GetProperty("Address") != null);
+            Assert.True(_user.GetType().GetProperty("Address") != null);
+        }
+        
+        // Checking if Address value is stored
+        [Fact]
+        public void Address_SetAddress_StoresAddress()
+        {
+            var expected = _user.Address = new Address()
+            {
+                Id = 1,
+                Country = "DK",
+                City = "Copenhagen",
+                PostCode = 1067,
+                StreetName = "Old Street Name",
+                StreetNumber = 30
+            };
+            _user.Address = expected;
+            Assert.Equal(expected,_user.Address);
+        }
+        
+        // Checking if Address new values is stored
+        [Fact]
+        public void Address_SetAddress_StoresNewAddress()
+        {
+            var expected = new Address()
+            {
+                Id = 1,
+                Country = "LT",
+                City = "Vilnius",
+                PostCode = 1067,
+                StreetName = "New Street Name",
+                StreetNumber = 31
+            };
+            _user.Address = expected;
+            Assert.Equal(expected,_user.Address);
+        }
+
+        #endregion
+
+        #region Proprietarys Property Test
+
+        // Checks if Proprietary property exists
+        [Fact]
+        public void Proprietary_Exists()
+        {
+            Assert.True(_user.GetType().GetProperty("Proprietaries") != null);
+        }
+        
+        // Checks if Proprietarys property is List of Proprietarys type
+        [Fact]
+        public void Proprietary_IsListOfProprietaries()
+        {
+            Assert.True(_user.Proprietaries is List<Proprietary>);
+        }
+
+        // Checks if Proprietary stores value
+        [Fact]
+        public void Proprietaries_SetProprietaries_StoresValue()
+        {
+            var expected = _user.Proprietaries = new List<Proprietary>()
+            {
+                new Proprietary()
+                {Id = 1, CadastreNumber = "123/123:123", ForestryEnterprise = "Esbjerg Forestry Enterprise",
+                    City = "Esbjerg", Bids = new List<Bid>() {new Bid() {Id = 1, BidAmount = 7600, BidDateTime = DateTime.Today
+                        }
+                    }
+                }
+            };
+            Assert.Equal(expected, _user.Proprietaries);
+        }
+        
+        // Checks if Proprietary stores new value
+        [Fact]
+        public void Proprietaries_SetProprietaries_StoresNewValue()
+        {
+            var expected = _user.Proprietaries = new List<Proprietary>()
+            {
+                new Proprietary()
+                {Id = 2, CadastreNumber = "321/321:321", ForestryEnterprise = "Copenhagen Forestry Enterprise",
+                    City = "Copenhagen", Bids = new List<Bid>() {new Bid() {Id = 1, BidAmount = 7600, BidDateTime = DateTime.Today
+                        }
+                    }
+                }
+            };
+            Assert.Equal(expected, _user.Proprietaries);
         }
         
         #endregion
 
-        #region Proprietary property Test
+        #region Bids Property Test
 
-        // Checking if StreetName property exists
+        // Checks if Proprietary property exists
         [Fact]
-        public void User_Proprietary_Exists()
+        public void Proprietary_Properties_Exists()
         {
-            Assert.True(_User.GetType().GetProperty("Proprietary") != null);
+            Assert.True(_user.GetType().GetProperty("Bids") != null);
+        }
+        
+        // Checks if Bids property is List of Bids type
+        [Fact]
+        public void Bid_IsListOfBids()
+        {
+            Assert.True(_user.Bids is List<Bid>);
         }
 
-        #endregion
-
-        #region Bid property Test
-
-        // Checking if StreetNumber property exists
+        // Checks if Bid stores value
         [Fact]
-        public void User_Bid_Exists()
+        public void Bid_SetBid_StoresValue()
         {
-            Assert.True(_User.GetType().GetProperty("Bid") != null);
+            var expected = _user.Bids = new List<Bid>()
+            {
+                new Bid()
+                {
+                    Id = 1,
+                    BidAmount = 7600,
+                    BidDateTime = DateTime.Today
+                }
+            };
+            Assert.Equal(expected, _user.Bids);
         }
- 
+        
+        // Checks if Bid stores new value
+        [Fact]
+        public void Bid_SetBid_StoresNewValue()
+        {
+            var expected = _user.Bids = new List<Bid>()
+            {
+                new Bid()
+                {
+                    Id = 2,
+                    BidAmount = 4600,
+                    BidDateTime = DateTime.Today
+                }
+            };
+            Assert.Equal(expected, _user.Bids);
+        }
+        
         #endregion
     }
 }

@@ -28,8 +28,8 @@ namespace IIAuctionHouse.Domain.Test.Services
                     FirstName = "User",
                     LastName = "User",
                     Address = new Address(),
-                    Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()
+                    Proprietaries = new List<Proprietary>(),
+                    Bids = new List<Bid>()
                 },
                 new User()
                 {
@@ -37,8 +37,8 @@ namespace IIAuctionHouse.Domain.Test.Services
                     FirstName = "User2",
                     LastName = "User2",
                     Address = new Address(),
-                    Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()
+                    Proprietaries = new List<Proprietary>(),
+                    Bids = new List<Bid>()
                 }
             };
         }
@@ -136,12 +136,12 @@ namespace IIAuctionHouse.Domain.Test.Services
         public void Update_WithNull_ThrowsExceptionWithMessage()
         {
             var fakeList = new List<User>();
-            fakeList.Add(new User() {Id = 0, FirstName = "User", LastName = "User", Address = new Address(), Proprietary = new List<Proprietary>(), Bid = new List<Bid>()});
-            var update1 = new User() {Id = 0, FirstName = "User", Address  = new Address(), Proprietary = new List<Proprietary>(), Bid = new List<Bid>()};
-            var update2 = new User() {Id = 0, LastName = "User", Address  = new Address(), Proprietary = new List<Proprietary>(), Bid = new List<Bid>()};
-            var update3 = new User() {Id = 0, FirstName = "User", LastName = "User", Proprietary = new List<Proprietary>(), Bid = new List<Bid>()};
-            var update4 = new User() {Id = 0, FirstName = "User", LastName = "User", Address  = new Address(), Bid = new List<Bid>() };
-            var update5 = new User() {Id = 0, FirstName = "User", LastName = "User", Address  = new Address(), Proprietary = new List<Proprietary>() };
+            fakeList.Add(new User() {Id = 0, FirstName = "User", LastName = "User", Address = new Address(), Proprietaries = new List<Proprietary>(), Bids = new List<Bid>()});
+            var update1 = new User() {Id = 0, FirstName = "User", Address  = new Address(), Proprietaries = new List<Proprietary>(), Bids = new List<Bid>()};
+            var update2 = new User() {Id = 0, LastName = "User", Address  = new Address(), Proprietaries = new List<Proprietary>(), Bids = new List<Bid>()};
+            var update3 = new User() {Id = 0, FirstName = "User", LastName = "User", Proprietaries = new List<Proprietary>(), Bids = new List<Bid>()};
+            var update4 = new User() {Id = 0, FirstName = "User", LastName = "User", Address  = new Address(), Bids = new List<Bid>() };
+            var update5 = new User() {Id = 0, FirstName = "User", LastName = "User", Address  = new Address(), Proprietaries = new List<Proprietary>() };
             var expected = "One of the values is empty or entered incorrectly";
             var actual1 = Assert.Throws<InvalidDataException>(() => _service.Update(update1));
             var actual2 = Assert.Throws<InvalidDataException>(() => _service.Update(update2));
