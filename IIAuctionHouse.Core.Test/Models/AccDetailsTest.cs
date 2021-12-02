@@ -34,66 +34,110 @@ namespace IIAuctionHouse.Core.Test.Models
         {
             Assert.NotNull(_accDetails);
         }
-
-        // Checking if Id, PhoneNumber, Email, Address, AccCreationDateTime properties exists
+        
+        # region Id Property Test
+        
         [Fact]
-        public void AccDetails_Properties_Exists()
+        // Check if Id property exists
+        public void Id_Exists()
         {
             Assert.True(_accDetails.GetType().GetProperty("Id") != null);
-            Assert.True(_accDetails.GetType().GetProperty("PhoneNumber") != null);
-            Assert.True(_accDetails.GetType().GetProperty("Email") != null);
-            Assert.True(_accDetails.GetType().GetProperty("Address") != null);
-            Assert.True(_accDetails.GetType().GetProperty("AccCreationDateTime") != null);
         }
-
-        // Checking if Id, PhoneNumber is integer value type
+        // Check if Id is integer value type
         [Fact]
-        public void IdPostCodeStreetNumber_NoParam_isIntegerType()
+        public void Id_isIntegerType()
         {
             Assert.True(_accDetails.Id is int);
+        }
+        
+        // Checking if Id value is stored
+        [Fact]
+        public void Id_SetId_StoresId()
+        {
+            Assert.Equal(1,_accDetails.Id);
+        }
+        
+        // Checking if Id value is updated
+        [Fact]
+        public void Id_UpdateId_StoresNewIdValues()
+        {
+            _accDetails.Id = 2;
+            Assert.Equal(2,_accDetails.Id);
+        }
+        
+        #endregion
+        
+        # region PhoneNumber Property Test
+        
+        [Fact]
+        // Check if PhoneNumber property exists
+        public void PhoneNumber_Exists()
+        {
+            Assert.True(_accDetails.GetType().GetProperty("PhoneNumber") != null);
+        }
+        // Check if PhoneNumber is integer value type
+        [Fact]
+        public void PhoneNumber_isIntegerType()
+        {
             Assert.True(_accDetails.PhoneNumber is int);
         }
         
-        // Checking if Id and PhoneNumber values are stored
+        // Checking if PhoneNumber value is stored
         [Fact]
-        public void IdPhoneNumber_SetIdPhoneNumber_StoresValues()
+        public void PhoneNumber_SetPhoneNumber_StoresPhoneNumber()
         {
-            Assert.Equal(1,_accDetails.Id);
-            Assert.Equal(123456789, _accDetails.PhoneNumber);
+            Assert.Equal(1,_accDetails.PhoneNumber);
         }
         
-        // Checking if Id and PhoneNumber stores new values
+        // Checking if PhoneNumber value is updated
         [Fact]
-        public void IdPhoneNumber_SetIdPhoneNumber_StoresNewValues()
+        public void PhoneNumber_UpdatePhoneNumber_StoresNewPhoneNumberValues()
         {
-            _accDetails.Id = 2;
-            Assert.Equal(2, _accDetails.Id);
-            _accDetails.PhoneNumber = 987654321;
-            Assert.Equal(987654321,_accDetails.PhoneNumber);
+            _accDetails.PhoneNumber = 2;
+            Assert.Equal(2,_accDetails.PhoneNumber);
         }
+        
+        #endregion
 
-        // Checking if Email property is string value type
+        # region Email Property Test
+        
         [Fact]
-        public void Email_NoParam_IsString()
+        // Check if Email property exists
+        public void Email_Exists()
+        {
+            Assert.True(_accDetails.GetType().GetProperty("Email") != null);
+        }
+        // Check if Email is string value type
+        [Fact]
+        public void Email_isIntegerType()
         {
             Assert.True(_accDetails.Email is string);
         }
-
-        // Checking if Email property value is stored
+        
+        // Checking if Email value is stored
         [Fact]
         public void Email_SetEmail_StoresEmail()
         {
-            Assert.Equal("test@test.com", _accDetails.Email);
-            _accDetails.Email = "test2@test2.com";
-            Assert.Equal("test2@test2.com", _accDetails.Email);
+            Assert.Equal("test@test.com",_accDetails.Email);
         }
         
-        // Checking if Email new value is stored
+        // Checking if Email value is updated
         [Fact]
-        public void Email_SetEmail_StoresNewValue()
+        public void Email_UpdateEmail_StoresNewEmailValues()
         {
-            _accDetails.Email = "test2@test2.com";
-            Assert.Equal("test2@test2.com", _accDetails.Email);
+            _accDetails.Email = "anotherTest@test.com";
+            Assert.Equal("anotherTest@test.com",_accDetails.Email);
+        }
+        
+        #endregion
+
+        #region Address Property Test
+
+        // Checking if Address property exists
+        [Fact]
+        public void Address_Exists()
+        {
+            Assert.True(_accDetails.GetType().GetProperty("Address") != null);
         }
         
         // Checking if Address value is stored
@@ -130,9 +174,20 @@ namespace IIAuctionHouse.Core.Test.Models
             Assert.Equal(expected,_accDetails.Address);
         }
 
+        #endregion
+
+        #region AccCreationDate Property Test
+
+        // Checking if AccCreationDate property exists
+        [Fact]
+        public void AccCreationDate_Exists()
+        {
+            Assert.True(_accDetails.GetType().GetProperty("AccCreationDate") != null);
+        }
+        
         // Checking if DateTime property is DateTime type
         [Fact]
-        public void DateTime_IsDateTimeType()
+        public void AccCreationDateTime_IsDateTimeType()
         {
             Assert.True(_accDetails.AccCreationDateTime is DateTime);
         }
@@ -151,6 +206,8 @@ namespace IIAuctionHouse.Core.Test.Models
             var expected = _accDetails.AccCreationDateTime = new DateTime(2021,11,23);
             Assert.Equal(expected, _accDetails.AccCreationDateTime);
         }
+
+        #endregion
 
     }
 }
