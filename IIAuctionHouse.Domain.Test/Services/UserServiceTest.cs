@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using System.IO;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
@@ -73,9 +74,9 @@ namespace IIAuctionHouse.Domain.Test.Services
             _mock.Verify(r=>r.ReadAll(), Times.Once);
         }
         
-        // Checks if ReadAll method returns list of Useres
+        // Checks if ReadAll method returns list of Users
         [Fact]
-        public void ReadAll_NoFilter_ReturnsListOfUseres()
+        public void ReadAll_NoFilter_ReturnsListOfUsers()
         {
             _mock.Setup(r => r.ReadAll()).Returns(_expected);
             var actual = _service.ReadAll();
@@ -121,14 +122,30 @@ namespace IIAuctionHouse.Domain.Test.Services
         
         // Checks if Creating User Object is possible
         [Theory]
-        [InlineData(null, "User", null, null, null)]
-        [InlineData("User", null, null, null, null)]
+        [ClassData(typeof(TestCreateDataClass))]
         public void Create_WithNull_ThrowsExceptionWithMessage(string firstName, string lastName, Address address, List<Proprietary> proprietary, List<Bid> bid)
         {
             var expected = "One of the values is empty or entered incorrectly";
             var actual = Assert.Throws<InvalidDataException>(() =>
                 _service.Create(firstName,lastName,address,proprietary,bid));
             Assert.Equal(expected,actual.Message);
+        }
+        
+        private class TestCreateDataClass : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _data = new List<object[]>
+            {
+                new object[] {null, "LastName", new Address() {Id = 1}, new List<Proprietary>(){new Proprietary(){Id = 1}}, new List<Bid>{(new Bid(){Id = 1})}},
+                new object[] {"FirstName", null, new Address() {Id = 1}, new List<Proprietary>(){new Proprietary(){Id = 1}},new List<Bid>{(new Bid(){Id = 1})}},
+                new object[] {"FirstName", "LastName", null, new List<Proprietary>(){new Proprietary(){Id = 1}}, new List<Bid>{(new Bid(){Id = 1})}},
+                new object[] {"FirstName", "LastName", new Address() {Id = 1}, null, new List<Bid>{(new Bid(){Id = 1})}},
+                new object[] {"FirstName", "LastName", new Address() {Id = 1}, new List<Proprietary>(){new Proprietary(){Id = 1}}, null}
+            };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
         
         // Checks if Updating Object is possible

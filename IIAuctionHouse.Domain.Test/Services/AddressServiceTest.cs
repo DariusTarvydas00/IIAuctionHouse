@@ -1,15 +1,12 @@
-﻿using System;
+﻿using System.Collections;
 using System.Collections.Generic;
-using System.Data;
 using System.IO;
 using IIAuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Domain.Services;
 using IIAuctionHouse.Core.IServices;
-using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
 using Moq;
 using Xunit;
-using Xunit.Sdk;
 
 namespace IIAuctionHouse.Domain.Test.Services
 {
@@ -124,11 +121,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         
         // Checks if Creating Address Object is possible
         [Theory]
-        [InlineData(null, "Esbjerg", 6700, "Strandbygade", 30)]
-        [InlineData("Denmark", null, 6700, "Strandbygade", 30)]
-        [InlineData("Denmark", "Esbjerg", null, "Strandbygade", 30)]
-        [InlineData("Denmark", "Esbjerg", 6700, null, 30)]
-        [InlineData("Denmark", "Esbjerg", 6700, "Strandbygade", null)]
+        [ClassData(typeof(TestCreateDataClass))]
         public void Create_WithNull_ThrowsExceptionWithMessage(string country, string city, int postCode, string streetName, int streetNumber)
         {
             var expected = "One of the values is empty or entered incorrectly";
@@ -137,12 +130,27 @@ namespace IIAuctionHouse.Domain.Test.Services
             Assert.Equal(expected,actual.Message);
         }
         
+        private class TestCreateDataClass : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _data = new List<object[]>
+            {
+                new object[] {null, "Esbjerg", 6700, "Strandbygade", 30},
+                new object[] {"Denmark", null, 6700, "Strandbygade", 30},
+                new object[] {"Denmark", "Esbjerg", null, "Strandbygade", 30},
+                new object[] {"Denmark", "Esbjerg", null, "Strandbygade", 30},
+                new object[] {"Denmark", "Esbjerg", 6700, "Strandbygade", null}
+            };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+        
         // Checks if Updating Object is possible
         [Fact]
         public void Update_WithNull_ThrowsExceptionWithMessage()
         {
-            var fakeList = new List<Address>();
-            fakeList.Add(new Address() {Id = 0, City = "Esbjerg", PostCode = 6700, StreetName = "Strandbygade", StreetNumber = 30});
             var update1 = new Address() {Id = 0, PostCode = 6700, StreetName = "Strandbygade", StreetNumber = 30};
             var update2 = new Address() {Id = 0, Country = "Esbjerg", StreetName = "Strandbygade", StreetNumber = 30};
             var update3 = new Address() {Id = 0, Country = "Esbjerg", City = "Esbjerg", StreetNumber = 30};

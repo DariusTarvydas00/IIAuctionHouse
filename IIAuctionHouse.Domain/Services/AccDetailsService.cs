@@ -30,7 +30,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public AccDetails Create(Address address, string email, int phoneNumber, DateTime accCreationDate)
         {
-            if (address is null || email is null || phoneNumber < 1 || accCreationDate == null)
+            if (address is null || email is null || phoneNumber < 1 || accCreationDate == default)
                 throw new InvalidDataException("One of the values is empty or entered incorrectly"); 
             return _accDetailsRepository.Create(address, email, phoneNumber, accCreationDate);
         }

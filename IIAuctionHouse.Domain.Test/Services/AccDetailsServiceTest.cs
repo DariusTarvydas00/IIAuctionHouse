@@ -1,13 +1,11 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
-using System.Data.Common;
 using System.IO;
 using IIAuctionHouse.Core.IServices;
-using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
 using IIAuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Domain.Services;
-using Microsoft.VisualBasic;
 using Moq;
 using Xunit;
 
@@ -122,9 +120,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         
         // Checks if Creating Address Object is possible
         [Theory]
-        [InlineData(null, "test@test.com", 123456789, null)]
-        [InlineData(null, null, 123456789, null)]
-        [InlineData(null, "test@test.com", null, null)]
+        [ClassData(typeof(TestCreateDataClass))]
         public void Create_WithNull_ThrowsExceptionWithMessage(Address address, string email, int phoneNumber, DateTime accCreationDateTime)
         {
             var expected = "One of the values is empty or entered incorrectly";
@@ -133,15 +129,31 @@ namespace IIAuctionHouse.Domain.Test.Services
             Assert.Equal(expected,actual.Message);
         }
         
+        private class TestCreateDataClass : IEnumerable<object[]>
+        {
+            private readonly List<object[]> _data = new List<object[]>
+            {
+                new object[] {null, "test@test.com", 123456789, DateTime.Today},
+                new object[] {new Address(){Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, 
+                    StreetName = "Old Street Name", StreetNumber = 30}, null, 123456789, DateTime.Today},
+                new object[] {new Address(){Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, 
+                    StreetName = "Old Street Name", StreetNumber = 30}, "test@test.com", null, DateTime.Today},
+                new object[] {new Address(){Id = 1, Country = "DK", City = "Esbjerg", PostCode = 6700, 
+                    StreetName = "Old Street Name", StreetNumber = 30}, "test@test.com", 123456789, null},
+            };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+        }
+        
         
         
         // Checks if Updating Object is possible
         [Fact]
         public void Update_WithNull_ThrowsExceptionWithMessage()
         {
-            var fakeList = new List<AccDetails>();
-            fakeList.Add(new AccDetails() {Id = 0, Email = "test@test.com", PhoneNumber = 123456789,
-                AccCreationDateTime = new DateTime(2021,11,23)});
             var update1 = new AccDetails() {Id = 0, Address = new Address(), PhoneNumber = 123456789,
                 AccCreationDateTime = new DateTime(2021,11,23)};
             var update2 = new AccDetails() {Id = 0, Address = new Address(), Email = "test@test.com"};
