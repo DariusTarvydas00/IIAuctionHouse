@@ -1,4 +1,6 @@
-﻿namespace IIAuctionHouse.Core.Models
+﻿using System.Collections.Generic;
+
+namespace IIAuctionHouse.Core.Models
 {
     public class Proprietary
     {
@@ -6,5 +8,6 @@
         public string CadastreNumber { get; set; }
         public string ForestryEnterprise { get; set; }
         public string City { get; set; }
+        public List<Bid> Bids { get; set; }
     }
 }

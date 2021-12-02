@@ -9,6 +9,5 @@ namespace IIAuctionHouse.Core.Models
         public int BidAmount { get; set; }
         public DateTime BidDateTime { get; set; }
 
-        private List<Proprietary> Proprietaries { get; set; }
     }
 }

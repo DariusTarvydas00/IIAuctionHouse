@@ -1,110 +1,144 @@
-﻿using IIAuctionHouse.Core.Models;
+﻿using System;
+using System.Collections.Generic;
+using IIAuctionHouse.Core.Models;
 using Xunit;
 
 namespace IIAuctionHouse.Core.Test.Models
 {
     public class ProprietaryTest
     {
-         private Proprietary _proprietary;
+         private readonly Proprietary _proprietary;
 
         public ProprietaryTest()
         {
-            _proprietary = new Proprietary();
+            _proprietary = new Proprietary()
+            {
+                Id = 1,
+                CadastreNumber = "123/123:123",
+                ForestryEnterprise = "Esbjerg Forestry Enterprise",
+                City = "Esbjerg",
+                Bids = new List<Bid>()
+                {
+                    new Bid()
+                    {
+                        Id = 1,
+                        BidAmount = 7600,
+                        BidDateTime = DateTime.Today
+                    }
+                }
+            };
         }
 
-        // Checking if Proprietary class can be initialized
+        // Checks if Proprietary class can be initialized
         [Fact]
         public void Proprietary_CanBeInitialized()
         {
             Assert.NotNull(_proprietary);
         }
 
-        #region Id property Test
-
-        // Checking if Id property exists
+        // Checks if Proprietary properties exists
         [Fact]
-        public void Proprietary_Id_Exists()
+        public void Proprietary_Properties_Exists()
         {
             Assert.True(_proprietary.GetType().GetProperty("Id") != null);
+            Assert.True(_proprietary.GetType().GetProperty("CadastreNumber") != null);
+            Assert.True(_proprietary.GetType().GetProperty("ForestryEnterprise") != null);
+            Assert.True(_proprietary.GetType().GetProperty("City") != null);
+            Assert.True(_proprietary.GetType().GetProperty("Bids") != null);
         }
         
-        // Checking if Id is integer type
+        // Checks if Id is integer type
         [Fact]
         public void Id_NoParam_isInt()
         {
             Assert.True(_proprietary.Id is int);
         }
         
-        // Checking if SetId stores Id
+        // Checks if SetId stores value
         [Fact]
-        public void Id_SetUpdateId_StoresUpdatesId()
+        public void Id_SetId_StoresValue()
         {
-            _proprietary.Id = 1;
             Assert.Equal(1,_proprietary.Id);
             _proprietary.Id = 2;
             Assert.Equal(2, _proprietary.Id);
         }
-
-        #endregion
-
-        #region CadastreNumber property Test
-
-        // Checking if CadastreNumber property exists
-        [Fact]
-        public void Proprietary_CadastreNumber_Exists()
-        {
-            Assert.True(_proprietary.GetType().GetProperty("CadastreNumber") != null);
-        }
         
-        // Checking if CadastreNumber property value is stored and if it is string value type and updates to new value
+        // Checks if SetId stores new value
         [Fact]
-        public void CadastreNumber_SetUpdateCadastreNumber_StoresUpdatesEmail()
+        public void Id_SetId_StoresNewValue()
         {
-            _proprietary.CadastreNumber = "123/123:123";
-            Assert.True(_proprietary.CadastreNumber is string);
+            _proprietary.Id = 2;
+            Assert.Equal(2, _proprietary.Id);
+        }
+
+        // Checks if CadastreNumber, Forestry Enterprise, City is string value type
+        [Fact]
+        public void CadastreNumberForestryEnterpriseCity_NoParam_IsStringType()
+        {
+            Assert.True(_proprietary.CadastreNumber is not null);
+            Assert.True(_proprietary.ForestryEnterprise is not null);
+            Assert.True(_proprietary.City is not null);
+        }
+
+        // Checks if CadastreNumber, Forestry Enterprise, City stores value 
+        [Fact]
+        public void CadastreNumberForestryEnterpriseCity_SetCadastreNumberForestryEnterpriseCity_StoresValues()
+        {
             Assert.Equal("123/123:123", _proprietary.CadastreNumber);
+            Assert.Equal("Esbjerg Forestry Enterprise",_proprietary.ForestryEnterprise);
+            Assert.Equal("Esbjerg",_proprietary.City);
+        }
+
+        // Checks if CadastreNumber, Forestry Enterprise, City stores new value 
+        [Fact]
+        public void CadastreNumberForestryEnterpriseCity_SetCadastreNumberForestryEnterpriseCity_StoresNewValues()
+        {
             _proprietary.CadastreNumber = "321/321:321";
             Assert.Equal("321/321:321", _proprietary.CadastreNumber);
+            _proprietary.ForestryEnterprise = "Copenhagen Forestry Enterprise";
+            Assert.Equal("Copenhagen Forestry Enterprise",_proprietary.ForestryEnterprise);
+            _proprietary.City = "Copenhagen";
+            Assert.Equal("Copenhagen",_proprietary.City);
         }
 
-        #endregion
-
-        #region ForestryEnterprise property Test
-
-        // Checking if ForestryEnterprise property exists
+        // Checks if Bids property is List of Bids type
         [Fact]
-        public void Proprietary_ForestryEnterprise_Exists()
+        public void Bid_IsListOfBids()
         {
-            Assert.True(_proprietary.GetType().GetProperty("ForestryEnterprise") != null);
-        }
-         
-        // Checking if ForestryEnterprise stores value and updates to new one
-        [Fact]
-        public void ForestryEnterprise_Create_StoresForestryEnterprise()
-        {
-            var expected = _proprietary.ForestryEnterprise = "EsbjergEnterprise";
-            Assert.Equal(expected,_proprietary.ForestryEnterprise);
-        }
-
-        #endregion
-        
-        #region City property Test
-
-        // Checking if City property exists
-        [Fact]
-        public void Proprietary_City_Exists()
-        {
-            Assert.True(_proprietary.GetType().GetProperty("City") != null);
+            Assert.True(_proprietary.Bids is List<Bid>);
         }
         
-        // Checking if City stores value and updates to new one
+        // Checks if Bid stores value
         [Fact]
-        public void City_Create_StoresForestryEnterprise()
+        public void Bid_SetBid_StoresValue()
         {
-            var expected = _proprietary.City = "Esbjerg";
-            Assert.Equal(expected,_proprietary.City);
+            var expected = _proprietary.Bids = new List<Bid>()
+            {
+                new Bid()
+                {
+                    Id = 1,
+                    BidAmount = 7600,
+                    BidDateTime = DateTime.Today
+                }
+            };
+            Assert.Equal(expected, _proprietary.Bids);
         }
         
-        #endregion
+        // Checks if Bid stores new value
+        [Fact]
+        public void Bid_SetBid_StoresNewValue()
+        {
+            var expected = _proprietary.Bids = new List<Bid>()
+            {
+                new Bid()
+                {
+                    Id = 2,
+                    BidAmount = 4600,
+                    BidDateTime = DateTime.Today
+                }
+            };
+            Assert.Equal(expected, _proprietary.Bids);
+        }
+
     }
 }
