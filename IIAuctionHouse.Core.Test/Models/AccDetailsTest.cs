@@ -50,10 +50,8 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void IdPostCodeStreetNumber_NoParam_isIntegerType()
         {
-#pragma warning disable 183
             Assert.True(_accDetails.Id is int);
             Assert.True(_accDetails.PhoneNumber is int);
-#pragma warning restore 183
         }
         
         // Checking if Id and PhoneNumber values are stored
@@ -136,9 +134,7 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void DateTime_IsDateTimeType()
         {
-#pragma warning disable 183
             Assert.True(_accDetails.AccCreationDateTime is DateTime);
-#pragma warning restore 183
         }
 
         // Checking if AccCreationDateTime property value is stored

@@ -43,11 +43,9 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void IdPostCodeStreetNumber_NoParam_isIntegerType()
         {
-#pragma warning disable 183
             Assert.True(_address.Id is int);
             Assert.True(_address.PostCode is int);
             Assert.True(_address.StreetNumber is int);
-#pragma warning restore 183
         }
         
         // Checking if SetId stores Id, PostCode, StreetNumber

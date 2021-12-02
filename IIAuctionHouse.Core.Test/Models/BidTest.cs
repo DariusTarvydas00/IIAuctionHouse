@@ -38,10 +38,8 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void IdBidAmount_NoParam_isInt()
         {
-#pragma warning disable 183
             Assert.True(_bid.Id is int);
             Assert.True(_bid.BidAmount is int);
-#pragma warning restore 183
         }
         
         // Checks if Id BidAmount stores values
@@ -67,9 +65,7 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void BidDateTime_NoParam_IsDateTimeType()
         {
-#pragma warning disable 183
             Assert.True(_bid.BidDateTime is DateTime);
-#pragma warning restore 183
         }
         
         // Checks if BidDateTime stores value

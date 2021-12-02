@@ -51,9 +51,7 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void Id_NoParam_isInt()
         {
-#pragma warning disable 183
             Assert.True(_proprietary.Id is int);
-#pragma warning restore 183
         }
         
         // Checks if SetId stores value
@@ -77,9 +75,9 @@ namespace IIAuctionHouse.Core.Test.Models
         [Fact]
         public void CadastreNumberForestryEnterpriseCity_NoParam_IsStringType()
         {
-            Assert.True(_proprietary.CadastreNumber is string);
-            Assert.True(_proprietary.ForestryEnterprise is string);
-            Assert.True(_proprietary.City is string);
+            Assert.True(_proprietary.CadastreNumber is not null);
+            Assert.True(_proprietary.ForestryEnterprise is not null);
+            Assert.True(_proprietary.City is not null);
         }
 
         // Checks if CadastreNumber, Forestry Enterprise, City stores value 
