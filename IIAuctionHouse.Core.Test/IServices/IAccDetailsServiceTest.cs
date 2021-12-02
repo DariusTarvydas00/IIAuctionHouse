@@ -1,7 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
 using IIAuctionHouse.Core.IServices;
-using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
 using Moq;
 using Xunit;
@@ -20,7 +19,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         
         // Checking if ReadAll method return a list
         [Fact]
-        public void ReadAll_NoParam_ReturnsListOfAllAccDetail()
+        public void ReadAll_ReturnsListOfAllAccDetail()
         {
             var mock = new Mock<IAccDetailsService>();
             var fakeList = new List<AccDetails>();
@@ -35,7 +34,7 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IAccDetailsService>();
             var fakeList = new List<AccDetails>();
-            var AccDetails = new AccDetails()
+            var accDetails = new AccDetails()
             {
                 Id = 1,
                 Address = new Address(),
@@ -43,15 +42,15 @@ namespace IIAuctionHouse.Core.Test.IServices
                 PhoneNumber = 123456789,
                 AccCreationDateTime = new DateTime(2021,11,23)
             };
-            fakeList.Add(AccDetails);
+            fakeList.Add(accDetails);
             mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
             var service = mock.Object;
-            Assert.Equal(AccDetails,service.GetById(1));
+            Assert.Equal(accDetails,service.GetById(1));
         }
         
         // Checking if AccDetails object is created
         [Fact]
-        public void Create_AllAccDetailsProperties_IsCreated()
+        public void Create_AccDetails_IsCreated()
         {
             var mock = new Mock<IAccDetailsService>();
             var fakeAccDetails = new AccDetails()
@@ -77,21 +76,13 @@ namespace IIAuctionHouse.Core.Test.IServices
             {
                 Id = 1,
                 Address = new Address(),
-                Email = "test@test.com", 
-                PhoneNumber = 123456789,
-                AccCreationDateTime = new DateTime(2021,11,23)
-            };
-            var newFakeAccDetails = new AccDetails()
-            {
-                Id = 1,
-                Address = new Address(),
                 Email = "test2@test2.com",
                 PhoneNumber = 123456789,
                 AccCreationDateTime = new DateTime(2021,11,23)
             };
-            mock.Setup(s => s.Update(newFakeAccDetails)).Returns(newFakeAccDetails);
+            mock.Setup(s => s.Update(fakeAccDetails)).Returns(fakeAccDetails);
             var service = mock.Object;
-            Assert.Equal(newFakeAccDetails,service.Update(newFakeAccDetails));
+            Assert.Equal(fakeAccDetails,service.Update(fakeAccDetails));
         }
         
         // Checks if Delete method deletes object
@@ -99,8 +90,8 @@ namespace IIAuctionHouse.Core.Test.IServices
         public void Delete_Id_ReturnNull()
         {
             var mock = new Mock<IAccDetailsService>();
-            var fakeList = new List<AccDetails>();
-            var AccDetails = new AccDetails()
+            var list = new List<AccDetails>();
+            var accDetails = new AccDetails()
             {
                 Id = 1,
                 Address = new Address(),
@@ -108,7 +99,7 @@ namespace IIAuctionHouse.Core.Test.IServices
                 PhoneNumber = 123456789,
                 AccCreationDateTime = new DateTime(2021,11,23)
             };
-            fakeList.Add(AccDetails);
+            list.Add(accDetails);
             mock.Setup(s => s.Delete(1)).Returns(() => null);
             var service = mock.Object;
             Assert.Null(service.Delete(1));
