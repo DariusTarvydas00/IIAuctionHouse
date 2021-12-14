@@ -17,7 +17,7 @@ namespace IIAuctionHouse.Controllers
         {
             _accDetailsService = accDetailsService ?? throw new InvalidDataException("AccDetails Controller is not initialized");
         }
- 
+
         [HttpGet]
         public ActionResult<List<AccDetails>> GetAll()
         {
@@ -25,7 +25,7 @@ namespace IIAuctionHouse.Controllers
         }
 
         [HttpGet("id")]
-        public ActionResult<AccDetails> GetById([FromBody] int id)
+        public ActionResult<AccDetails> GetById( int id)
         {
             var accDetails = _accDetailsService.GetById(id);
             return Ok(new AccDetails()
@@ -53,7 +53,7 @@ namespace IIAuctionHouse.Controllers
         }
 
         [HttpDelete]
-        public ActionResult<AccDetails> Delete([FromBody] int id)
+        public ActionResult<AccDetails> Delete( int id)
         {
             var accDetails = _accDetailsService.Delete(id);
             return Ok(new AccDetails()

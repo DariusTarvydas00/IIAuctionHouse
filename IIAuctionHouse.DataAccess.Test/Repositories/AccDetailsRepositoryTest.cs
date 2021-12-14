@@ -1,14 +1,15 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.IO;
 using System.Linq;
 using EntityFrameworkCore.Testing.Moq;
-using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
 using IIAuctionHouse.DataAccess;
 using IIAuctionHouse.DataAccess.Entities;
 using IIAuctionHouse.DataAccess.Repositories;
 using IIAuctionHouse.Domain.IRepositories;
+using IIAuctionHouse.Domain.Services;
 using Moq;
 using Xunit;
 using Xunit.Abstractions;
@@ -17,14 +18,7 @@ namespace IIAuctionHouseDataAccess.Repositories
 {
     public class AccDetailsRepositoryTest
     {
-        private readonly ITestOutputHelper _testOutputHelper;
-
-        public AccDetailsRepositoryTest(ITestOutputHelper testOutputHelper)
-        {
-            _testOutputHelper = testOutputHelper;
-        }
-
-        // Checking if AddressRepository is Interface of Address Repository
+        // Checking if AccDetailsRepository is using Interface of AccDetails Repository
         [Fact]
         public void AccDetailsRepository_IsIAddressRepository()
         {
@@ -54,39 +48,33 @@ namespace IIAuctionHouseDataAccess.Repositories
         public void GetAll_GetAllAccDetailsEntitiesInDbContext_ReturnsListOfAccDetails()
         {
             var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var mock = new Mock<IAccDetailsRepository>();
             var repository = new AccDetailsRepository(fakeContext);
-            Address address = new Address() {Id = 1};
             var list = new List<AccDetailsEntity>()
             {
                 new AccDetailsEntity()
                 {
-                    Id = 1, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
-                        AccCreationDateTime = DateTime.Today
-                },
-                // new AccDetailsEntity()
-                // {
-                //     Id = 2, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
-                //     AccCreationDateTime = DateTime.Today
-                // },
-                // new AccDetailsEntity()
-                // {
-                //     Id = 3, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
-                //     AccCreationDateTime = DateTime.Today
-                // }
-            };
+                    Id = 1,
+                    AccCreationDateTime = new DateTime(2021, 10,11),
+                    Email = "test@test.com",
+                   // AddressId = 1,
+                    PhoneNumber = 123
+                }
+            }.ToList();
             fakeContext.Set<AccDetailsEntity>().AddRange(list);
             fakeContext.SaveChanges();
-            var expectedList = list.Select(ae => new AccDetails()
+            fakeContext.ChangeTracker.Clear();
+            var expected = list.Select(entity => new AccDetails()
             {
-                Id = ae.Id,
-                Email = ae.Email,
-                Address = new Address(){Id = ae.AddressId},
-                PhoneNumber = ae.PhoneNumber,
-                AccCreationDateTime = ae.AccCreationDateTime
+                Id = entity.Id,
+                // Address = new Address()
+                // {
+                //     Id = entity.AddressId
+                // }
             }).ToList();
             fakeContext.ChangeTracker.Clear();
             var actual = repository.ReadAll();
-            Assert.Equal(1,1);
+            Assert.Equal(expected,actual);
         }
         
         // Checks if GetById Returns selected AccDetailsEntity as Object
@@ -99,12 +87,16 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AccDetailsEntity()
                 {
-                    Id = 1, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
+                    Id = 1, 
+                    //AddressId = 1, 
+                    Email = "test@test.com", PhoneNumber = 123456789,
                     AccCreationDateTime = new DateTime(2021,11,23)
                 },
                 new AccDetailsEntity()
                 {
-                    Id = 2, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
+                    Id = 2,
+                    //AddressId = 1, 
+                    Email = "test@test.com", PhoneNumber = 123456789,
                     AccCreationDateTime = new DateTime(2021,11,23)
                 },
             };
@@ -113,7 +105,7 @@ namespace IIAuctionHouseDataAccess.Repositories
             var AccDetailsEntity = list.Select(ae => new AccDetailsEntity()
             {
                 Id = ae.Id,
-                AddressId = ae.AddressId,
+               // AddressId = ae.AddressId,
                 Email = ae.Email,
                 PhoneNumber = ae.PhoneNumber,
                 AccCreationDateTime = ae.AccCreationDateTime
@@ -121,7 +113,7 @@ namespace IIAuctionHouseDataAccess.Repositories
             var expectedAccDetails = new AccDetails()
             {
                 Id = AccDetailsEntity.Id,
-                Address = new Address(){Id = 1},
+               // Address = new Address(){Id = 1},
                 Email = AccDetailsEntity.Email,
                 PhoneNumber = AccDetailsEntity.PhoneNumber,
                 AccCreationDateTime = AccDetailsEntity.AccCreationDateTime
@@ -138,7 +130,9 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new AccDetailsRepository(fakeContext);
             var list = new List<AccDetailsEntity>()
             {
-                new AccDetailsEntity(){ Id = 1, AddressId = 1, Email = "test2@test2.com", PhoneNumber = 123456789,
+                new AccDetailsEntity(){ Id = 1,
+                   // AddressId = 1, 
+                    Email = "test2@test2.com", PhoneNumber = 123456789,
                     AccCreationDateTime = new DateTime(2021,11,23)}
             };
             var entity = list.Select(ae => new AccDetails()
@@ -186,7 +180,9 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new AccDetailsEntity()
                 {
-                    Id = 1, AddressId = 1, Email = "test@test.com", PhoneNumber = 123456789,
+                    Id = 1, 
+                   // AddressId = 1, 
+                    Email = "test@test.com", PhoneNumber = 123456789,
                     AccCreationDateTime = new DateTime(2021,11,23)
                 } 
             };
@@ -210,7 +206,9 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new AccDetailsRepository(fakeContext);
             var list = new List<AccDetailsEntity>()
             {
-                new AccDetailsEntity(){ Id = 1, AddressId = 1, Email = "test2@test2.com", PhoneNumber = 123456789,
+                new AccDetailsEntity(){ Id = 1, 
+                  //  AddressId = 1, 
+                    Email = "test2@test2.com", PhoneNumber = 123456789,
                 AccCreationDateTime = new DateTime(2021,11,23)}
             };
             var expected = list.Select(ae => new AccDetails()

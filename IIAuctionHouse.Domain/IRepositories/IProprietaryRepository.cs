@@ -5,7 +5,7 @@ namespace IIAuctionHouse.Domain.IRepositories
 {
     public interface IProprietaryRepository
     {
-        List<Proprietary> ReadAll();
+        IEnumerable<Proprietary> ReadAll();
         Proprietary GetById(int id);
         Proprietary Create(string cadastreNumber, string forestryEnterprise, string city);
         Proprietary Update(Proprietary proprietary);

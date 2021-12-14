@@ -17,7 +17,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         }
 
-        public List<Proprietary> ReadAll()
+        public IEnumerable<Proprietary> ReadAll()
         {
             return _ctx.Proprietaries.Select(ae => new Proprietary()
             {

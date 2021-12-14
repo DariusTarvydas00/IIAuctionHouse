@@ -18,16 +18,16 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         }
 
-        public List<User> ReadAll()
+        public IEnumerable<User> ReadAll()
         {
             return _ctx.Users.Select(ae=>new User()
             {
                 Id = ae.Id,
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
-                Address = ae.Address,
-                Proprietaries = ae.Proprietary,
-                Bids = ae.Bid
+             //   Address = ae.Address,
+             //   Proprietaries = ae.Proprietary,
+             //   Bids = ae.Bid
             }).ToList();
         }
 
@@ -38,9 +38,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = ae.Id,
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
-                Address = ae.Address,
-                Proprietary = ae.Proprietary,
-                Bid = ae.Bid
+              //  Address = ae.Address,
+              //  Proprietary = ae.Proprietary,
+              //  Bid = ae.Bid
             }).FirstOrDefault();
             if (UserEntity != null)
             {
@@ -49,9 +49,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                     Id = UserEntity.Id,
                     FirstName = UserEntity.FirstName,
                     LastName = UserEntity.LastName,
-                    Address = UserEntity.Address,
-                    Proprietaries = UserEntity.Proprietary,
-                    Bids = UserEntity.Bid
+                 //   Address = UserEntity.Address,
+                 //   Proprietaries = UserEntity.Proprietary,
+                 //   Bids = UserEntity.Bid
                 };
             }
             return null;
@@ -64,17 +64,17 @@ namespace IIAuctionHouse.DataAccess.Repositories
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Address = address,
-                Proprietary = proprietary,
-                Bid = bid
+             //   Address = address,
+             //   Proprietary = proprietary,
+             //   Bid = bid
             }).Entity;
             return new User()
             {
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+             //   Address = entity.Address,
+             //   Proprietaries = entity.Proprietary,
+             //   Bids = entity.Bid
             };
         }
 
@@ -85,9 +85,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = User.Id,
                 FirstName = User.FirstName,
                 LastName = User.LastName,
-                Address = User.Address,
-                Proprietary = User.Proprietaries,
-                Bid = User.Bids
+              //  Address = User.Address,
+              //  Proprietary = User.Proprietaries,
+              //  Bid = User.Bids
             }).Entity;
             _ctx.SaveChanges();
             return new User()
@@ -95,9 +95,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+              //  Address = entity.Address,
+              //  Proprietaries = entity.Proprietary,
+              //  Bids = entity.Bid
             };
         }
 
@@ -113,9 +113,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+              //  Address = entity.Address,
+             //   Proprietaries = entity.Proprietary,
+              //  Bids = entity.Bid
             };
 
         }

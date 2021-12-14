@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
@@ -19,7 +20,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public List<AccDetails> ReadAll()
         {
-            return _accDetailsRepository.ReadAll();
+            return _accDetailsRepository.ReadAll().ToList();
         }
 
         public AccDetails GetById(int id)

@@ -1,11 +1,15 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Net.Http;
 using System.Reflection;
+using System.Threading.Tasks;
 using IIAuctionHouse.Controllers;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
+using IIAuctionHouse.Domain.IRepositories;
 using IIAuctionHouse.Domain.Services;
 using Microsoft.AspNetCore.Mvc;
 using Moq;
@@ -157,7 +161,6 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
                 methodInfo.CustomAttributes.FirstOrDefault(ca => ca.AttributeType.Name == "HttpGetAttribute");
             Assert.NotNull(attribute);
         }
-
         #endregion
 
         #region Post methods

@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
@@ -18,7 +19,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public List<Admin> ReadAll()
         {
-            return _AdminRepository.ReadAll();
+            return _AdminRepository.ReadAll().ToList();
         }
 
         public Admin GetById(int id)

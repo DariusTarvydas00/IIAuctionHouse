@@ -6,7 +6,7 @@ namespace IIAuctionHouse.Domain.IRepositories
 {
     public interface IAdminRepository
     {
-        List<Admin> ReadAll();
+        IEnumerable<Admin> ReadAll();
         Admin GetById(int id);
         Admin Create(string firstName, string lastName, Address address, List<Proprietary> proprietary, List<Bid> bid);
         Admin Update(Admin Admin);

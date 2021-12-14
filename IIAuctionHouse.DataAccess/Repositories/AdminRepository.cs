@@ -18,16 +18,16 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         }
 
-        public List<Admin> ReadAll()
+        public IEnumerable<Admin> ReadAll()
         {
             return _ctx.Admins.Select(ae=>new Admin()
             {
                 Id = ae.Id,
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
-                Address = ae.Address,
-                Proprietaries = ae.Proprietary,
-                Bids = ae.Bid
+              //  Address = ae.Address,
+              //  Proprietaries = ae.Proprietary,
+              //  Bids = ae.Bid
             }).ToList();
         }
 
@@ -38,9 +38,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = ae.Id,
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
-                Address = ae.Address,
-                Proprietary = ae.Proprietary,
-                Bid = ae.Bid
+              //  Address = ae.Address,
+              //  Proprietary = ae.Proprietary,
+              //  Bid = ae.Bid
             }).FirstOrDefault();
             if (AdminEntity != null)
             {
@@ -49,9 +49,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                     Id = AdminEntity.Id,
                     FirstName = AdminEntity.FirstName,
                     LastName = AdminEntity.LastName,
-                    Address = AdminEntity.Address,
-                    Proprietaries = AdminEntity.Proprietary,
-                    Bids = AdminEntity.Bid
+                 //   Address = AdminEntity.Address,
+                 //   Proprietaries = AdminEntity.Proprietary,
+                 //   Bids = AdminEntity.Bid
                 };
             }
             return null;
@@ -64,17 +64,17 @@ namespace IIAuctionHouse.DataAccess.Repositories
             {
                 FirstName = firstName,
                 LastName = lastName,
-                Address = address,
-                Proprietary = proprietary,
-                Bid = bid
+              //  Address = address,
+              //  Proprietary = proprietary,
+              //  Bid = bid
             }).Entity;
             return new Admin()
             {
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+              //  Address = entity.Address,
+              //  Proprietaries = entity.Proprietary,
+              //  Bids = entity.Bid
             };
         }
 
@@ -85,9 +85,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = Admin.Id,
                 FirstName = Admin.FirstName,
                 LastName = Admin.LastName,
-                Address = Admin.Address,
-                Proprietary = Admin.Proprietaries,
-                Bid = Admin.Bids
+             //   Address = Admin.Address,
+             //   Proprietary = Admin.Proprietaries,
+             //   Bid = Admin.Bids
             }).Entity;
             _ctx.SaveChanges();
             return new Admin()
@@ -95,9 +95,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+              //  Address = entity.Address,
+              //  Proprietaries = entity.Proprietary,
+              //  Bids = entity.Bid
             };
         }
 
@@ -113,9 +113,9 @@ namespace IIAuctionHouse.DataAccess.Repositories
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+             //   Address = entity.Address,
+             //   Proprietaries = entity.Proprietary,
+             //   Bids = entity.Bid
             };
 
         }

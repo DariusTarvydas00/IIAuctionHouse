@@ -6,7 +6,7 @@ namespace IIAuctionHouse.Domain.IRepositories
 {
     public interface IUserRepository
     {
-        List<User> ReadAll();
+        IEnumerable<User> ReadAll();
         User GetById(int id);
         User Create(string firstName, string lastName, Address address, List<Proprietary> proprietary, List<Bid> bid);
         User Update(User user);
