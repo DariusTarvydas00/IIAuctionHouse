@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Domain.IRepositories;
@@ -18,7 +19,7 @@ namespace IIAuctionHouse.Domain.Services
 
         public List<Bid> ReadAll()
         {
-            return _bidRepository.ReadAll();
+            return _bidRepository.ReadAll().ToList();
         }
 
         public Bid GetById(int id)

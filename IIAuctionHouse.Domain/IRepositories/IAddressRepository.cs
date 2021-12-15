@@ -7,7 +7,7 @@ namespace IIAuctionHouse.Domain.IRepositories
 {
     public interface IAddressRepository
     {
-        List<Address> ReadAll();
+        IEnumerable<Address> ReadAll();
         Address GetById(int id);
         Address Create(string country, string city, int postCode, string streetName, int streetNumber);
         Address Update(Address address);

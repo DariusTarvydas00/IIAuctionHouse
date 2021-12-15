@@ -18,7 +18,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         } 
 
-        public List<Bid> ReadAll()
+        public IEnumerable<Bid> ReadAll()
         {
             return _ctx.Bids.Select(ae=>new Bid()
             {

@@ -1,11 +1,9 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using IIAuctionHouse.Domain.IRepositories;
 using EntityFrameworkCore.Testing.Moq;
-using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.Core.Models.AccDetails;
 using IIAuctionHouse.DataAccess;
 using IIAuctionHouse.DataAccess.Entities;

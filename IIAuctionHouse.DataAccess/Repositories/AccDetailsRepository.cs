@@ -19,7 +19,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             _ctx = ctx;
         }
 
-        public List<AccDetails> ReadAll()
+        public IEnumerable<AccDetails> ReadAll()
         {
             return _ctx.AccDetails.Select(ae=>new AccDetails()
             {
@@ -59,7 +59,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
         {
             var entity = _ctx.AccDetails.Add(new AccDetailsEntity()
             {
-                AddressId = address.Id,
+              //  AddressId = address.Id,
                 Email = email,
                 PhoneNumber = phoneNumber,
                 AccCreationDateTime = accCreationDate
@@ -67,10 +67,10 @@ namespace IIAuctionHouse.DataAccess.Repositories
             return new AccDetails()
             {
                 Id = entity.Id,
-                Address = new Address()
-                {
-                    Id = entity.AddressId
-                },
+              //  Address = new Address()
+              //  {
+               //     Id = entity.AddressId
+               // },
                 Email = entity.Email,
                 PhoneNumber = entity.PhoneNumber,
                 AccCreationDateTime = entity.AccCreationDateTime
@@ -82,7 +82,7 @@ namespace IIAuctionHouse.DataAccess.Repositories
             var entity = _ctx.AccDetails.Update(new AccDetailsEntity()
             {
                 Id = accDetails.Id,
-                AddressId = accDetails.Id,
+              //  AddressId = accDetails.Id,
                 Email = accDetails.Email,
                 PhoneNumber = accDetails.PhoneNumber,
                 AccCreationDateTime = accDetails.AccCreationDateTime
@@ -91,10 +91,10 @@ namespace IIAuctionHouse.DataAccess.Repositories
             return new AccDetails()
             {
                 Id = entity.Id,
-                Address = new Address()
-                {
-                    Id = entity.AddressId
-                },
+                // Address = new Address()
+                // {
+                //     Id = entity.AddressId
+                // },
                 Email = entity.Email,
                 PhoneNumber = entity.PhoneNumber,
                 AccCreationDateTime = entity.AccCreationDateTime

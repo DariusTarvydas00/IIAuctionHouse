@@ -6,7 +6,7 @@ namespace IIAuctionHouse.Domain.IRepositories
 {
     public interface IBidRepository
     {
-        public List<Bid> ReadAll();
+        public IEnumerable<Bid> ReadAll();
 
         public Bid GetById(int id);
 

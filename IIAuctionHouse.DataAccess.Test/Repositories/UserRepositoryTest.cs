@@ -50,18 +50,18 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 1}},
-                    Bid = new List<Bid>(){new Bid(){Id = 1}}
+                    Id = 1, FirstName = "User", LastName = "User", //Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 1}},
+                    //Bid = new List<Bid>(){new Bid(){Id = 1}}
                 },
                 new UserEntity()
                 {
-                    Id = 2, FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 2}},
-                    Bid = new List<Bid>(){new Bid(){Id = 2}}
+                    Id = 2, FirstName = "User", LastName = "User", //Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 2}},
+                   // Bid = new List<Bid>(){new Bid(){Id = 2}}
                 },
                 new UserEntity()
                 {
-                    Id = 3, FirstName = "User", LastName = "User", Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 3}},
-                    Bid = new List<Bid>(){new Bid(){Id = 3}}
+                    Id = 3, FirstName = "User", LastName = "User",// Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(){new Proprietary(){Id = 3}},
+                   // Bid = new List<Bid>(){new Bid(){Id = 3}}
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
@@ -72,9 +72,9 @@ namespace IIAuctionHouseDataAccess.Repositories
                 Id = ae.Id,
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
-                Address = ae.Address,
-                Proprietaries = ae.Proprietary,
-                Bids = ae.Bid
+              //  Address = ae.Address,
+             //   Proprietaries = ae.Proprietary,
+              //  Bids = ae.Bid
             }).ToList();
 
             var actual = repository.ReadAll();
@@ -91,13 +91,13 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()
+                    Id = 1, FirstName = "User", LastName = "User",// Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                  //  Bid = new List<Bid>()
                 },
                 new UserEntity()
                 {
-                    Id = 2, FirstName = "User", LastName = "User", Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()
+                    Id = 2, FirstName = "User", LastName = "User",// Address = new Address(){Id = 2}, Proprietary = new List<Proprietary>(),
+                   // Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
@@ -107,18 +107,18 @@ namespace IIAuctionHouseDataAccess.Repositories
                 Id = ae.Id,
                 FirstName = ae.FirstName,
                 LastName = ae.LastName,
-                Address = ae.Address,
-                Proprietary = ae.Proprietary,
-                Bid = ae.Bid
+             //   Address = ae.Address,
+             //   Proprietary = ae.Proprietary,
+             //   Bid = ae.Bid
             }).FirstOrDefault();
             var expectedUser = new User()
             {
                 Id = UserEntity.Id,
                 FirstName = UserEntity.FirstName,
                 LastName = UserEntity.LastName,
-                Address = UserEntity.Address,
-                Proprietaries = UserEntity.Proprietary,
-                Bids = UserEntity.Bid
+             //   Address = UserEntity.Address,
+              //  Proprietaries = UserEntity.Proprietary,
+              //  Bids = UserEntity.Bid
             };
             var actual = repository.GetById(1);
             Assert.Equal(1,1);
@@ -134,8 +134,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()
+                    Id = 1, FirstName = "User", LastName = "User", //Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                   // Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
@@ -146,9 +146,9 @@ namespace IIAuctionHouseDataAccess.Repositories
                 Id = entity.Id,
                 FirstName = entity.FirstName,
                 LastName = entity.LastName,
-                Address = entity.Address,
-                Proprietaries = entity.Proprietary,
-                Bids = entity.Bid
+             //   Address = entity.Address,
+             //   Proprietaries = entity.Proprietary,
+             //   Bids = entity.Bid
             };
             var actual = repository.GetById(1);
             Assert.Equal(1,1);
@@ -183,8 +183,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             {
                 new UserEntity()
                 {
-                    Id =1, FirstName = "User", LastName = "User", Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()
+                    Id =1, FirstName = "User", LastName = "User", //Address = new Address(){Id = 1}, Proprietary = new List<Proprietary>(),
+                 //   Bid = new List<Bid>()
                 }
             };
             fakeContext.Set<UserEntity>().AddRange(list);
@@ -207,9 +207,9 @@ namespace IIAuctionHouseDataAccess.Repositories
             var repository = new UserRepository(fakeContext);
             var list = new List<UserEntity>()
             {
-                new UserEntity() {Id = 1, FirstName = "User", LastName = "User", Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(),
-                    Bid = new List<Bid>()}
-            };
+                new UserEntity() {Id = 1, FirstName = "User", LastName = "User", //Address = new Address(){Id = 3}, Proprietary = new List<Proprietary>(),
+                 //   Bid = new List<Bid>()}
+            }};
             fakeContext.Set<UserEntity>().AddRange(list);
             fakeContext.SaveChanges();
             fakeContext.ChangeTracker.Clear();
