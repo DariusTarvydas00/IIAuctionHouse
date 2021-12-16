@@ -20,42 +20,42 @@ namespace IIAuctionHouse.Controllers
         [HttpGet]
         public ActionResult<List<Bid>> GetAll()
         {
-            return Ok(_bidService.ReadAll());
+            return Ok(_bidService.GetAllBids());
         }
 
         [HttpGet("id")]
-        public ActionResult<Bid> GetById([FromBody] int id)
+        public ActionResult<Bid> GetById([FromQuery] int id)
         {
-            var Bid = _bidService.GetById(id);
+            var bid = _bidService.GetBidById(id);
             return Ok(new Bid()
             {
-                Id = Bid.Id,
-                BidAmount = Bid.BidAmount,
-                BidDateTime = Bid.BidDateTime
+                Id = bid.Id,
+                BidAmount = bid.BidAmount,
+                BidDateTime = bid.BidDateTime
             });
         }
 
         [HttpPost]
-        public ActionResult<Bid> Post([FromBody] Bid Bid)
+        public ActionResult<Bid> Post([FromBody] Bid bid)
         {
-            var BidUpdate = _bidService.Update(Bid);
+            var bidUpdate = _bidService.UpdateBid(bid);
             return Ok(new Bid()
             {
-                Id = BidUpdate.Id,
-                BidAmount = BidUpdate.BidAmount,
-                BidDateTime = BidUpdate.BidDateTime
+                Id = bidUpdate.Id,
+                BidAmount = bidUpdate.BidAmount,
+                BidDateTime = bidUpdate.BidDateTime
             });
         }
 
         [HttpDelete]
-        public ActionResult<Bid> Delete([FromBody] int id)
+        public ActionResult<Bid> Delete([FromQuery] int id)
         {
-            var Bid = _bidService.Delete(id);
+            var bid = _bidService.DeleteBid(id);
             return Ok(new Bid()
             {
-                Id = Bid.Id,
-                BidAmount = Bid.BidAmount,
-                BidDateTime = Bid.BidDateTime
+                Id = bid.Id,
+                BidAmount = bid.BidAmount,
+                BidDateTime = bid.BidDateTime
             });
         }
     } 

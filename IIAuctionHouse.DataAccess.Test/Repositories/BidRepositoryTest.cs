@@ -1,13 +1,14 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using EntityFrameworkCore.Testing.Moq;
+using IIAuctionHouse.Core.Domain.IRepositories;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.DataAccess;
 using IIAuctionHouse.DataAccess.Entities;
 using IIAuctionHouse.DataAccess.Repositories;
-using IIAuctionHouse.Domain.IRepositories;
 using Xunit;
 
 namespace IIAuctionHouseDataAccess.Repositories
@@ -18,7 +19,7 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void BidRepository_IsIBidRepository()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
             Assert.IsAssignableFrom<IBidRepository>(repository);
         }
@@ -39,11 +40,11 @@ namespace IIAuctionHouseDataAccess.Repositories
             Assert.Equal(expected,actual.Message);
         }
         
-        // Checking if GetAll returns Bid entities as list of Bides
+        // Checking if GetAll returns Bid entities as list of Bids
         [Fact]
-        public void GetAll_GetAllBidEntitiesInDbContext_ReturnsListOfBides()
+        public void GetAll_GetAllBidsInDbContext_ReturnsListOfBides()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
             var list = new List<BidEntity>()
             {
@@ -77,34 +78,29 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void GetById_Int_ReturnsBidObject()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
             var list = new List<BidEntity>()
             {
-                new BidEntity()
-                {
-                    Id = 4, BidAmount = 20000, BidDateTime = DateTime.Today
-                },
-                new BidEntity()
-                {
-                    Id = 5, BidAmount = 40000, BidDateTime = DateTime.Today
-                }
+                new BidEntity() {BidAmount = 20000, BidDateTime = DateTime.Today},
+                new BidEntity() {BidAmount = 40000, BidDateTime = DateTime.Today}
             };
             fakeContext.Set<BidEntity>().AddRange(list);
             fakeContext.SaveChanges();
-            var BidEntity = list.Select(ae => new BidEntity()
+            var bidEntity = fakeContext.Bids.Select(ae => new BidEntity()
             {
                 Id = ae.Id,
                 BidAmount = ae.BidAmount,
                 BidDateTime = ae.BidDateTime
             }).FirstOrDefault();
+            Debug.Assert(bidEntity != null, nameof(bidEntity) + " != null");
             var expectedBid = new Bid()
             {
-                Id = BidEntity.Id,
-                BidAmount = BidEntity.BidAmount,
-                BidDateTime = BidEntity.BidDateTime
+                Id = bidEntity.Id,
+                BidAmount = bidEntity.BidAmount,
+                BidDateTime = bidEntity.BidDateTime
             };
-            var actual = repository.GetById(1);
+            var actual = repository.ReadById(1);
             Assert.Equal(expectedBid,actual, new Comparer());
         }
         
@@ -112,55 +108,62 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void GetById_BidIsNullInDbContext_ReturnsNull()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
             var list = new List<BidEntity>()
             {
-                new BidEntity()
+                new BidEntity() { BidAmount = 20000, BidDateTime = DateTime.Today },
+                new BidEntity() { BidAmount = 40000, BidDateTime = DateTime.Today }
             };
             fakeContext.Set<BidEntity>().AddRange(list);
             fakeContext.SaveChanges();
-            var entity = list.Find(ae => ae.Id == 1);
+            var entity = fakeContext.Bids.First();
             var expected = new Bid()
             {
                 Id = entity.Id,
                 BidAmount = entity.BidAmount,
                 BidDateTime = entity.BidDateTime
             };
-            var actual = repository.GetById(1);
+            var actual = repository.ReadById(1);
             Assert.Equal(expected,actual, new Comparer());
+            var actual1 = repository.ReadById(10);
+            Assert.Null(actual1);
         }
         
         // Checks if Bid object is created
         [Fact]
         public void Create_BidProperties_StoresNewBid()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
-            var fakeList = new List<BidEntity>();
-            var expected = new Bid()
+            var fakeList = new List<BidEntity>()
             {
-                Id = 2,
-                BidAmount = 40000, 
-                BidDateTime = DateTime.Today
+                new BidEntity(){ Id = 1, BidAmount = 20000, BidDateTime = DateTime.Today}
             };
             fakeContext.Set<BidEntity>().AddRange(fakeList);
             fakeContext.SaveChanges();
-            var actual = repository.Create(40000, DateTime.Today);
-            Assert.Equal(expected,repository.Create(40000, DateTime.Today),new Comparer());
+            var expected = new Bid()
+            {
+                Id = 2,
+                BidAmount = 40000,
+                BidDateTime = DateTime.Today
+            };
+            var actual = repository.Create(expected);
+            Assert.Equal(expected,actual,new Comparer());
         }
         
         // Checks if Bid object is updated
         [Fact]
         public void Update_BidObject_IsUpdated()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
             var list = new List<BidEntity>()
             {
                 new BidEntity()
                 {
-                    Id = 1, BidAmount = 40000, 
+                    Id = 1, 
+                    BidAmount = 40000, 
                     BidDateTime = DateTime.Today
                 }
             };
@@ -168,7 +171,8 @@ namespace IIAuctionHouseDataAccess.Repositories
             fakeContext.SaveChanges();
             var expected = new Bid()
             {
-                Id = 1, BidAmount = 50000, 
+                Id = 1, 
+                BidAmount = 50000, 
                 BidDateTime = DateTime.Today
             };
             fakeContext.ChangeTracker.Clear();
@@ -180,7 +184,7 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void Delete_Id_ReturnsNull()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new BidRepository(fakeContext);
             var list = new List<BidEntity>()
             {

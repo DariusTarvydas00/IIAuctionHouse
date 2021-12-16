@@ -105,7 +105,7 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var mockService = new Mock<IProprietaryService>();
             var controller = new ProprietaryController(mockService.Object);
             controller.GetAll();
-            mockService.Verify(s=>s.ReadAll(), Times.Once);
+            mockService.Verify(s=>s.GetAllProprietaries(), Times.Once);
         }
         
         // Checks if method has Http Attribute

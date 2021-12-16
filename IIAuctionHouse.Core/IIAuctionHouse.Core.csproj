@@ -4,4 +4,10 @@
         <TargetFramework>net5.0</TargetFramework>
     </PropertyGroup>
 
+    <ItemGroup>
+      <Reference Include="IIAuctionHouse.Domain, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null">
+        <HintPath>..\IIAuctionHouse.Domain\bin\Debug\net5.0\IIAuctionHouse.Domain.dll</HintPath>
+      </Reference>
+    </ItemGroup>
+
 </Project>

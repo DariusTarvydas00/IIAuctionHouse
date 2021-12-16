@@ -105,7 +105,7 @@ namespace IIAuctionHouse.WebApi.Test.Controllers
             var mockService = new Mock<IBidService>();
             var controller = new BidController(mockService.Object);
             controller.GetAll();
-            mockService.Verify(s=>s.ReadAll(), Times.Once);
+            mockService.Verify(s=>s.GetAllBids(), Times.Once);
         }
         
         // Checks if method has Http Attribute

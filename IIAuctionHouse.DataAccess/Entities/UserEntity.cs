@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using IIAuctionHouse.Core.Models;
-using IIAuctionHouse.Core.Models.AccDetails;
+﻿
 
 namespace IIAuctionHouse.DataAccess.Entities
 {
@@ -9,6 +7,11 @@ namespace IIAuctionHouse.DataAccess.Entities
         public int Id { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
+        
+        public string Username { get; set; }
+        public byte[] PasswordHash { get; set; }
+        public byte[] PasswordSalt { get; set; }
+        public string Role { get; set; }
        // public Address Address { get; set; }
        // public int AddressId { get; set; }
        // public List<Proprietary> Proprietary { get; set; }

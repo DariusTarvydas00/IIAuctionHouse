@@ -1,17 +1,17 @@
 ﻿using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using IIAuctionHouse.Core.Domain.IRepositories;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.DataAccess.Entities;
-using IIAuctionHouse.Domain.IRepositories;
 
 namespace IIAuctionHouse.DataAccess.Repositories
 {
     public class ProprietaryRepository:IProprietaryRepository
     {
-        private readonly MainDbContext _ctx;
+        private readonly AuctionHouseDbContext _ctx;
 
-        public ProprietaryRepository(MainDbContext ctx)
+        public ProprietaryRepository(AuctionHouseDbContext ctx)
         {
             if (ctx == null) throw new InvalidDataException("Non existing DbContext");
             _ctx = ctx;
@@ -28,7 +28,18 @@ namespace IIAuctionHouse.DataAccess.Repositories
             }).ToList();
         }
 
-        public Proprietary GetById(int id)
+        public Proprietary ReadById(int id)
+        {
+            return _ctx.Proprietaries.Select(ae => new Proprietary()
+            {
+                Id = ae.Id,
+                CadastreNumber = ae.CadastreNumber,
+                ForestryEnterprise = ae.ForestryEnterprise,
+                City = ae.City
+            }).FirstOrDefault(i=>i.Id == id);
+        }
+        
+        public Proprietary ReadProprietaryByIdIncludeBids(int id)
         {
             var proprietaryEntity = _ctx.Proprietaries.Select(ae => new ProprietaryEntity()
             {
@@ -50,13 +61,13 @@ namespace IIAuctionHouse.DataAccess.Repositories
             return null;
         }
 
-        public Proprietary Create(string cadastreNumber, string forestryEnterprise, string city)
+        public Proprietary Create(Proprietary proprietary)
         {
             var entity = _ctx.Proprietaries.Add(new ProprietaryEntity()
             {
-                CadastreNumber = cadastreNumber,
-                ForestryEnterprise = forestryEnterprise,
-                City = city
+                CadastreNumber = proprietary.CadastreNumber,
+                ForestryEnterprise = proprietary.ForestryEnterprise,
+                City = proprietary.City
             }).Entity;
             return new Proprietary()
             {
@@ -66,14 +77,14 @@ namespace IIAuctionHouse.DataAccess.Repositories
             };
         }
 
-        public Proprietary Update(Proprietary proprietary)
+        public Proprietary Update(Proprietary updateProprietary)
         {
             var entity = _ctx.Proprietaries.Update(new ProprietaryEntity()
             {
-                Id = proprietary.Id,
-                CadastreNumber = proprietary.CadastreNumber,
-                ForestryEnterprise = proprietary.ForestryEnterprise,
-                City = proprietary.City
+                Id = updateProprietary.Id,
+                CadastreNumber = updateProprietary.CadastreNumber,
+                ForestryEnterprise = updateProprietary.ForestryEnterprise,
+                City = updateProprietary.City
             }).Entity;
             _ctx.SaveChanges();
             return new Proprietary()

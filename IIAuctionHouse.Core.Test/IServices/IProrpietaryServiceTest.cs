@@ -22,9 +22,9 @@ namespace IIAuctionHouse.Core.Test.IServices
         {
             var mock = new Mock<IProprietaryService>();
             var fakeList = new List<Proprietary>();
-            mock.Setup(s => s.ReadAll()).Returns(fakeList);
+            mock.Setup(s => s.GetAllProprietaries()).Returns(fakeList);
             var service = mock.Object;
-            Assert.Equal(fakeList,service.ReadAll());
+            Assert.Equal(fakeList,service.GetAllProprietaries());
         }
         
         // Checking if GetById returns a Proprietary object
@@ -38,12 +38,13 @@ namespace IIAuctionHouse.Core.Test.IServices
                 Id = 1,
                 CadastreNumber = "123/123/123",
                 City = "Esbjerg",
-                ForestryEnterprise = "EsbjergEnterprise"
+                ForestryEnterprise = "EsbjergEnterprise",
+                Bids = new List<Bid>()
             };
             fakeList.Add(proprietary);
-            mock.Setup(s => s.GetById(1)).Returns(fakeList.Find(a => a.Id == 1));
+            mock.Setup(s => s.GetProprietaryById(1)).Returns(fakeList.Find(a => a.Id == 1));
             var service = mock.Object;
-            Assert.Equal(proprietary,service.GetById(1));
+            Assert.Equal(proprietary,service.GetProprietaryById(1));
         }
         
         // Checking if proprietary object is created
@@ -58,10 +59,10 @@ namespace IIAuctionHouse.Core.Test.IServices
                 City = "Esbjerg",
                 ForestryEnterprise = "EsbjergEnterprise"
             };
-            mock.Setup(s => s.Create(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>()))
+            mock.Setup(s => s.NewProprietary(It.IsAny<string>(), It.IsAny<string>(), It.IsAny<string>(), It.IsAny<List<Bid>>()))
                 .Returns(() => fakeProprietary);
             var service = mock.Object;
-            Assert.Equal(fakeProprietary,service.Create( "123/123/123", "EsbjergEnterprise", "Esbjerg"));
+            Assert.Equal(fakeProprietary,service.NewProprietary( "123/123/123", "EsbjergEnterprise", "Esbjerg",new List<Bid>()));
         }
         
         // Checking if proprietary object is updated
@@ -76,9 +77,9 @@ namespace IIAuctionHouse.Core.Test.IServices
                 City = "Esbjerg",
                 ForestryEnterprise = "EsbjergEnterprise"
             };
-            mock.Setup(s => s.Update(fakeProprietary)).Returns(fakeProprietary);
+            mock.Setup(s => s.UpdateProprietary(fakeProprietary)).Returns(fakeProprietary);
             var service = mock.Object;
-            Assert.Equal(fakeProprietary,service.Update(fakeProprietary));
+            Assert.Equal(fakeProprietary,service.UpdateProprietary(fakeProprietary));
         }
         
         // Checks if Delete method deletes object
@@ -95,9 +96,9 @@ namespace IIAuctionHouse.Core.Test.IServices
                 ForestryEnterprise = "EsbjergEnterprise"
             };
             fakeList.Add(proprietary);
-            mock.Setup(s => s.Delete(1)).Returns(() => null);
+            mock.Setup(s => s.DeleteProprietary(1)).Returns(() => null);
             var service = mock.Object;
-            Assert.Null(service.Delete(1));
+            Assert.Null(service.DeleteProprietary(1));
         }
     }
 }
