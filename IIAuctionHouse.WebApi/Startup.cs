@@ -1,23 +1,25 @@
 using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Text;
+using IIAuctionHouse.Core.Domain.IRepositories;
+using IIAuctionHouse.Core.Domain.Services;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.DataAccess;
 using IIAuctionHouse.DataAccess.Repositories;
-using IIAuctionHouse.Domain.IRepositories;
-using IIAuctionHouse.Domain.Services;
+using IIAuctionHouse.Security;
+using IIAuctionHouse.Security.IRepositories;
+using IIAuctionHouse.Security.IServices;
+using IIAuctionHouse.Security.Repositories;
+using IIAuctionHouse.Security.Services;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
-using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
 using Microsoft.Extensions.Logging;
+using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
-using Newtonsoft.Json;
 
 namespace IIAuctionHouse
 {
@@ -33,33 +35,89 @@ namespace IIAuctionHouse
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            
             Byte[] secretBytes = new byte[40];
             Random rand = new Random();
             rand.NextBytes(secretBytes);
-            
-            var loggerFactory = LoggerFactory.Create(builder =>
+
+            services.AddSwaggerGen(options =>
             {
-                builder.AddConsole();
-            });
-            services.AddDbContext<MainDbContext>(builder => builder.UseLoggerFactory(loggerFactory).UseSqlite("Data Source=DatabaseApp.db"));
-            
-            services.AddScoped<IAccDetailsRepository, AccDetailsRepository>();
-            services.AddScoped<IAccDetailsService, AccDetailsService>();
-            
-            services.AddScoped<IAddressRepository, AddressRepository>();
-            services.AddScoped<IAddressService, AddressService>();
-            
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
-            services.AddMvc().AddNewtonsoftJson(options => {
-                options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
-            });
-            
-            services.AddDbContext<MainDbContext>(
-                options =>
+                options.SwaggerDoc("v1", new OpenApiInfo {Title = "AuctionHouse.WebApi", Version = "v1"});
+                options.AddSecurityDefinition("Bearer", new OpenApiSecurityScheme()
                 {
-                    options.UseSqlite("Data Source=main.db");
+                    Name = "Authorization",
+                    Type = SecuritySchemeType.ApiKey,
+                    Scheme = "Bearer",
+                    BearerFormat = "JWT",
+                    In = ParameterLocation.Header,
+                    Description =
+                        "JWT Authorization header using the Bearer scheme. \r\n\r\n Enter 'Bearer' [space] and then your token in the text input below.\r\n\r\nExample: \"Bearer 12345abcdef\"",
                 });
+                options.AddSecurityRequirement(new OpenApiSecurityRequirement
+                {
+                    {
+                        new OpenApiSecurityScheme
+                        {
+                            Reference = new OpenApiReference
+                            {
+                                Type = ReferenceType.SecurityScheme,
+                                Id = "Bearer"
+                            }
+                        },
+                        new string[] { }
+                    }
+                });
+            });
+
+            services.AddAuthentication(authenticationOptions =>
+            {
+                authenticationOptions.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+                authenticationOptions.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+            }).AddJwtBearer(options =>
+            {
+                options.TokenValidationParameters = new TokenValidationParameters
+                {
+                    ValidateIssuerSigningKey = true,
+                    IssuerSigningKey = new SymmetricSecurityKey(
+                        Encoding.UTF8.GetBytes(Configuration["Jwt:Secret"])),
+                    ValidateIssuer = true,
+                    ValidIssuer = Configuration["Jwt:Issuer"],
+                    ValidateAudience = true,
+                    ValidAudience = Configuration["Jwt:Audience"],
+                    ValidateLifetime = true
+                };
+            });
+            var value = Configuration["JwtConfig:secret"];
+
+            services.AddControllers();
+
+            var loggerFactory = LoggerFactory.Create(builder => { builder.AddConsole(); });
+
+            services.AddDbContext<AuctionHouseDbContext>(builder =>
+                {
+                    builder.UseLoggerFactory(loggerFactory)
+                        .UseSqlite("Data Source=AuctionHouseDbContext.db");
+                }, ServiceLifetime.Transient
+            );
+
+            services.AddDbContext<AuthDbContext>(builder =>
+                {
+                    builder.UseLoggerFactory(loggerFactory)
+                        .UseSqlite("Data Source=AuthDbContext.db");
+                }, ServiceLifetime.Transient
+            );
+
+            services.AddScoped<ICustomerDetailsRepository, CustomerDetailsRepository>();
+            services.AddScoped<ICustomerDetailsService, CustomerDetailsService>();
+            services.AddScoped<IBidRepository, BidRepository>();
+            services.AddScoped<IBidService, BidService>();
+            services.AddScoped<IProprietaryRepository, ProprietaryRepository>();
+            services.AddScoped<IProprietaryService, ProprietaryService>();
+            services.AddScoped<IAuctionHouseDbSeeder, AuctionHouseDbSeeder>();
+
+            services.AddScoped<ISecurityService, SecurityService>();
+            services.AddScoped<IAuthUserRepository, AuthUserRepository>();
+            services.AddScoped<IAuthUserService, AuthUserService>();
+            services.AddScoped<IAuthDbSeeder, AuthDbSeeder>();
 
             services.AddCors(options =>
             {
@@ -70,35 +128,49 @@ namespace IIAuctionHouse
                         .AllowAnyHeader()
                         .AllowAnyMethod();
                 });
-                options.AddPolicy("Prod-cors", policy =>
-                {
-                    policy
-                        .WithOrigins(
-                            "https://dtlegosforlifedt-332510.firebaseapp.com",
-                            "https://dtlegosforlifedt.firebaseapp.com",
-                            "https://dtlegosforlifedt-332510.web.app")
-                        .AllowAnyHeader()
-                        .AllowAnyMethod();
-                } );
             });
-            services.AddSwaggerGen(c =>
-            {
-                c.SwaggerDoc("v1", new OpenApiInfo {Title = "IIAuctionHouse.WebApi", Version = "v1"});
-            });
+            
+        //
+        // services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_3_0);
+        //     services.AddMvc().AddNewtonsoftJson(options => {
+        //         options.SerializerSettings.ReferenceLoopHandling = ReferenceLoopHandling.Ignore;
+        //     });
+        //     
+        //     services.AddDbContext<AuctionHouseDbContext>(
+        //         options =>
+        //         {
+        //             options.UseSqlite("Data Source=main.db");
+        //         });
+        //     
+        //         options.AddPolicy("Prod-cors", policy =>
+        //         {
+        //             policy
+        //                 .WithOrigins(
+        //                     "https://dtlegosforlifedt-332510.firebaseapp.com",
+        //                     "https://dtlegosforlifedt.firebaseapp.com",
+        //                     "https://dtlegosforlifedt-332510.web.app")
+        //                 .AllowAnyHeader()
+        //                 .AllowAnyMethod();
+        //         } );
+        //     });
         } 
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, MainDbContext context)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, IAuctionHouseDbSeeder auctionHouseDbSeeder, IAuthDbSeeder authDbSeeder)
         {
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
                 app.UseSwagger();
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "HoneyShop.WebApi v1"));
+                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "AuctionHouse.WebApi v1"));
                 app.UseCors("Dev-cors");
+                auctionHouseDbSeeder.SeedDevelopment();
+                authDbSeeder.SeedDevelopment();
             }
             else
             {
+                auctionHouseDbSeeder.SeedProduction();
+                authDbSeeder.SeedProduction();
             }
 
             app.UseHttpsRedirection();

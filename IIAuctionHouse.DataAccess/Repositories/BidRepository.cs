@@ -2,17 +2,17 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using IIAuctionHouse.Core.Domain.IRepositories;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.DataAccess.Entities;
-using IIAuctionHouse.Domain.IRepositories;
 
 namespace IIAuctionHouse.DataAccess.Repositories
 {
     public class BidRepository: IBidRepository
     {
-        private readonly MainDbContext _ctx;
+        private readonly AuctionHouseDbContext _ctx;
 
-        public BidRepository(MainDbContext ctx)
+        public BidRepository(AuctionHouseDbContext ctx)
         {
             if (ctx == null) throw new InvalidDataException("Non existing DbContext");
             _ctx = ctx;
@@ -28,32 +28,22 @@ namespace IIAuctionHouse.DataAccess.Repositories
             }).ToList();
         }
 
-        public Bid GetById(int id)
+        public Bid ReadById(int id)
         {
-            var bidEntity = _ctx.Bids.Select(ae => new BidEntity()
+            return _ctx.Bids.Select(ae => new Bid()
             {
                 Id = ae.Id,
                 BidAmount = ae.BidAmount,
                 BidDateTime = ae.BidDateTime
-            }).FirstOrDefault();
-            if (bidEntity != null)
-            {
-                return new Bid()
-                {
-                    Id = bidEntity.Id,
-                    BidAmount = bidEntity.BidAmount,
-                    BidDateTime = bidEntity.BidDateTime
-                };
-            }
-            return null;
+            }).FirstOrDefault(e => e.Id == id);
         }
 
-        public Bid Create(int bidAmount, DateTime bidDateTime)
+        public Bid Create(Bid bid)
         {
             var entity = _ctx.Bids.Add(new BidEntity()
             {
-                BidAmount = bidAmount,
-                BidDateTime = bidDateTime
+                BidAmount = bid.BidAmount,
+                BidDateTime = bid.BidDateTime
             }).Entity;
             return new Bid()
             {

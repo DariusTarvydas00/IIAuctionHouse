@@ -1,13 +1,14 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using EntityFrameworkCore.Testing.Moq;
+using IIAuctionHouse.Core.Domain.IRepositories;
 using IIAuctionHouse.Core.Models;
 using IIAuctionHouse.DataAccess;
 using IIAuctionHouse.DataAccess.Entities;
 using IIAuctionHouse.DataAccess.Repositories;
-using IIAuctionHouse.Domain.IRepositories;
 using Xunit;
 
 namespace IIAuctionHouseDataAccess.Repositories
@@ -18,7 +19,7 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void ProprietaryRepository_IsIProprietaryRepository()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             Assert.IsAssignableFrom<IProprietaryRepository>(repository);
         }
@@ -41,33 +42,46 @@ namespace IIAuctionHouseDataAccess.Repositories
         
         // Checking if GetAll returns Proprietary entities as list of Proprietaryes
         [Fact]
-        public void GetAll_GetAllProprietaryEntitiesInDbContext_ReturnsListOfProprietaryes()
+        public void GetAll_GetAllProprietaryEntitiesInDbContext_ReturnsListOfProprietaries()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             var list = new List<ProprietaryEntity>()
             {
                 new ProprietaryEntity()
                 {
-                    Id = 1, CadastreNumber = "123/123:123", ForestryEnterprise = "EsbjergForestry", City = "Esbjerg"
+                    Id = 1, CadastreNumber = "123/123:123", ForestryEnterprise = "EsbjergForestry", City = "Esbjerg", Bids = new List<Bid>()
+                    {
+                        new Bid(){Id = 1}
+                    }
                 },
                 new ProprietaryEntity()
                 {
-                    Id = 2, CadastreNumber = "321/012:123", ForestryEnterprise = "VardeForestry", City = "Varde"
+                    Id = 2, CadastreNumber = "321/012:123", ForestryEnterprise = "VardeForestry", City = "Varde", Bids = new List<Bid>()
+                    {
+                        new Bid(){Id = 2}
+                    }
                 },
                 new ProprietaryEntity()
                 {
-                    Id = 3, CadastreNumber = "321/321:321", ForestryEnterprise = "EsbjergForestry", City = "Esbjerg"
+                    Id = 3, CadastreNumber = "321/321:321", ForestryEnterprise = "EsbjergForestry", City = "Esbjerg", Bids = new List<Bid>()
+                    {
+                        new Bid(){Id = 3}
+                    }
                 }
             };
             fakeContext.Set<ProprietaryEntity>().AddRange(list);
             fakeContext.SaveChanges();
             var expectedList = list.Select(ae => new Proprietary()
             {
-                Id = ae.Id, CadastreNumber = ae.CadastreNumber, ForestryEnterprise = ae.ForestryEnterprise, City = ae.City
+                Id = ae.Id,
+                CadastreNumber = ae.CadastreNumber,
+                ForestryEnterprise = ae.ForestryEnterprise,
+                City = ae.City,
+                Bids = ae.Bids
             }).ToList();
- 
-            var actual = repository.ReadAll();
+            fakeContext.ChangeTracker.Clear();
+            var actual = repository.ReadAll().ToList();
             Assert.Equal(expectedList, actual, new Comparer());
         }
         
@@ -75,44 +89,40 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void GetById_Int_ReturnsProprietaryObject()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             var list = new List<ProprietaryEntity>()
             {
                 new ProprietaryEntity()
                 {
                     Id = 1, CadastreNumber = "123/123:123", ForestryEnterprise = "EsbjergForestry", City = "Esbjerg"
-                },
-                new ProprietaryEntity()
-                {
-                    Id = 2, CadastreNumber = "123/123:123", ForestryEnterprise = "EsbjergForestry", City = "Esbjerg"
                 }
             };
             fakeContext.Set<ProprietaryEntity>().AddRange(list);
             fakeContext.SaveChanges();
-            var ProprietaryEntity = list.Select(ae => new ProprietaryEntity()
+            var proprietaryEntity = list.Select(ae => new ProprietaryEntity()
             {
                 Id = ae.Id,
                 CadastreNumber = ae.CadastreNumber,
                 ForestryEnterprise = ae.ForestryEnterprise,
                 City = ae.City
             }).FirstOrDefault();
-            var expectedProprietary = new Proprietary()
+            var expected = new Proprietary()
             {
-                Id = ProprietaryEntity.Id,
-                CadastreNumber = ProprietaryEntity.CadastreNumber,
-                ForestryEnterprise = ProprietaryEntity.ForestryEnterprise,
-                City = ProprietaryEntity.City
+                Id = proprietaryEntity.Id,
+                CadastreNumber = proprietaryEntity.CadastreNumber,
+                ForestryEnterprise = proprietaryEntity.ForestryEnterprise,
+                City = proprietaryEntity.City
             };
-            var actual = repository.GetById(1);
-            Assert.Equal(expectedProprietary,actual, new Comparer());
+            var actual = repository.ReadById(1);
+            Assert.Equal(expected,actual, new Comparer());
         }
         
         // Checks if GetById returns null if Proprietary is not existing in DbContext
         [Fact]
         public void GetById_ProprietaryIsNullInDbContext_ReturnsNull()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             var list = new List<ProprietaryEntity>()
             {
@@ -128,7 +138,7 @@ namespace IIAuctionHouseDataAccess.Repositories
                 ForestryEnterprise = entity.ForestryEnterprise,
                 City = entity.City
             };
-            var actual = repository.GetById(1);
+            var actual = repository.ReadById(1);
             Assert.Equal(expected,actual, new Comparer());
         }
         
@@ -136,27 +146,46 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void Create_ProprietaryProperties_StoresNewProprietary()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             var fakeList = new List<ProprietaryEntity>();
             var expected = new Proprietary()
             {
-                CadastreNumber = "123/123:123", 
-                ForestryEnterprise = "EsbjergForestry",
-                City = "Esbjerg"
+                CadastreNumber = "123:321/123", 
+                ForestryEnterprise = "Esbjerg Forestry Enterprise",
+                City = "Esbjerg",
+                Bids = new List<Bid>()
+                {
+                    new Bid()
+                    {
+                        Id = 1
+                    }
+                }
             };
             fakeContext.Set<ProprietaryEntity>().AddRange(fakeList);
             fakeContext.SaveChanges();
             fakeContext.ChangeTracker.Clear();
-            var actual = repository.Create("123/123:123", "EsbjergForestry","Esbjerg");
-            Assert.Equal(expected,repository.Create("123/123:123", "EsbjergForestry","Esbjerg"),new Comparer());
+            var actual = repository.Create(new Proprietary()
+            {
+                CadastreNumber = "123:321/123", 
+                ForestryEnterprise = "Esbjerg Forestry Enterprise",
+                City = "Esbjerg",
+                Bids = new List<Bid>()
+                {
+                    new Bid()
+                    {
+                        Id = 1
+                    }
+                }
+            });
+            Assert.Equal(expected,actual,new Comparer());
         }
         
         // Checks if Proprietary object is updated
         [Fact]
         public void Update_ProprietaryObject_IsUpdated()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             var list = new List<ProprietaryEntity>()
             {
@@ -180,7 +209,7 @@ namespace IIAuctionHouseDataAccess.Repositories
         [Fact]
         public void Delete_Id_ReturnsNull()
         {
-            var fakeContext = Create.MockedDbContextFor<MainDbContext>();
+            var fakeContext = Create.MockedDbContextFor<AuctionHouseDbContext>();
             var repository = new ProprietaryRepository(fakeContext);
             var list = new List<ProprietaryEntity>()
             {

@@ -2,10 +2,10 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.IO;
+using IIAuctionHouse.Core.Domain.IRepositories;
+using IIAuctionHouse.Core.Domain.Services;
 using IIAuctionHouse.Core.IServices;
 using IIAuctionHouse.Core.Models;
-using IIAuctionHouse.Domain.IRepositories;
-using IIAuctionHouse.Domain.Services;
 using Moq;
 using Xunit;
 
@@ -55,7 +55,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         [Fact]
         public void BidService_WithNullRepositoryException_ThrowsInvalidDataExceptionMessage()
         {
-            var expected = "Bid Service can not be null";
+            var expected = "Bid Repository failure";
             var actual = Assert.Throws<InvalidDataException>(() => new BidService(null));
             Assert.Equal(expected,actual.Message);
         }
@@ -64,7 +64,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         [Fact]
         public void ReadAll_CallsBidRepositoryReadAll_ExactlyOnce()
         {
-            _service.ReadAll();
+            _service.GetAllBids();
             _mock.Verify(r=>r.ReadAll(), Times.Once);
         }
         
@@ -73,7 +73,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         public void ReadAll_NoFilter_ReturnsListOfBides()
         {
             _mock.Setup(r => r.ReadAll()).Returns(_expected);
-            var actual = _service.ReadAll();
+            var actual = _service.GetAllBids();
             Assert.Equal(_expected,actual);
         }
         
@@ -81,18 +81,18 @@ namespace IIAuctionHouse.Domain.Test.Services
         [Fact]
         public void GetById_withZeroOrLess_ThrowsException()
         {
-            Assert.Throws<InvalidDataException>(() => _service.GetById(0));
-            Assert.Throws<InvalidDataException>(() => _service.GetById(-5));
+            Assert.Throws<InvalidDataException>(() => _service.GetBidById(0));
+            Assert.Throws<InvalidDataException>(() => _service.GetBidById(-5));
         }
         
         // Checks if GetById  throws exception message if id is less than 1
         [Fact]
         public void GetById_withZeroOrLess_ThrowsExceptionMessage()
         {
-            var expected = "Bid Id must be higher than 0";
-            var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(0));
+            var expected = "Bid Id is invalid";
+            var actual = Assert.Throws<InvalidDataException>(() => _service.GetBidById(0));
             Assert.Equal(expected,actual.Message);
-            var actual2 = Assert.Throws<InvalidDataException>(() => _service.GetById(-5));
+            var actual2 = Assert.Throws<InvalidDataException>(() => _service.GetBidById(-5));
             Assert.Equal(expected,actual2.Message);
         }
         
@@ -101,7 +101,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData(null)]
         public void GetById_Null_ThrowsException(int value)
         {
-            Assert.Throws<InvalidDataException>(() => _service.GetById(value));
+            Assert.Throws<InvalidDataException>(() => _service.GetBidById(value));
         }
         
         // Checks if GetById with null throws exception message
@@ -109,45 +109,33 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData(null)]
         public void GetById_Null_ThrowsExceptionMessage(int value)
         {
-            var expected = "Bid Id must be higher than 0";
-            var actual = Assert.Throws<InvalidDataException>(() => _service.GetById(value));
-            Assert.Equal(expected,actual.Message);
-        }
-        // Checks if Creating Bid Object is possible
-        [Theory]
-        [ClassData(typeof(TestCreateDataClass))]
-        public void Create_WithNull_ThrowsExceptionWithMessage(int bidAmount, DateTime bidDateTime)
-        {
-            var expected = "One of the values is empty or entered incorrectly";
-            var actual = Assert.Throws<InvalidDataException>(() =>
-                _service.Create(bidAmount,bidDateTime));
+            var expected = "Bid Id is invalid";
+            var actual = Assert.Throws<InvalidDataException>(() => _service.GetBidById(value));
             Assert.Equal(expected,actual.Message);
         }
         
-        private class TestCreateDataClass : IEnumerable<object[]>
+        // Checks if Creating Bid Object is possible
+        [Theory]
+        [ClassData(typeof(TestCreateDataClass))]
+        public void Create_WithNull_ThrowsExceptionWithMessage(int bidAmount, DateTime bidDateTime, string expected)
         {
-            private readonly List<object[]> _data = new List<object[]>
-            {
-                new object[] {null, new DateTime(2017, 3, 1)},
-                new object[] {7000, null},
-            };
-
-            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
-
-            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
+            var actual = Assert.Throws<InvalidDataException>(() =>
+                _service.CreateBid(new Bid(){BidAmount = bidAmount, BidDateTime = bidDateTime}));
+            Assert.Equal(expected,actual.Message);
+            Assert.Equal(expected,actual.Message);
         }
-         
+
         // Checks if Updating Object is possible
-        [Fact]
-        public void Update_WithNull_ThrowsExceptionWithMessage()
+        [Theory]
+        [ClassData(typeof(TestCreateDataClass))]
+        public void Update_WithNull_ThrowsExceptionWithMessage(int bidAmount, DateTime bidDateTime, string expected)
         {
-            var update1 = new Bid() {Id = 0, BidAmount = 6700};
-            var update2 = new Bid() {Id = 0, BidDateTime = DateTime.Today};
-            var actual1 = Assert.Throws<InvalidDataException>(() => _service.Update(update1));
-            var actual2 = Assert.Throws<InvalidDataException>(() => _service.Update(update2));
-            var expected = "One of the values is empty or entered incorrectly";
-            Assert.Equal(expected,actual1.Message);
-            Assert.Equal(expected,actual2.Message);
+            var actual  = Assert.Throws<InvalidDataException>(() => _service.UpdateBid(new Bid()
+            {
+                BidAmount = bidAmount,
+                BidDateTime = bidDateTime
+            }));
+            Assert.Equal(expected,actual.Message);
         }
         
         // Check if Delete Method throws exception
@@ -155,7 +143,7 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData(null)]
         public void Delete_Null_ThrowsException(int value)
         {
-            Assert.Throws<InvalidDataException>(() => _service.Delete(value));
+            Assert.Throws<InvalidDataException>(() => _service.DeleteBid(value));
         }
         
         // Checks if Delete with null throws exception message
@@ -163,9 +151,30 @@ namespace IIAuctionHouse.Domain.Test.Services
         [InlineData(null)]
         public void Delete_Null_ThrowsExceptionMessage(int value)
         {
-            var expected = "Bid Id must be higher than 0";
-            var actual = Assert.Throws<InvalidDataException>(() => _service.Delete(value));
+            const string expected = "Bid Id is invalid";
+            var actual = Assert.Throws<InvalidDataException>(() => _service.DeleteBid(value));
             Assert.Equal(expected,actual.Message);
+        }
+        
+        [Fact]
+        public void Delete_Int_DeletesCustomerDetails()
+        {
+            Assert.Null(_service.DeleteBid(1));
+        }
+        
+        private class TestCreateDataClass : IEnumerable<object[]>
+        {
+            static string expected1 = "Bid Amount is invalid";
+            static string expected2 = "Bid Date Time is invalid";
+            private readonly List<object[]> _data = new List<object[]>
+            {
+                new object[] {null, new DateTime(2017, 3, 1), expected1 },
+                new object[] {7000, null, expected2},
+            };
+
+            public IEnumerator<object[]> GetEnumerator() => _data.GetEnumerator();
+
+            IEnumerator IEnumerable.GetEnumerator() => GetEnumerator();
         }
 
     }

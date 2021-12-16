@@ -20,45 +20,58 @@ namespace IIAuctionHouse.Controllers
         [HttpGet]
         public ActionResult<List<Proprietary>> GetAll()
         {
-            return Ok(_proprietaryService.ReadAll());
+            return Ok(_proprietaryService.GetAllProprietaries());
         }
 
         [HttpGet("id")]
-        public ActionResult<Proprietary> GetById([FromBody] int id)
+        public ActionResult<Proprietary> GetById([FromQuery] int id)
         {
-            var Proprietary = _proprietaryService.GetById(id);
+            var proprietary = _proprietaryService.GetProprietaryById(id);
             return Ok(new Proprietary()
             {
-                Id = Proprietary.Id,
-                CadastreNumber = Proprietary.CadastreNumber,
-                ForestryEnterprise = Proprietary.ForestryEnterprise,
-                City = Proprietary.City
+                Id = proprietary.Id,
+                CadastreNumber = proprietary.CadastreNumber,
+                ForestryEnterprise = proprietary.ForestryEnterprise,
+                City = proprietary.City
             });
         }
+        //
+        // [HttpGet("id")]
+        // public ActionResult<Proprietary> GetProprietaryByIdWithBids([FromBody] int id)
+        // {
+        //     var proprietary = _proprietaryService.GetProprietaryByIdIncludeBids(id);
+        //     return Ok(new Proprietary()
+        //     {
+        //         Id = proprietary.Id,
+        //         CadastreNumber = proprietary.CadastreNumber,
+        //         ForestryEnterprise = proprietary.ForestryEnterprise,
+        //         City = proprietary.City
+        //     });
+        // }
 
         [HttpPost]
-        public ActionResult<Proprietary> Post([FromBody] Proprietary Proprietary)
+        public ActionResult<Proprietary> Post([FromBody] Proprietary proprietary)
         {
-            var ProprietaryUpdate = _proprietaryService.Update(Proprietary);
+            var proprietaryUpdate = _proprietaryService.UpdateProprietary(proprietary);
             return Ok(new Proprietary()
             {
-                Id = ProprietaryUpdate.Id,
-                CadastreNumber = ProprietaryUpdate.CadastreNumber,
-                ForestryEnterprise = ProprietaryUpdate.ForestryEnterprise,
-                City = ProprietaryUpdate.City
+                Id = proprietaryUpdate.Id,
+                CadastreNumber = proprietaryUpdate.CadastreNumber,
+                ForestryEnterprise = proprietaryUpdate.ForestryEnterprise,
+                City = proprietaryUpdate.City
             });
         }
 
         [HttpDelete]
-        public ActionResult<Proprietary> Delete([FromBody] int id)
+        public ActionResult<Proprietary> Delete([FromQuery] int id)
         {
-            var Proprietary = _proprietaryService.Delete(id);
+            var proprietary = _proprietaryService.DeleteProprietary(id);
             return Ok(new Proprietary()
             {
-                Id = Proprietary.Id,
-                CadastreNumber = Proprietary.CadastreNumber,
-                ForestryEnterprise = Proprietary.ForestryEnterprise,
-                City = Proprietary.City
+                Id = proprietary.Id,
+                CadastreNumber = proprietary.CadastreNumber,
+                ForestryEnterprise = proprietary.ForestryEnterprise,
+                City = proprietary.City
             });
         }
     }

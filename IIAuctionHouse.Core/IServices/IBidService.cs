@@ -6,10 +6,11 @@ namespace IIAuctionHouse.Core.IServices
 {
     public interface IBidService
     {
-        List<Bid> ReadAll();
-        Bid GetById(int id);
-        Bid Create(int bidAmount, DateTime bidDateTime);
-        Bid Update(Bid bid);
-        Bid Delete(int id);  
+        Bid NewBid(int bidAmount, DateTime bidDateTime);
+        Bid CreateBid(Bid bid);
+        Bid GetBidById(int id);
+        List<Bid> GetAllBids();
+        Bid UpdateBid(Bid bidUpdate);
+        Bid DeleteBid(int id); 
     }
 }

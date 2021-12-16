@@ -1,6 +1,4 @@
 ﻿using System;
-using IIAuctionHouse.Core.Models;
-using IIAuctionHouse.Core.Models.AccDetails;
 
 namespace IIAuctionHouse.DataAccess.Entities
 {

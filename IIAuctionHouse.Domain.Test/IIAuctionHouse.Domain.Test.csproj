@@ -21,6 +21,7 @@
     </ItemGroup>
 
     <ItemGroup>
+      <ProjectReference Include="..\IIAuctionHouse.Core.Domain\IIAuctionHouse.Core.Domain.csproj" />
       <ProjectReference Include="..\IIAuctionHouse.Domain\IIAuctionHouse.Domain.csproj" />
       <ProjectReference Include="..\IIAuctionHouse.Core\IIAuctionHouse.Core.csproj" />
     </ItemGroup>
